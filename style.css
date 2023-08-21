@@ -1,0 +1,116 @@
+html, body {
+    min-height: 100%;
+    margin: 0;
+  }
+body {
+display: flex;
+flex-direction: column;    
+background: linear-gradient(to bottom, #e4ccb0, #aa8c74, #5d4638);
+}
+/* --------- */
+button{
+    width: 80px;
+    margin: 12px;;
+}
+.book-card{
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 12px;
+}
+.book-card-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin: 12px;
+    width: 100%;
+    gap: 20px;
+}
+.book-modal{
+    background-color: aqua;
+    width: 500px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap:12px;
+}
+.book-modal {
+    position: fixed;
+    top: 50%; /* Move modal to the middle vertically */
+    left: 50%; /* Move modal to the middle horizontally */
+    transform: translate(-50%, -50%); /* Centering trick */
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 2; /* Place the modal above the overlay */
+    display: none; /* Initially hidden */
+}
+#delete-btn{
+    margin-left: auto;
+}
+.modal-btns{
+    display: flex;
+}
+#delete-btn{
+    align-self: flex-end;
+}
+.header{
+}
+hr{
+width: 800px;
+border-top: 4px solid white;
+}
+#login-btn{
+margin: 12px;
+}
+.main-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+}
+.main-nav{
+display: flex;
+justify-content: end;
+}
+#notes-textarea{
+    height: 300px;
+    /* width: 100%;  */
+    padding: 8px; 
+    margin: 0; 
+    vertical-align: top; 
+    resize: none; 
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1; /* Place the overlay above other content */
+    display: none; /* Initially hidden */
+}
+
+.content-nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+#page-title{
+text-align: center;
+/* min-height: 200vh; */
+    /* font-family: 'Oswald', sans-serif; */
+    /* font-family: 'Work Sans', sans-serif; */
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    color: white;
+    font-size: 10vmax;
+    margin: 18px;
+}
+
+footer {
+flex-shrink: 0;
+position: fixed;
+bottom: 0;
+width: 100%;
+    text-align: center;
+}

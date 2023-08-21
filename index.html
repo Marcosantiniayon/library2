@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <nav class="main-nav">
+            <button id="login-btn">Login</button>        
+        </nav>
+        <h1 id="page-title">BOOK BUDDY</h1>    
+        <hr>
+    </div>
+    <div class="main-content">
+        <nav class="content-nav">
+            <button id="add-book-btn">Add Book</button>
+            <div class="options">
+                <button id="view-btn">View</button>
+                <button id="sort-btn">Sort</button>
+            </div>
+            
+        </nav>
+        <div class="book-card-container">
+            <div class="book-card">
+                <p>Title</p>
+                <p>Author</p>
+                <p>Pages</p>
+                <progress value="50" max="100"></progress>
+            </div>
+            <div class="book-card">
+                    <p>Title</p>
+                    <p>Author</p>
+                    <p>Pages</p>
+                    <progress value="20" max="100"></progress>
+            </div>
+            <div class="book-card">
+                <p>Title</p>
+                <p>Author</p>
+                <p>Pages</p>
+                <progress value="0" max="100"></progress>
+            </div>
+            <div class="book-card">
+                <p>Title</p>
+                <p>Author</p>
+                <p>Pages</p>
+                <progress value="85" max="100"></progress>
+            </div>
+            <div class="book-card">
+                <p>Title</p>
+                <p>Author</p>
+                <p>Pages</p>
+                <progress value="100" max="100"></progress>
+            </div>
+            <div class="book-card">
+                <p>Title</p>
+                <p>Author</p>
+                <p>Pages</p>
+                <progress value="18" max="100"></progress>
+            </div>
+
+
+        </div>
+        <div class="overlay"></div>
+        <div class="book-modal">
+            <input id="title-input" type="text" placeholder="Title">
+            <input id="author-input" type="text" placeholder="Author">
+            <div id="pages-input-div"><label id="pages-input-label" for="pages-input">Pages:</label>
+                <input id="pages-input"type="number" placeholder="0"></div>
+            <textarea id="notes-textarea" type="text" placeholder="Notes"></textarea>
+            <div class="modal-btns">
+                <button id="submit-btn">Submit</button>
+                <button id="cancel-btn">Cancel</button>
+                <button id="delete-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
