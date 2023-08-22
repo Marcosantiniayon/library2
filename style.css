@@ -5,7 +5,7 @@ html, body {
 body {
 display: flex;
 flex-direction: column;    
-background: linear-gradient(to bottom, #e4ccb0, #aa8c74, #5d4638);
+background: linear-gradient(to bottom, #e0cfbb, #5d3e2a);
 }
 /* --------- */
 button{
@@ -26,34 +26,40 @@ button{
     gap: 20px;
 }
 .book-modal{
-    background-color: aqua;
-    width: 500px;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    gap:12px;
-}
-.book-modal {
     position: fixed;
-    top: 50%; /* Move modal to the middle vertically */
-    left: 50%; /* Move modal to the middle horizontally */
-    transform: translate(-50%, -50%); /* Centering trick */
-    background-color: white;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    background-color: #cc9f3c;
+    width: 500px;
     padding: 20px;
     border-radius: 5px;
-    z-index: 2; /* Place the modal above the overlay */
-    display: none; /* Initially hidden */
+    z-index: 2; 
+    display: none;
+    flex-direction: column;
+    gap:12px;
+    /* border: 2px solid white; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+
+}
+.content-nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 #delete-btn{
     margin-left: auto;
 }
-.modal-btns{
-    display: flex;
-}
 #delete-btn{
     align-self: flex-end;
 }
-.header{
+footer {
+    flex-shrink: 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+        text-align: center;
 }
 hr{
 width: 800px;
@@ -62,15 +68,18 @@ border-top: 4px solid white;
 #login-btn{
 margin: 12px;
 }
-.main-content{
+.main-container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 12px;
+    padding: 36px;
 }
 .main-nav{
 display: flex;
 justify-content: end;
+}
+.modal-btns{
+    display: flex;
 }
 #notes-textarea{
     height: 300px;
@@ -90,12 +99,6 @@ justify-content: end;
     z-index: 1; /* Place the overlay above other content */
     display: none; /* Initially hidden */
 }
-
-.content-nav{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
 #page-title{
 text-align: center;
 /* min-height: 200vh; */
@@ -106,11 +109,23 @@ text-align: center;
     font-size: 10vmax;
     margin: 18px;
 }
-
-footer {
-flex-shrink: 0;
-position: fixed;
-bottom: 0;
-width: 100%;
-    text-align: center;
+label[for="pages-read-input"] {
+    font-weight: bold;
+    color: #333;
 }
+#title-input{
+    width: 200px;
+
+}
+
+#page-title{color:white}
+
+#login-btn{background-color: #cc9f3c;}
+#add-book-btn{background-color: #aa8c74}
+#view-btn, #sort-btn{background-color: #cc9f3c;}
+.book-card{background-color: #e0cfbb;}
+label[for="pages-read-input"] {color: #333;
+}
+.book-modal{background-color: #e0cfbb}
+#submit-btn{background-color: #cc9f3c}
+#cancel-btn, #delete-btn {background-color: #9c5b36}

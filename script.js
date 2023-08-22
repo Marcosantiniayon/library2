@@ -15,7 +15,7 @@ addBookBtn.addEventListener('click', function(){
     console.log("button clicked");
     const bookModal = document.querySelector('.book-modal');
     const overlay = document.querySelector('.overlay');
-    bookModal.style.display = 'block';
+    bookModal.style.display = 'flex';
     overlay.style.display = 'block';
 
 });
