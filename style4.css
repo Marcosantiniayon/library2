@@ -4,37 +4,39 @@ html, body {
 }
 
 #add-book-btn {
-    background-color: #9b9b9b;
+    background-color: #798478;
 }
+
 body {
     display: flex;
     flex-direction: column;    
-    background-color: #FCD3DE;
-    background: linear-gradient(to bottom, #3f2d22, #e3cfc2);
+    background-color: #EAE0CC;
+    background: linear-gradient(to bottom, #C9ADA1, #EAE0CC, #fff7f7);
     margin: 0;
     font-family: 'Barlow Semi Condensed', sans-serif;
-    color: #333;
+    color: #A0A083;
 }
+
 .book-card {
-    background-color: #c8bbb2;
-    color: #755952;
+    background-color: #EAE0CC;
+    color: #4D6A6D;
     padding: 10px;
-    /* border: 2px solid #997871; */
+    border: 1px solid #72A1E5;
     border-radius: 6px;
     margin-bottom: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
-.book-card-container{
+
+.book-card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     margin: 12px;
     width: 100%;
     gap: 20px;
 }
+
 .book-modal {
-    background-color: #e4d1bc;
-    border: 1px solid #6e4646;
+    background-color: #EAE0CC;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -45,72 +47,80 @@ body {
     z-index: 11;
     display: none;
     flex-direction: column;
-    gap:12px;
+    gap: 12px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 button {
     color: white;
-    background-color: #625353;
+    background-color: #A0A083;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     margin: 8px;
+}
 
-}
 #cancel-btn {
-    background-color: #9c5b36;
+    background-color: #798478;
 }
-.content-nav{
+
+.content-nav {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
+
 #delete-btn {
     margin-left: auto;
     align-self: flex-end;
     background-color: #C73866;
 }
+
 footer {
     flex-shrink: 0;
     position: fixed;
     bottom: 0;
     width: 100%;
-        text-align: center;
+    text-align: center;
 }
+
 .header {
-    /* background-color: #9c5b36; */
+    background-color: #C9ADA1;
     padding: 20px;
     text-align: center;
 }
-hr{
-width: 800px;
-border-top: 4px solid white;
+
+hr {
+    width: 800px;
+    border-top: 4px solid white;
 }
-.main-nav{
+
+.main-nav {
     display: flex;
     justify-content: end;
 }
+
 .main-container {
-    /* background: linear-gradient(to bottom,#FCD3DE,#2E382E); */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 36px;
-    flex-grow: 1; /* Allow the main container to grow and take the remaining vertical space */
-
+    flex-grow: 1;
 }
-.modal-btns{
+
+.modal-btns {
     display: flex;
 }
-#notes-textarea{
+
+#notes-textarea {
     height: 300px;
-    /* width: 100%;  */
-    padding: 8px; 
-    margin: 0; 
-    vertical-align: top; 
-    resize: none; 
+    padding: 8px;
+    margin: 0;
+    vertical-align: top;
+    resize: none;
 }
+
 .overlay {
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -121,27 +131,30 @@ border-top: 4px solid white;
     z-index: 10;
     display: none;
 }
-#page-title{
+
+#page-title {
     text-align: center;
-        font-family: 'Barlow Semi Condensed', sans-serif;
-        color: white;
-        font-size: 10vmax;
-        margin: 18px;
-}
-progress {
-    background-color: #72A1E5;
-    /* border: 2px solid #fffdfd; */
-    border-radius: 10px; 
-}
-progress::-webkit-progress-bar {
-    background-color: #fffdfd; /* Background color of the progress bar itself */
-    border-radius: 10px; 
-}
-progress::-webkit-progress-value {
-    background-color: #6c93ca; /* Color of the filled progress */
-    border-radius: 10px; 
-}
-#title-input{
-    width: 200px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    color: white;
+    font-size: 10vmax;
+    margin: 18px;
 }
 
+progress {
+    background-color: #A0A083;
+    border-radius: 10px;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #fffdfd;
+    border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #798478;
+    border-radius: 10px;
+}
+
+#title-input {
+    width: 200px;
+}
