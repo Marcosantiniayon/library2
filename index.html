@@ -67,12 +67,28 @@
     </div>
     <div class="overlay"></div>
     <div class="book-modal">
-            <input id="title-input" type="text" placeholder="Title">
-            <input id="author-input" type="text" placeholder="Author">
-            <div id="pages-progress-div">
-                <input id="pages-input"type="number" placeholder="Total Pages">
-                <label for="pages-read-input">Progress:</label>
-                <input id="pages-read-input" type="number" placeholder="Pages Read">
+        <form class="bookInfo-form" action="">
+            <div class="input-container">
+                <label for="title-input">Title:</label>
+                <input id="title-input" type="text" placeholder="" required>
+                <p class="error-message" id="title-error">Title required</p>
+            </div>
+            <div class="input-container">
+                <label for="author-input">Author:</label>
+                <input id="author-input" type="text" placeholder="" required>
+                <p class="error-message" id="author-error">Author required</p>
+            </div>
+            <div class="pages-progress-div">
+                <div class="input-container">
+                    <label for="pages-input">Pages:</label>
+                    <input id="pages-input"type="number" placeholder="" required>
+                    <p class="error-message" id="pages-error"># of Pages required</p>
+                </div>
+                <div class="input-container">
+                    <label for="pages-read-input">Pages Read:</label>
+                    <input id="pages-read-input" type="number" placeholder="" required>
+                    <p class="error-message" id="pagesRead-error"># of Pages Read required</p>
+                </div>
             </div>
             <textarea id="notes-textarea" type="text" placeholder="Notes"></textarea>
             <div class="modal-btns">
@@ -80,7 +96,8 @@
                 <button id="cancel-btn">Cancel</button>
                 <button id="delete-btn">Delete</button>
             </div>
-        </div>
+        </form>
+    </div>
     
     <script src="script.js"></script>
 </body>
