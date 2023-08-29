@@ -2,7 +2,9 @@ html, body {
     min-height: 100%;
     margin: 0;
 }
-
+a{
+    text-decoration: none;
+}
 #add-book-btn {
     background-color: #9883E5;
 }
@@ -13,7 +15,7 @@ body {
     display: flex;
     flex-direction: column;    
     background-color: #FCD3DE;
-    background: linear-gradient(to bottom,#cea4af,#FCD3DE,#fff7f7);
+    background: linear-gradient(to bottom,#f7b1c3,#feccd9,#fff7f7);
     margin: 0;
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-size: large;
@@ -56,13 +58,13 @@ body {
 }
 button {
     color: white;
+    height: 40px;
     background-color: #72A1E5;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     margin: 8px;
-
 }
 #cancel-btn {
     background-color: #2E382E;
@@ -76,6 +78,19 @@ button {
     margin-left: auto;
     align-self: flex-end;
     background-color: #C73866;
+}
+#dropdown-content{
+    background-color: white;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-family:  Arial, sans-serif;
+    font-size: .8em;
+    color: #72A1E5;
 }
 .error-message{
     color: #C73866;
@@ -126,6 +141,11 @@ label{
 .modal-btns{
     display: flex;
 }
+.options{
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+}
 .overlay {
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -154,14 +174,16 @@ progress {
     background-color: #72A1E5;
     border-radius: 10px; 
     /* border: 2px solid #2b9f41; */
-
+}
+.progress-done::-webkit-progress-value {
+    background-color: rgb(95, 197, 95);
 }
 progress::-webkit-progress-bar {
     background-color: #fffdfd; /* Background color of the progress bar itself */
     border-radius: 10px; 
 }
 progress::-webkit-progress-value {
-    background-color: #2b9f41; /* Color of the filled progress */
+    background-color: #fff493; /* Color of the filled progress */
     border-radius: 10px; 
 }
 textarea{
@@ -178,5 +200,11 @@ textarea{
 }
 #title-input{
     width: 313px;
+}
+#view-btn{
+    width: 100px;
+    align-self: end;
+    margin-bottom: 0px;
+    margin-right: 0px;
 }
 
