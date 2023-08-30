@@ -46,18 +46,38 @@ viewBtn.addEventListener('click', function(){
         const bookCardsView = document.getElementById('book-cards-view');
         const listView = document.getElementById('list-view');
         const bookCard = document.querySelectorAll('.book-card')
+        const bookCardLeft = document.querySelectorAll('.book-card-left')
+        const bookCardRight = document.querySelectorAll('.book-card-right')
+
         const progress = document.querySelectorAll('.progress');
+        const paragraphs = document.getElementsByTagName('p');
 
 
         bookCardsView.addEventListener('click', function(){
             bookCardContainer.style.display = 'grid';
             bookCardContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+            bookCardContainer.style.gap = '20px';
+            bookCardLeft.forEach((element) => {
+                element.style.display = 'block';
+            });
+            bookCardRight.forEach((element) => {
+                element.style.display = 'block';
+            });
             bookCard.forEach((bookCard) => {
                 bookCard.style.display = "block";
-                bookCard.style.gap = "";
+                bookCard.style.border = '1px solid #72A1E5;';
+                bookCard.style.paddingTop = "10px";
+                bookCard.style.paddingBottom = "10px";
+                bookCard.style.marginBottom = "10px";
+                bookCard.style.marginBottom = "10px";
+                for (let i = 0; i < paragraphs.length; i++) {
+                    paragraphs[i].style.margin = '12px';
+                }
+
             });
             progress.forEach((progress) =>{
                 progress.style.display = "block";
+                progress.style.width = '100%';
             });
         });
     
@@ -66,13 +86,27 @@ viewBtn.addEventListener('click', function(){
             bookCardContainer.style.display = 'flex';
             bookCardContainer.style.flexDirection = 'column';
             bookCardContainer.style.gridTemplateColumns = '';
+            bookCardContainer.style.gap = '0px';
+            bookCardLeft.forEach((element) => {
+                element.style.display = 'flex';
+            });
+            bookCardRight.forEach((element) => {
+                element.style.display = 'flex';
+            });
             bookCard.forEach((bookCard) => {
                 bookCard.style.display = "flex";
-                bookCard.style.justifyContent = "space-around";
-                bookCard.style.padding = "0";
+                bookCard.style.border = 'none';
+                bookCard.style.justifyContent = "space-between";
+                bookCard.style.paddingTop = "0px";
+                bookCard.style.paddingBottom = "0px";
+                bookCard.style.marginBottom = "2px";
+                for (let i = 0; i < paragraphs.length; i++) {
+                    paragraphs[i].style.margin = '4px';
+                }
             });
             progress.forEach((progress) =>{
                 progress.style.display = "none";
+                progress.style.width = '25px';
             });
         });
 
