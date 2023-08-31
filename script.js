@@ -19,10 +19,18 @@ const authorError = document.getElementById('author-error');
 const pagesError = document.getElementById('pages-error');
 const pagesReadError = document.getElementById('pagesRead-error');
 
+let bookCard;
+let bookCardLeft;
+let bookCardRight;
+let progress;
+let progressCircle;
+let paragraphs;
+
 const myLibrary = [];
 let bookCardElements = []
 let currentBook = "";
 let editingBook = false;
+let currentView = "bookCard";
 
 
 function Book(title, author, pages, pagesRead, notes) {
@@ -36,78 +44,84 @@ Book.prototype.info = function(){
     console.log(this.title + " by " + this.author + ", " + this.pages + " pages, " + this.pagesRead + " pages read");
 }
 
+function applyBookCardsView(){
+    bookCardContainer.style.display = 'grid';
+    bookCardContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+    bookCardContainer.style.gap = '20px';
+    bookCardLeft.forEach((element) => {
+        element.style.display = 'block';
+    });
+    bookCardRight.forEach((element) => {
+        element.style.display = 'block';
+    });
+    bookCard.forEach((bookCard) => {
+        bookCard.style.display = "block";
+        bookCard.style.border = '1px solid #72A1E5;';
+        bookCard.style.paddingTop = "10px";
+        bookCard.style.paddingBottom = "10px";
+        bookCard.style.marginBottom = "10px";
+        bookCard.style.marginBottom = "10px";
+        for (let i = 0; i < paragraphs.length; i++) {
+            paragraphs[i].style.margin = '12px';
+        }
+
+    });
+    progress.forEach((progress) =>{
+        progress.style.display = "block";
+    });
+    progressCircle.forEach((circle) =>{
+        circle.style.display = "none";
+    });
+    currentView = 'bookCard';
+}
+function applyListView(){
+    bookCardContainer.style.display = 'flex';
+    bookCardContainer.style.flexDirection = 'column';
+    bookCardContainer.style.gridTemplateColumns = '';
+    bookCardContainer.style.gap = '0px';
+    bookCardLeft.forEach((element) => {
+        element.style.display = 'flex';
+    });
+    bookCardRight.forEach((element) => {
+        element.style.display = 'flex';
+    });
+    bookCard.forEach((bookCard) => {
+        bookCard.style.display = "flex";
+        bookCard.style.border = 'none';
+        bookCard.style.justifyContent = "space-between";
+        bookCard.style.paddingTop = "0px";
+        bookCard.style.paddingBottom = "0px";
+        bookCard.style.marginBottom = "2px";
+        for (let i = 0; i < paragraphs.length; i++) {
+            paragraphs[i].style.margin = '4px';
+        }
+    });
+    progress.forEach((progress) =>{
+        progress.style.display = "none";
+    });
+    progressCircle.forEach((circle) =>{
+        circle.style.display = "block";
+    });
+    currentView = 'ListView';
+}
 viewBtn.addEventListener('click', function(){
     const dropdownContent = document.getElementById('dropdown-content');
+    const bookCardsView = document.getElementById('book-cards-view');
+    const listView = document.getElementById('list-view');
+
+    applyBookCardVariables();
+
     if(dropdownContent.style.display == 'none'){
         dropdownContent.style.display = 'flex';
         viewBtn.style.borderBottomLeftRadius = '0px';
         viewBtn.style.borderBottomRightRadius = '0px';
 
-        const bookCardsView = document.getElementById('book-cards-view');
-        const listView = document.getElementById('list-view');
-        const bookCard = document.querySelectorAll('.book-card')
-        const bookCardLeft = document.querySelectorAll('.book-card-left')
-        const bookCardRight = document.querySelectorAll('.book-card-right')
-
-        const progress = document.querySelectorAll('.progress');
-        const paragraphs = document.getElementsByTagName('p');
-
-
         bookCardsView.addEventListener('click', function(){
-            bookCardContainer.style.display = 'grid';
-            bookCardContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
-            bookCardContainer.style.gap = '20px';
-            bookCardLeft.forEach((element) => {
-                element.style.display = 'block';
-            });
-            bookCardRight.forEach((element) => {
-                element.style.display = 'block';
-            });
-            bookCard.forEach((bookCard) => {
-                bookCard.style.display = "block";
-                bookCard.style.border = '1px solid #72A1E5;';
-                bookCard.style.paddingTop = "10px";
-                bookCard.style.paddingBottom = "10px";
-                bookCard.style.marginBottom = "10px";
-                bookCard.style.marginBottom = "10px";
-                for (let i = 0; i < paragraphs.length; i++) {
-                    paragraphs[i].style.margin = '12px';
-                }
-
-            });
-            progress.forEach((progress) =>{
-                progress.style.display = "block";
-                progress.style.width = '100%';
-            });
+            applyBookCardsView();
         });
     
         listView.addEventListener('click', function(){
-            console.log("clicked list view");
-            bookCardContainer.style.display = 'flex';
-            bookCardContainer.style.flexDirection = 'column';
-            bookCardContainer.style.gridTemplateColumns = '';
-            bookCardContainer.style.gap = '0px';
-            bookCardLeft.forEach((element) => {
-                element.style.display = 'flex';
-            });
-            bookCardRight.forEach((element) => {
-                element.style.display = 'flex';
-            });
-            bookCard.forEach((bookCard) => {
-                bookCard.style.display = "flex";
-                bookCard.style.border = 'none';
-                bookCard.style.justifyContent = "space-between";
-                bookCard.style.paddingTop = "0px";
-                bookCard.style.paddingBottom = "0px";
-                bookCard.style.marginBottom = "2px";
-                for (let i = 0; i < paragraphs.length; i++) {
-                    paragraphs[i].style.margin = '4px';
-                }
-            });
-            progress.forEach((progress) =>{
-                progress.style.display = "none";
-                progress.style.width = '25px';
-            });
+            applyListView();
         });
 
     } else if(dropdownContent.style.display == 'flex'){
@@ -116,7 +130,6 @@ viewBtn.addEventListener('click', function(){
         viewBtn.style.borderBottomRightRadius = '5px';
     }
 });
-
 addBookBtn.addEventListener('click', function(){
     console.log("Add book button clicked");
     openModal();
@@ -178,7 +191,6 @@ deleteBtn.addEventListener('click', function(event){
     // editingBook = false;
     alert('Are you sure you want to delete?');
 });
-
 function addBookToLibrary() {
     const book = new Book(titleInput.value,authorInput.value,pagesInput.value,pagesReadInput.value,notesInput.value);
     book.info;
@@ -197,15 +209,21 @@ function updateDisplay(){
             bookCard.classList.add('book-card');
             bookCard.setAttribute('data-book-index', i);
             bookCardContainer.appendChild(bookCard);
+        const bookCardLeft = document.createElement("div");
+            bookCardLeft.classList.add('book-card-left');
+            bookCard.appendChild(bookCardLeft);
         const titleOutput = document.createElement('p');
             titleOutput.textContent = myLibrary[i].title;
-            bookCard.appendChild(titleOutput);
+            bookCardLeft.appendChild(titleOutput);
         const authorOutput = document.createElement('p');
             authorOutput.textContent = "By " + myLibrary[i].author;
-            bookCard.appendChild(authorOutput);
+            bookCardLeft.appendChild(authorOutput);
+        const bookCardRight = document.createElement("div");
+            bookCardRight.classList.add('book-card-right');
+            bookCard.appendChild(bookCardRight);
         const pagesOutput = document.createElement('p');
             pagesOutput.textContent = myLibrary[i].pagesRead + " / " + myLibrary[i].pages + " pages";
-            bookCard.appendChild(pagesOutput);
+            bookCardRight.appendChild(pagesOutput);
         const progress = document.createElement('progress');
             progress.classList.add('progress');
             console.log(pagesReadInput.value, pagesInput.value);
@@ -214,15 +232,44 @@ function updateDisplay(){
             if(progress.value == 100){
                 progress.classList.add('progress-done');
             }
-            bookCard.appendChild(progress);
+            bookCardRight.appendChild(progress);
+        const progressCircle = document.createElement('progressCircle');
+            progressCircle.classList.add('progress-circle');
+            if(progress.value == 100){
+                progressCircle.classList.add('progress-circle-done');
+            }else if(progress.value == 0){
+                progressCircle.classList.remove('progress-circle-done');
+                progressCircle.classList.add('progress-circle-toRead');
+            }
+            bookCardRight.appendChild(progressCircle);
 
         // Store the book card element in the array
         bookCardElements.push(bookCard);
     }
+    applyBookCardVariables();
+    if(currentView == "bookCard"){
+        applyBookCardsView();
+    }else{
+        applyListView();
+    }
     editBook();
+}
+function applyBookCardVariables(){
+    bookCard = document.querySelectorAll('.book-card');
+    bookCardLeft = document.querySelectorAll('.book-card-left');
+    bookCardRight = document.querySelectorAll('.book-card-right');
+    
+    progress = document.querySelectorAll('.progress');
+    progressCircle = document.querySelectorAll('.progress-circle');
+    paragraphs = document.getElementsByTagName('p');
 }
 function validateFormFields(){
     let valid = true;
+
+    function _isValidNumberInput(input) {
+        const number = Number(input);
+        return !isNaN(number) && Number.isInteger(number) && number >= 0;
+    }
 
     // Check title input
     if (titleInput.value === '') {
@@ -269,10 +316,6 @@ function validateFormFields(){
     }
     return valid;
 }
-function _isValidNumberInput(input) {
-    const number = Number(input);
-    return !isNaN(number) && Number.isInteger(number) && number >= 0;
-}
 function clearInputs(){
     titleInput.value = '';
     authorInput.value = '';
@@ -289,3 +332,4 @@ function closeModal(){
     bookModal.style.display = 'none';
     overlay.style.display = 'none';
 }
+
