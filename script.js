@@ -112,17 +112,21 @@ viewBtn.addEventListener('click', function(){
     const listView = document.getElementById('list-view');
 
     applyBookCardVariables();
-
+    
     if(dropdownViewContent.style.display == 'none'){
         dropdownViewContent.style.display = 'flex';
         viewBtn.style.borderBottomLeftRadius = '0px';
         viewBtn.style.borderBottomRightRadius = '0px';
 
         bookCardsView.addEventListener('click', function(){
+            listView.classList.remove('option-selected');
+            bookCardsView.classList.add('option-selected');
             applyBookCardsView();
         });
     
         listView.addEventListener('click', function(){
+            bookCardsView.classList.remove('option-selected');
+            listView.classList.add('option-selected');
             applyListView();
         });
 
@@ -143,28 +147,37 @@ sortBtn.addEventListener('click', function(){
 
     if(dropdownSortContent.style.display == 'none'){
         dropdownSortContent.style.display = 'flex';
-        viewBtn.style.borderBottomLeftRadius = '0px';
-        viewBtn.style.borderBottomRightRadius = '0px';
+        sortBtn.style.borderBottomLeftRadius = '0px';
+        sortBtn.style.borderBottomRightRadius = '0px';
 
         progressSort.addEventListener('click', function(){
             currentSort = "sortByProgress"
+            titleSort.classList.remove('option-selected');
+            authorSort.classList.remove('option-selected');
+            progressSort.classList.add('option-selected');
             updateDisplay(sortByProgress);
         });
     
         titleSort.addEventListener('click', function(){
             currentSort = "sortByTitle"
+            authorSort.classList.remove('option-selected');
+            progressSort.classList.remove('option-selected');
+            titleSort.classList.add('option-selected');
             updateDisplay(sortByTitle);
         });
 
         authorSort.addEventListener('click', function(){
             currentSort = "sortByAuthor"
+            titleSort.classList.remove('option-selected');
+            progressSort.classList.remove('option-selected');
+            authorSort.classList.add('option-selected');
             updateDisplay(sortByAuthor);
         });
 
     } else if(dropdownSortContent.style.display == 'flex'){
         dropdownSortContent.style.display = 'none';
-        viewBtn.style.borderBottomLeftRadius = '5px';
-        viewBtn.style.borderBottomRightRadius = '5px';
+        sortBtn.style.borderBottomLeftRadius = '5px';
+        sortBtn.style.borderBottomRightRadius = '5px';
     }
 });
 addBookBtn.addEventListener('click', function(){
@@ -391,6 +404,20 @@ function sortByTitle(a, b) {
     }
     return 0;
 }
+function sortByTitle2(a, b) {
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+    currentSort= "sortByTitle";
+    console.log("sorted by title");
+
+    if (titleA > titleB) {
+        return -1;
+    }
+    if (titleA < titleB) {
+        return 1;
+    }
+    return 0;
+}
 function sortByProgress(a,b) {
     console.log("sorted by progress");
 
@@ -398,6 +425,14 @@ function sortByProgress(a,b) {
         const readProgressB = b.pagesRead/b.pages
         currentSort= "sortByProgress";
         return readProgressA - readProgressB;
+}
+function sortByProgress2(a,b) {
+    console.log("sorted by progress");
+
+    const readProgressA = a.pagesRead/a.pages
+        const readProgressB = b.pagesRead/b.pages
+        currentSort= "sortByProgress";
+        return readProgressB - readProgressA;
 }
 function sortByAuthor(a, b) {
     const titleA = a.author.toLowerCase();
@@ -409,6 +444,20 @@ function sortByAuthor(a, b) {
         return -1;
     }
     if (titleA > titleB) {
+        return 1;
+    }
+    return 0;
+}
+function sortByAuthor2(a, b) {
+    const titleA = a.author.toLowerCase();
+    const titleB = b.author.toLowerCase();
+    currentSort= "sortByAuthor";
+    console.log("sorted by author");
+
+    if (titleA > titleB) {
+        return -1;
+    }
+    if (titleA < titleB) {
         return 1;
     }
     return 0;

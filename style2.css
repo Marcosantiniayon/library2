@@ -89,10 +89,10 @@ button {
     width: 70px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    /* gap: 4px; */
     text-align: center;
-    padding-bottom: 8px;
-    padding-top: 8px;
+    /* padding-bottom: 8px;
+    padding-top: 8px; */
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     font-family:  Arial, sans-serif;
@@ -101,8 +101,9 @@ button {
 }
 #dropdown-content-hr{
     width: 68px;
-    border-top: 2px solid #e1e1e1; 
-
+    border-top: 2px solid #FCD3DE; 
+    margin: 0px;
+    
 }
 .error-message{
     color: #C73866;
@@ -124,7 +125,8 @@ footer {
 }
 hr{
 width: 800px;
-border-top: 4px solid white;
+border: none;
+border-top: 4px solid #FCD3DE;
 }
 input{
     color: #656565;
@@ -153,6 +155,15 @@ label{
 .modal-btns{
     display: flex;
 }
+.option{
+    background-color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.option-selected{
+    background-color: #50C9CE;
+    color: white;
+}
 .options{
     width: 165px;
     display: flex;
@@ -163,7 +174,6 @@ label{
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 .overlay {
     background-color: rgba(0, 0, 0, 0.5);
@@ -227,7 +237,6 @@ progress::-webkit-progress-value {
 .progress-circle-toRead{
     background-color: #ff9393;
 }
-
 textarea{
     height: 200px;
     border: none;
