@@ -151,27 +151,51 @@ sortBtn.addEventListener('click', function(){
         sortBtn.style.borderBottomRightRadius = '0px';
 
         progressSort.addEventListener('click', function(){
-            currentSort = "sortByProgress"
             titleSort.classList.remove('option-selected');
             authorSort.classList.remove('option-selected');
             progressSort.classList.add('option-selected');
-            updateDisplay(sortByProgress);
+
+            if(currentSort== "sortByProgress"){
+                currentSort= "sortByProgress2"
+            } else if(currentSort== "sortByProgress2"){
+                currentSort = "sortByProgress"
+            } else{
+                currentSort= "sortByProgress"
+            }
+            updateDisplay();
+            
         });
     
         titleSort.addEventListener('click', function(){
-            currentSort = "sortByTitle"
             authorSort.classList.remove('option-selected');
             progressSort.classList.remove('option-selected');
             titleSort.classList.add('option-selected');
-            updateDisplay(sortByTitle);
+
+            if(currentSort== "sortByTitle"){
+                currentSort= "sortByTitle2"
+            } else if(currentSort== "sortByTitle2"){
+                currentSort = "sortByTitle";
+            } else{
+                currentSort= "sortByTitle";
+            }
+            updateDisplay();
+
         });
 
         authorSort.addEventListener('click', function(){
-            currentSort = "sortByAuthor"
             titleSort.classList.remove('option-selected');
             progressSort.classList.remove('option-selected');
             authorSort.classList.add('option-selected');
-            updateDisplay(sortByAuthor);
+
+            if(currentSort== "sortByAuthor"){
+                currentSort= "sortByAuthor2"
+            } else if(currentSort== "sortByAuthor2"){
+                currentSort = "sortByAuthor";
+            } else{
+                currentSort= "sortByAuthor";
+            }
+            updateDisplay();
+
         });
 
     } else if(dropdownSortContent.style.display == 'flex'){
@@ -255,8 +279,14 @@ function updateDisplay(){
         myLibrary.sort(sortByProgress);
     }else if(currentSort == "sortByTitle"){
         myLibrary.sort(sortByTitle);
-    } else{
+    }else if(currentSort == "sortByAuthor"){
         myLibrary.sort(sortByAuthor);
+    }else if(currentSort == "sortByProgress2"){
+        myLibrary.sort(sortByProgress2);
+    }else if(currentSort == "sortByTitle2"){
+        myLibrary.sort(sortByTitle2);
+    } else if(currentSort == "sortByAuthor2"){
+        myLibrary.sort(sortByAuthor2);
     }
     closeModal();
 
@@ -393,7 +423,6 @@ function closeModal(){
 function sortByTitle(a, b) {
     const titleA = a.title.toLowerCase();
     const titleB = b.title.toLowerCase();
-    currentSort= "sortByTitle";
     console.log("sorted by title");
 
     if (titleA < titleB) {
@@ -407,8 +436,7 @@ function sortByTitle(a, b) {
 function sortByTitle2(a, b) {
     const titleA = a.title.toLowerCase();
     const titleB = b.title.toLowerCase();
-    currentSort= "sortByTitle";
-    console.log("sorted by title");
+    console.log("sorted by title2");
 
     if (titleA > titleB) {
         return -1;
@@ -423,21 +451,18 @@ function sortByProgress(a,b) {
 
     const readProgressA = a.pagesRead/a.pages
         const readProgressB = b.pagesRead/b.pages
-        currentSort= "sortByProgress";
         return readProgressA - readProgressB;
 }
 function sortByProgress2(a,b) {
-    console.log("sorted by progress");
+    console.log("sorted by progress2");
 
     const readProgressA = a.pagesRead/a.pages
         const readProgressB = b.pagesRead/b.pages
-        currentSort= "sortByProgress";
         return readProgressB - readProgressA;
 }
 function sortByAuthor(a, b) {
     const titleA = a.author.toLowerCase();
     const titleB = b.author.toLowerCase();
-    currentSort= "sortByAuthor";
     console.log("sorted by author");
 
     if (titleA < titleB) {
@@ -451,8 +476,7 @@ function sortByAuthor(a, b) {
 function sortByAuthor2(a, b) {
     const titleA = a.author.toLowerCase();
     const titleB = b.author.toLowerCase();
-    currentSort= "sortByAuthor";
-    console.log("sorted by author");
+    console.log("sorted by author2");
 
     if (titleA > titleB) {
         return -1;
