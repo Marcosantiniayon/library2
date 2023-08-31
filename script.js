@@ -8,6 +8,7 @@ let pagesReadInput = document.getElementById('pages-read-input');
 let notesInput = document.getElementById('notes-textarea');
 
 const viewBtn = document.getElementById('view-btn');
+const sortBtn = document.getElementById('sort-btn');
 const addBookBtn = document.getElementById('add-book-btn');
 const submitBtn = document.getElementById('submit-btn')
 const cancelBtn = document.getElementById('cancel-btn');
@@ -31,6 +32,7 @@ let bookCardElements = []
 let currentBook = "";
 let editingBook = false;
 let currentView = "bookCard";
+let currentSort = "sortByProgress"
 
 
 function Book(title, author, pages, pagesRead, notes) {
@@ -105,14 +107,14 @@ function applyListView(){
     currentView = 'ListView';
 }
 viewBtn.addEventListener('click', function(){
-    const dropdownContent = document.getElementById('dropdown-content');
+    const dropdownViewContent = document.getElementById('dropdown-view-content');
     const bookCardsView = document.getElementById('book-cards-view');
     const listView = document.getElementById('list-view');
 
     applyBookCardVariables();
 
-    if(dropdownContent.style.display == 'none'){
-        dropdownContent.style.display = 'flex';
+    if(dropdownViewContent.style.display == 'none'){
+        dropdownViewContent.style.display = 'flex';
         viewBtn.style.borderBottomLeftRadius = '0px';
         viewBtn.style.borderBottomRightRadius = '0px';
 
@@ -124,8 +126,43 @@ viewBtn.addEventListener('click', function(){
             applyListView();
         });
 
-    } else if(dropdownContent.style.display == 'flex'){
-        dropdownContent.style.display = 'none';
+    } else if(dropdownViewContent.style.display == 'flex'){
+        dropdownViewContent.style.display = 'none';
+        viewBtn.style.borderBottomLeftRadius = '5px';
+        viewBtn.style.borderBottomRightRadius = '5px';
+    }
+});
+sortBtn.addEventListener('click', function(){
+    const dropdownSortContent = document.getElementById('dropdown-sort-content');
+    const progressSort = document.getElementById('progress-sort');
+    const titleSort = document.getElementById('title-sort');
+    const authorSort = document.getElementById('author-sort');
+
+
+    applyBookCardVariables();
+
+    if(dropdownSortContent.style.display == 'none'){
+        dropdownSortContent.style.display = 'flex';
+        viewBtn.style.borderBottomLeftRadius = '0px';
+        viewBtn.style.borderBottomRightRadius = '0px';
+
+        progressSort.addEventListener('click', function(){
+            currentSort = "sortByProgress"
+            updateDisplay(sortByProgress);
+        });
+    
+        titleSort.addEventListener('click', function(){
+            currentSort = "sortByTitle"
+            updateDisplay(sortByTitle);
+        });
+
+        authorSort.addEventListener('click', function(){
+            currentSort = "sortByAuthor"
+            updateDisplay(sortByAuthor);
+        });
+
+    } else if(dropdownSortContent.style.display == 'flex'){
+        dropdownSortContent.style.display = 'none';
         viewBtn.style.borderBottomLeftRadius = '5px';
         viewBtn.style.borderBottomRightRadius = '5px';
     }
@@ -177,7 +214,6 @@ submitBtn.addEventListener('click', function(event) {
         }
         console.log(myLibrary);
         updateDisplay();
-        closeModal();
     }
 });
 cancelBtn.addEventListener('click', function(event){
@@ -201,6 +237,15 @@ function addBookToLibrary() {
 function updateDisplay(){
     bookCardContainer.textContent = ''; //Clears out old display
     bookCardElements = []; //Clears out old list
+
+    if(currentSort == "sortByProgress"){
+        myLibrary.sort(sortByProgress);
+    }else if(currentSort == "sortByTitle"){
+        myLibrary.sort(sortByTitle);
+    } else{
+        myLibrary.sort(sortByAuthor);
+    }
+    closeModal();
 
     //Creates book card for each book in library 
     for (let i = 0; i < myLibrary.length; i++) {
@@ -331,5 +376,41 @@ function openModal(){
 function closeModal(){
     bookModal.style.display = 'none';
     overlay.style.display = 'none';
+}
+function sortByTitle(a, b) {
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+    currentSort= "sortByTitle";
+    console.log("sorted by title");
+
+    if (titleA < titleB) {
+        return -1;
+    }
+    if (titleA > titleB) {
+        return 1;
+    }
+    return 0;
+}
+function sortByProgress(a,b) {
+    console.log("sorted by progress");
+
+    const readProgressA = a.pagesRead/a.pages
+        const readProgressB = b.pagesRead/b.pages
+        currentSort= "sortByProgress";
+        return readProgressA - readProgressB;
+}
+function sortByAuthor(a, b) {
+    const titleA = a.author.toLowerCase();
+    const titleB = b.author.toLowerCase();
+    currentSort= "sortByAuthor";
+    console.log("sorted by author");
+
+    if (titleA < titleB) {
+        return -1;
+    }
+    if (titleA > titleB) {
+        return 1;
+    }
+    return 0;
 }
 

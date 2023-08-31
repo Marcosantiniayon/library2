@@ -22,13 +22,25 @@
         <nav class="content-nav">
             <button id="add-book-btn">Add Book</button>
             <div class="options">
-                <button id="view-btn">View</button>
-                <div id="dropdown-content" style="display: none;">
-                    <a id="book-cards-view" href="#">Book Cards</a>
-                    <hr id="dropdown-content-hr">
-                    <a id="list-view" href="#">List</a>
+                <div class="option-div">
+                    <button id="view-btn">View</button>
+                    <div class="dropdown-content" id="dropdown-view-content" style="display: none;">
+                        <a id="book-cards-view" href="#">Book Cards</a>
+                        <hr id="dropdown-content-hr">
+                        <a id="list-view" href="#">List</a>
+                    </div>
                 </div>
-                <!-- <button id="sort-btn">Sort</button> -->
+                <div class="option-div">
+                    <button id="sort-btn">Sort</button>
+                    <div class="dropdown-content" id="dropdown-sort-content" style="display: none;">
+                        <a id="progress-sort" href="#">Progress</a>
+                        <hr id="dropdown-content-hr">
+                        <a id="progress-sort" href="#">Title</a>
+                        <hr id="dropdown-content-hr">
+                        <a id="progress-sort" href="#">Author</a>
+                    </div>
+                </div>
+                
             </div>
         </nav>
         <div class="book-card-container">
