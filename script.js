@@ -252,6 +252,7 @@ submitBtn.addEventListener('click', function(event) {
         console.log(myLibrary);
         updateDisplay();
     }
+    clearInputs();    
 });
 cancelBtn.addEventListener('click', function(event){
     event.preventDefault(); //Prevent page refresh
