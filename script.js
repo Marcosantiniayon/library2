@@ -30,6 +30,7 @@ let paragraphs;
 const myLibrary = [];
 let bookCardElements = []
 let currentBook = "";
+let currentBookIndex = 0;
 let editingBook = false;
 let currentView = "bookCard";
 let currentSort = "sortByProgress"
@@ -222,6 +223,7 @@ function editBook(){ // Book card event listeners
     
             editingBook = true;
             currentBook = myLibrary[index];
+            currentBookIndex = index;
 
             openModal();
         });
@@ -262,16 +264,27 @@ cancelBtn.addEventListener('click', function(event){
 });
 deleteBtn.addEventListener('click', function(event){
     event.preventDefault(); //Prevent page refresh
-    // editingBook = false;
-    alert('Are you sure you want to delete?');
+    if (confirm('Are you sure you want to delete?')) {
+        removeBookFromLibrary();
+        clearInputs();
+        updateDisplay();
+    } else {
+        return;
+    }
+    
 });
 function addBookToLibrary() {
     const book = new Book(titleInput.value,authorInput.value,pagesInput.value,pagesReadInput.value,notesInput.value);
     book.info;
     myLibrary.push(book);
-  
-    clearInputs();    
 }
+
+function removeBookFromLibrary(){
+    const indexToRemove = currentBookIndex;
+    myLibrary.splice(indexToRemove, 1);
+}
+
+
 function updateDisplay(){
     bookCardContainer.textContent = ''; //Clears out old display
     bookCardElements = []; //Clears out old list
