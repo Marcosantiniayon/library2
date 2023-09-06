@@ -35,6 +35,10 @@ let currentBookIndex = 0;
 let editingBook = false;
 let currentView = "bookCard";
 let currentSort = "sortByProgress"
+let currentFilter = "All"
+let filteredBooks;
+
+
 
 
 function Book(title, author, pages, pagesRead, notes) {
@@ -219,7 +223,44 @@ filterBtn.addEventListener('click', function(){
         filterBtn.style.borderBottomLeftRadius = '0px';
         filterBtn.style.borderBottomRightRadius = '0px';
 
+        allFilter.addEventListener('click', function(){
+            completedFilter.classList.remove('option-selected');
+            readingFilter.classList.remove('option-selected');
+            toReadFilter.classList.remove('option-selected');
+            allFilter.classList.add('option-selected');
+            currentFilter = "All";
+            updateDisplay();
+        });
+
+        completedFilter.addEventListener('click', function(){
+            readingFilter.classList.remove('option-selected');
+            toReadFilter.classList.remove('option-selected');
+            allFilter.classList.remove('option-selected');
+            completedFilter.classList.add('option-selected');
+
+            currentFilter = "Completed";
+            updateDisplay();
+        });
+
+        readingFilter.addEventListener('click', function(){
+            toReadFilter.classList.remove('option-selected');
+            allFilter.classList.remove('option-selected');
+            completedFilter.classList.remove('option-selected');
+            readingFilter.classList.add('option-selected');
+
+            currentFilter = "Reading";
+            updateDisplay();
+        });
         
+        toReadFilter.addEventListener('click', function(){
+            allFilter.classList.remove('option-selected');
+            completedFilter.classList.remove('option-selected');
+            readingFilter.classList.remove('option-selected');
+            toReadFilter.classList.add('option-selected');
+
+            currentFilter = "To Read"
+            updateDisplay();
+        });
 
     } else if(dropdownFilterContent.style.display == 'flex'){
         dropdownFilterContent.style.display = 'none';
@@ -300,14 +341,12 @@ function addBookToLibrary() {
     book.info;
     myLibrary.push(book);
 }
-
 function removeBookFromLibrary(){
     const indexToRemove = currentBookIndex;
     myLibrary.splice(indexToRemove, 1);
 }
-
-
 function updateDisplay(){
+    console.log("view: " + currentView + "| sort: " + currentSort + "| filter: " + currentFilter)
     bookCardContainer.textContent = ''; //Clears out old display
     bookCardElements = []; //Clears out old list
 
@@ -324,10 +363,26 @@ function updateDisplay(){
     } else if(currentSort == "sortByAuthor2"){
         myLibrary.sort(sortByAuthor2);
     }
+
+    if(currentFilter == "All"){
+        filteredBooks = myLibrary;
+        console.log("All filter");
+    } else if(currentFilter == "Completed"){
+        filteredBooks = myLibrary.filter(book => book.pagesRead === book.pages);
+        console.log("Completed filter");
+    }else if(currentFilter == "Reading"){
+        filteredBooks = myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead <book.pages);
+        console.log("Reading filter");
+    }else if(currentFilter == "To Read"){
+        filteredBooks = myLibrary.filter(book => book.pagesRead === 0);
+        console.log("To Read filter");
+
+    }
+    
     closeModal();
 
     //Creates book card for each book in library 
-    for (let i = 0; i < myLibrary.length; i++) {
+    for (let i = 0; i < filteredBooks.length; i++) {
         //create book card elements
         const bookCard = document.createElement("div");
             bookCard.classList.add('book-card');
@@ -350,7 +405,6 @@ function updateDisplay(){
             bookCardRight.appendChild(pagesOutput);
         const progress = document.createElement('progress');
             progress.classList.add('progress');
-            console.log(pagesReadInput.value, pagesInput.value);
             progress.value = (myLibrary[i].pagesRead/myLibrary[i].pages)*100;
             progress.max = 100;
             if(progress.value == 100){
@@ -483,8 +537,6 @@ function sortByTitle2(a, b) {
     return 0;
 }
 function sortByProgress(a,b) {
-    console.log("sorted by progress");
-
     const readProgressA = a.pagesRead/a.pages
         const readProgressB = b.pagesRead/b.pages
         return readProgressA - readProgressB;
