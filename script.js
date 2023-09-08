@@ -54,21 +54,27 @@ function optionBtns(){
     const dropdownSortContent = document.getElementById('dropdown-sort-content');
     const dropdownFilterContent = document.getElementById('dropdown-filter-content');
 
+    const theme1Stylesheet = document.getElementById('theme1-stylesheet');
+    const theme2Stylesheet = document.getElementById('theme2-stylesheet');
+    const theme3Stylesheet = document.getElementById('theme3-stylesheet');
+    const theme4Stylesheet = document.getElementById('theme4-stylesheet');
+
     addBookBtn.addEventListener('click', function(){
         openModal();
     });
+    function setDefaultTheme(){
+        theme1Stylesheet.disabled = false;
+        theme2Stylesheet.disabled = true;
+        theme3Stylesheet.disabled = true;
+        theme4Stylesheet.disabled = true;
 
-    const theme1Stylesheet = document.getElementById('theme1-stylesheet');
-    theme1Stylesheet.disabled = false;
+    } setDefaultTheme();
+
     themeBtn.addEventListener('click', function(){
         const theme = document.getElementById('theme');
         const theme2 = document.getElementById('theme2');
         const theme3 = document.getElementById('theme3');
         const theme4 = document.getElementById('theme4');
-
-        const theme2Stylesheet = document.getElementById('theme2-stylesheet');
-        const theme3Stylesheet = document.getElementById('theme3-stylesheet');
-        const theme4Stylesheet = document.getElementById('theme4-stylesheet');
 
         applyBookCardVariables();
         
