@@ -89,27 +89,43 @@ function optionBtns(){
                 theme2Stylesheet.disabled = true;
                 theme3Stylesheet.disabled = true;
                 theme4Stylesheet.disabled = true;
+                theme.classList.add('option-selected');
+                theme2.classList.remove('option-selected');
+                theme3.classList.remove('option-selected');
+                theme4.classList.remove('option-selected');
             });
     
             theme2.addEventListener('click', function(){
-                theme1Stylesheet.disabled = true;
+                theme.classList.remove('option-selected');
+                theme2.classList.add('option-selected');
+                theme3.classList.remove('option-selected');
+                theme4.classList.remove('option-selected');
                 theme2Stylesheet.disabled = false;
+                theme1Stylesheet.disabled = true;
                 theme3Stylesheet.disabled = true;
                 theme4Stylesheet.disabled = true;
             });
     
             theme3.addEventListener('click', function(){
+                theme.classList.remove('option-selected');
+                theme2.classList.remove('option-selected');
+                theme3.classList.add('option-selected');
+                theme4.classList.remove('option-selected');
+                theme3Stylesheet.disabled = false;
                 theme1Stylesheet.disabled = true;
                 theme2Stylesheet.disabled = true;
-                theme3Stylesheet.disabled = false;
                 theme4Stylesheet.disabled = true;
             });
     
             theme4.addEventListener('click', function(){
+                theme.classList.remove('option-selected');
+                theme2.classList.remove('option-selected');
+                theme3.classList.remove('option-selected');
+                theme4.classList.add('option-selected');
+                theme4Stylesheet.disabled = false;
                 theme1Stylesheet.disabled = true;
                 theme2Stylesheet.disabled = true;
                 theme3Stylesheet.disabled = true;
-                theme4Stylesheet.disabled = false;
             });
     
         } else if(dropdownThemeContent.style.display == 'flex'){

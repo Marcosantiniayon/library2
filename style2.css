@@ -6,7 +6,7 @@ a{
     text-decoration: none;
 }
 #add-book-btn {
-    background-color: #798478;
+    background-color: #5072a9;
 }
 #author-input{
     width: 84%
@@ -14,18 +14,18 @@ a{
 body {
     display: flex;
     flex-direction: column;    
-    background-color: #EAE0CC;
-    background: linear-gradient(to bottom,#C9ADA1,#EAE0CC, #fff7f7 );
+    background-color: #1F5E4E;
+    background: linear-gradient(to bottom,#1F5E4E,white);
     margin: 0;
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-size: large;
-    color: #A0A083;
+    color: #F7F7F2;
 }
 .book-card {
-    background-color: #EAE0CC;
-    color: #4D6A6D;
+    background-color: #a2cbc1;
+    color: #F7F7F2;
     padding: 10px;
-    border: 1px solid #72A1E5;
+    border: 1px solid #09CA9A;
     border-radius: 6px;
     margin-bottom: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -44,8 +44,8 @@ body {
     justify-items: center;
 }
 .book-modal{
-    background-color: #EAE0CC;
-    /* border: 1px solid #09CA9A; */
+    background-color: #8ECBBC;
+    border: 1px solid #09CA9A;
     padding: 32px;
     width: 400px;
     position: fixed;
@@ -65,7 +65,7 @@ body {
 button {
     color: white;
     height: 40px;
-    background-color: #A0A083;
+    background-color: #549383;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -73,7 +73,7 @@ button {
     margin: 8px;
 }
 #cancel-btn {
-    background-color: #798478;
+    background-color: #189475;
 }
 .content-nav{
     width: 100%;
@@ -130,7 +130,7 @@ footer {
         text-align: center;
 }
 .header {
-    background-color: #C9ADA1;
+    /* background-color: #50C9CE; */
     /* background:linear-gradient(#87e4e7,#24a2a6); */
     padding: 20px;
     text-align: center;
@@ -225,7 +225,7 @@ progress {
     /* border: 2px solid #2b9f41; */
 }
 progress::-webkit-progress-bar {
-    background-color: #A0A083; /* Background color of the progress bar itself */
+    background-color: #fffdfd; /* Background color of the progress bar itself */
     border-radius: 10px; 
     /* width: 10px; */
 }
