@@ -69,13 +69,27 @@ function optionBtns(){
         theme4Stylesheet.disabled = true;
 
     } setDefaultTheme();
-
+    
     themeBtn.addEventListener('click', function(){
         const theme = document.getElementById('theme');
         const theme2 = document.getElementById('theme2');
         const theme3 = document.getElementById('theme3');
         const theme4 = document.getElementById('theme4');
 
+        function switchTheme(themeId){
+            theme1Stylesheet.disabled = true;
+            theme2Stylesheet.disabled = true;
+            theme3Stylesheet.disabled = true;
+            theme4Stylesheet.disabled = true;
+    
+            const selectedTheme = document.getElementById(themeId);
+            console.log('selected theme: ' + selectedTheme);
+            console.log('theme ID: ' + themeId.id);
+            if(selectedTheme){
+                selectedTheme.disabled = false;
+            }
+        }
+        
         applyBookCardVariables();
         
         if(dropdownThemeContent.style.display == 'none'){
@@ -85,47 +99,43 @@ function optionBtns(){
             closeDropDown(dropdownSortContent, sortBtn);
     
             theme.addEventListener('click', function(){
-                theme1Stylesheet.disabled = false;
-                theme2Stylesheet.disabled = true;
-                theme3Stylesheet.disabled = true;
-                theme4Stylesheet.disabled = true;
+                switchTheme(theme1Stylesheet.id);
                 theme.classList.add('option-selected');
                 theme2.classList.remove('option-selected');
                 theme3.classList.remove('option-selected');
                 theme4.classList.remove('option-selected');
+                closeDropDown(dropdownThemeContent, themeBtn);
+
             });
     
             theme2.addEventListener('click', function(){
+                switchTheme(theme2Stylesheet.id);
                 theme.classList.remove('option-selected');
                 theme2.classList.add('option-selected');
                 theme3.classList.remove('option-selected');
                 theme4.classList.remove('option-selected');
-                theme2Stylesheet.disabled = false;
-                theme1Stylesheet.disabled = true;
-                theme3Stylesheet.disabled = true;
-                theme4Stylesheet.disabled = true;
+                closeDropDown(dropdownThemeContent, themeBtn);
+
             });
     
             theme3.addEventListener('click', function(){
+                switchTheme(theme3Stylesheet.id);
                 theme.classList.remove('option-selected');
                 theme2.classList.remove('option-selected');
                 theme3.classList.add('option-selected');
                 theme4.classList.remove('option-selected');
-                theme3Stylesheet.disabled = false;
-                theme1Stylesheet.disabled = true;
-                theme2Stylesheet.disabled = true;
-                theme4Stylesheet.disabled = true;
+                closeDropDown(dropdownThemeContent, themeBtn);
+
             });
     
             theme4.addEventListener('click', function(){
+                switchTheme(theme4Stylesheet.id);
                 theme.classList.remove('option-selected');
                 theme2.classList.remove('option-selected');
                 theme3.classList.remove('option-selected');
                 theme4.classList.add('option-selected');
-                theme4Stylesheet.disabled = false;
-                theme1Stylesheet.disabled = true;
-                theme2Stylesheet.disabled = true;
-                theme3Stylesheet.disabled = true;
+                closeDropDown(dropdownThemeContent, themeBtn);
+
             });
     
         } else if(dropdownThemeContent.style.display == 'flex'){
@@ -148,12 +158,14 @@ function optionBtns(){
             bookCardsView.addEventListener('click', function(){
                 listView.classList.remove('option-selected');
                 bookCardsView.classList.add('option-selected');
+                closeDropDown(dropdownViewContent, viewBtn);
                 applyBookCardsView();
             });
         
             listView.addEventListener('click', function(){
                 bookCardsView.classList.remove('option-selected');
                 listView.classList.add('option-selected');
+                closeDropDown(dropdownViewContent, viewBtn);
                 applyListView();
             });
     
@@ -178,6 +190,8 @@ function optionBtns(){
                 titleSort.classList.remove('option-selected');
                 authorSort.classList.remove('option-selected');
                 progressSort.classList.add('option-selected');
+                closeDropDown(dropdownSortContent, sortBtn);
+
     
                 if(currentSort== "sortByProgress"){
                     currentSort= "sortByProgress2"
@@ -194,6 +208,8 @@ function optionBtns(){
                 authorSort.classList.remove('option-selected');
                 progressSort.classList.remove('option-selected');
                 titleSort.classList.add('option-selected');
+                closeDropDown(dropdownSortContent, sortBtn);
+
     
                 if(currentSort== "sortByTitle"){
                     currentSort= "sortByTitle2"
@@ -210,6 +226,8 @@ function optionBtns(){
                 titleSort.classList.remove('option-selected');
                 progressSort.classList.remove('option-selected');
                 authorSort.classList.add('option-selected');
+                closeDropDown(dropdownSortContent, sortBtn);
+
     
                 if(currentSort== "sortByAuthor"){
                     currentSort= "sortByAuthor2"
@@ -246,6 +264,7 @@ function optionBtns(){
                 toReadFilter.classList.remove('option-selected');
                 allFilter.classList.add('option-selected');
                 currentFilter = "All";
+                closeDropDown(dropdownFilterContent, filterBtn);
                 updateDisplay();
             });
     
@@ -256,6 +275,7 @@ function optionBtns(){
                 completedFilter.classList.add('option-selected');
     
                 currentFilter = "Completed";
+                closeDropDown(dropdownFilterContent, filterBtn);
                 updateDisplay();
             });
     
@@ -266,6 +286,7 @@ function optionBtns(){
                 readingFilter.classList.add('option-selected');
     
                 currentFilter = "Reading";
+                closeDropDown(dropdownFilterContent, filterBtn);
                 updateDisplay();
             });
             
@@ -275,7 +296,8 @@ function optionBtns(){
                 readingFilter.classList.remove('option-selected');
                 toReadFilter.classList.add('option-selected');
     
-                currentFilter = "To Read"
+                currentFilter = "To Read";
+                closeDropDown(dropdownFilterContent, filterBtn);
                 updateDisplay();
             });
     

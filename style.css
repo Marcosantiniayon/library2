@@ -130,8 +130,8 @@ footer {
         text-align: center;
 }
 .header {
-    /* background-color: #50C9CE; */
-    /* background:linear-gradient(#87e4e7,#24a2a6); */
+    background-color: #54453b;
+    /* background:linear-gradient(#3c322c,#5c4334); */
     padding: 20px;
     text-align: center;
 }
@@ -276,7 +276,7 @@ textarea{
     /* align-self: end; */
     margin-bottom: 0px;
 
-    /* margin-bottom: 0px;
+    /* margin-bottom: 0px; 
     margin-right: 0px; */
 }
 #filter-btn{
@@ -285,7 +285,9 @@ textarea{
 #theme-btn{
     width: 90px;
 }
-
+#video-background {
+    display: none;
+}
 
 @media screen and (max-width: 480px) {
     .book-modal{

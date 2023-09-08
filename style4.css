@@ -285,6 +285,9 @@ textarea{
 #theme-btn{
     width: 90px;
 }
+#video-background {
+    display: none;
+}
 
 
 @media screen and (max-width: 480px) {

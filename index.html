@@ -7,7 +7,7 @@
     <title>Document</title>
     <link id="theme1-stylesheet" rel="stylesheet" href="style.css">
     <link id="theme2-stylesheet" rel="stylesheet" href="style2.css">
-    <link id="theme3-stylesheet" rel="stylesheet" href="style3-bold.css">
+    <link id="theme3-stylesheet" rel="stylesheet" href="style3.css">
     <link id="theme4-stylesheet" rel="stylesheet" href="style4.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,204 +15,211 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="header">
-        <nav class="main-nav">
-            <button id="login-btn">Login</button>        
-        </nav>
-        <h1 id="page-title">BOOK BUDDY</h1>    
-        <hr>
-    </div>
-    <div class="main-container">
-        <nav class="content-nav">
-            <button id="add-book-btn">Add Book</button>
-            <div class="options">
-                <div class="option-div">
-                    <button id="theme-btn">Theme</button>
-                    <div class="dropdown-content" id="dropdown-theme-content" style="display: none;">
-                        <a class="option option-selected"id="theme" href="#">Theme 1</a>
-                        <hr class="dropdown-content-hr">
-                        <a class="option"id="theme2" href="#">Theme 2</a>
-                        <hr class="dropdown-content-hr">
-                        <a class="option"id="theme3" href="#">Bold</a>
-                        <hr class="dropdown-content-hr">
-                        <a class="option"id="theme4" href="#">Theme 4</a>
+    <div class="video-container">
+        <video autoplay muted loop id="video-background">
+            <source src="./images/background-video-space.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <div class="header">
+                <nav class="main-nav">
+                    <button id="login-btn">Login</button>        
+                </nav>
+                <h1 id="page-title">BOOK BUDDY</h1>    
+                <hr>
+            </div>
+            <div class="main-container">
+                <nav class="content-nav">
+                    <button id="add-book-btn">Add Book</button>
+                    <div class="options">
+                        <div class="option-div">
+                            <button id="theme-btn">Theme</button>
+                            <div class="dropdown-content" id="dropdown-theme-content" style="display: none;">
+                                <a class="option option-selected"id="theme" href="#">Library</a>
+                                <hr class="dropdown-content-hr">
+                                <a class="option"id="theme2" href="#">Space</a>
+                                <hr class="dropdown-content-hr">
+                                <a class="option"id="theme3" href="#">Bold</a>
+                                <hr class="dropdown-content-hr">
+                                <a class="option"id="theme4" href="#">Soft</a>
+                            </div>
+                        </div>
+                        <div class="option-div">
+                            <button id="view-btn">View</button>
+                            <div class="dropdown-content" id="dropdown-view-content" style="display: none;">
+                                <a class="option option-selected"id="book-cards-view" href="#">Cards</a>
+                                <hr class="dropdown-content-hr">
+                                <a class="option"id="list-view" href="#">List</a>
+                            </div>
+                        </div>
+                        <div class="option-div">
+                            <button id="sort-btn">Sort</button>
+                            <div class="dropdown-content" id="dropdown-sort-content" style="display: none;">
+                                <a class="option option-selected" id="progress-sort" href="#">Progress</a>
+                                <hr class="dropdown-content-hr">
+                                <a class="option"id="title-sort" href="#">Title</a>
+                                <hr class="dropdown-content-hr">
+                                <a class="option"id="author-sort" href="#">Author</a>
+                            </div>
+                        </div>
+                        <div class="option-div">
+                            <button id="filter-btn">Filter</button>
+                            <div class="dropdown-content" id="dropdown-filter-content" style="display: none;">
+                                <a class="option option-selected" id="all-filter" href="#">All</a>
+                                <hr class="dropdown-content-hr">
+                                <a class="option" id="completed-filter" href="#">Completed</a>
+                                <hr class="dropdown-content-hr">
+                                <a class="option" id="reading-filter" href="#">Reading</a>
+                                <hr class="dropdown-content-hr">
+                                <a class="option" id="to-read-filter" href="#">To Read</a>
+        
+                            </div>
+                        </div>
+                        <!-- <div class="option-div">
+                            <button id="filter-btn">Filter</button>
+                            <div class="dropdown-content" id="dropdown-filter-content" style="display: none;">
+                                <label class="radio-labels">
+                                    <input type="radio" name="read-status" value="fully-read" id="fully-read-filter">
+                                    All
+                                </label>
+                                <label class="radio-labels">
+                                    <input type="radio" name="read-status" value="fully-read" id="fully-read-filter">
+                                    Completed
+                                </label>
+                                <label class="radio-labels">
+                                    <input type="radio" name="read-status" value="in-progress" id="in-progress-filter">
+                                    Reading
+                                </label>
+                                <label class="radio-labels">
+                                    <input type="radio" name="read-status" value="not-read" id="not-read-filter">
+                                    To Read
+                                </label>
+                            </div>
+                        </div> -->
+                        
                     </div>
-                </div>
-                <div class="option-div">
-                    <button id="view-btn">View</button>
-                    <div class="dropdown-content" id="dropdown-view-content" style="display: none;">
-                        <a class="option option-selected"id="book-cards-view" href="#">Cards</a>
-                        <hr class="dropdown-content-hr">
-                        <a class="option"id="list-view" href="#">List</a>
-                    </div>
-                </div>
-                <div class="option-div">
-                    <button id="sort-btn">Sort</button>
-                    <div class="dropdown-content" id="dropdown-sort-content" style="display: none;">
-                        <a class="option option-selected" id="progress-sort" href="#">Progress</a>
-                        <hr class="dropdown-content-hr">
-                        <a class="option"id="title-sort" href="#">Title</a>
-                        <hr class="dropdown-content-hr">
-                        <a class="option"id="author-sort" href="#">Author</a>
-                    </div>
-                </div>
-                <div class="option-div">
-                    <button id="filter-btn">Filter</button>
-                    <div class="dropdown-content" id="dropdown-filter-content" style="display: none;">
-                        <a class="option option-selected" id="all-filter" href="#">All</a>
-                        <hr class="dropdown-content-hr">
-                        <a class="option" id="completed-filter" href="#">Completed</a>
-                        <hr class="dropdown-content-hr">
-                        <a class="option" id="reading-filter" href="#">Reading</a>
-                        <hr class="dropdown-content-hr">
-                        <a class="option" id="to-read-filter" href="#">To Read</a>
-
-                    </div>
-                </div>
-                <!-- <div class="option-div">
-                    <button id="filter-btn">Filter</button>
-                    <div class="dropdown-content" id="dropdown-filter-content" style="display: none;">
-                        <label class="radio-labels">
+                    
+                    <!-- <div class="filter-options">
+                        <label>
                             <input type="radio" name="read-status" value="fully-read" id="fully-read-filter">
                             All
                         </label>
-                        <label class="radio-labels">
+                        <label>
                             <input type="radio" name="read-status" value="fully-read" id="fully-read-filter">
-                            Completed
+                            Fully Read
                         </label>
-                        <label class="radio-labels">
+                        <label>
                             <input type="radio" name="read-status" value="in-progress" id="in-progress-filter">
-                            Reading
+                            In Progress
                         </label>
-                        <label class="radio-labels">
+                        <label>
                             <input type="radio" name="read-status" value="not-read" id="not-read-filter">
                             To Read
                         </label>
+                    </div> -->
+                </nav>
+                <div class="book-card-container">
+                    <!-- <div class="book-card">
+                        <div class="book-card-left">
+                            <p>Atomic Habits</p>
+                            <p>By James Clear</p>
+                        </div>
+                        <div class="book-card-right">
+                            <p>230 Pages</p>
+                            <progress class="progress" value="10" max="100"></progress>
+                            <div class="progress-circle"></div>
+                        </div>
                     </div>
-                </div> -->
-                
-            </div>
-            
-            <!-- <div class="filter-options">
-                <label>
-                    <input type="radio" name="read-status" value="fully-read" id="fully-read-filter">
-                    All
-                </label>
-                <label>
-                    <input type="radio" name="read-status" value="fully-read" id="fully-read-filter">
-                    Fully Read
-                </label>
-                <label>
-                    <input type="radio" name="read-status" value="in-progress" id="in-progress-filter">
-                    In Progress
-                </label>
-                <label>
-                    <input type="radio" name="read-status" value="not-read" id="not-read-filter">
-                    To Read
-                </label>
-            </div> -->
-        </nav>
-        <div class="book-card-container">
-            <!-- <div class="book-card">
-                <div class="book-card-left">
-                    <p>Atomic Habits</p>
-                    <p>By James Clear</p>
-                </div>
-                <div class="book-card-right">
-                    <p>230 Pages</p>
-                    <progress class="progress" value="10" max="100"></progress>
-                    <div class="progress-circle"></div>
-                </div>
-            </div>
-            <div class="book-card">
-                <div class="book-card-left">
-                    <p>Atomic Habits</p>
-                    <p>By James Clear</p>
-                </div>
-                <div class="book-card-right">
-                    <p>230 Pages</p>
-                    <progress class="progress" value="0" max="100"></progress>
-                    <div class="progress-circle"></div>
-                </div>
-            </div>
-            <div class="book-card">
-                <div class="book-card-left">
-                    <p>Atomic Habits</p>
-                    <p>By James Clear</p>
-                </div>
-                <div class="book-card-right">
-                    <p>230 Pages</p>
-                    <progress class="progress" value="40" max="100"></progress>
-                    <div class="progress-circle"></div>
-                </div>
-            </div>
-            <div class="book-card">
-                <div class="book-card-left">
-                    <p>Atomic Habits</p>
-                    <p>By James Clear</p>
-                </div>
-                <div class="book-card-right">
-                    <p>230 Pages</p>
-                    <progress class="progress progress-done" value="100" max="100"></progress>
-                    <div class="progress-circle progress-circle-done"></div>
+                    <div class="book-card">
+                        <div class="book-card-left">
+                            <p>Atomic Habits</p>
+                            <p>By James Clear</p>
+                        </div>
+                        <div class="book-card-right">
+                            <p>230 Pages</p>
+                            <progress class="progress" value="0" max="100"></progress>
+                            <div class="progress-circle"></div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-card-left">
+                            <p>Atomic Habits</p>
+                            <p>By James Clear</p>
+                        </div>
+                        <div class="book-card-right">
+                            <p>230 Pages</p>
+                            <progress class="progress" value="40" max="100"></progress>
+                            <div class="progress-circle"></div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-card-left">
+                            <p>Atomic Habits</p>
+                            <p>By James Clear</p>
+                        </div>
+                        <div class="book-card-right">
+                            <p>230 Pages</p>
+                            <progress class="progress progress-done" value="100" max="100"></progress>
+                            <div class="progress-circle progress-circle-done"></div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-card-left">
+                            <p>Atomic Habits</p>
+                            <p>By James Clear</p>
+                        </div>
+                        <div class="book-card-right">
+                            <p>230 Pages</p>
+                            <progress class="progress" value="30" max="100"></progress>
+                            <div class="progress-circle"></div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-card-left">
+                            <p>Atomic Habits</p>
+                            <p>By James Clear</p>
+                        </div>
+                        <div class="book-card-right">
+                            <p>230 Pages</p>
+                            <progress class="progress" value="85" max="100"></progress>
+                            <div class="progress-circle"></div>
+                        </div>
+                    </div> -->
                 </div>
             </div>
-            <div class="book-card">
-                <div class="book-card-left">
-                    <p>Atomic Habits</p>
-                    <p>By James Clear</p>
-                </div>
-                <div class="book-card-right">
-                    <p>230 Pages</p>
-                    <progress class="progress" value="30" max="100"></progress>
-                    <div class="progress-circle"></div>
-                </div>
+            <div class="overlay"></div>
+            <div class="book-modal">
+                <form class="bookInfo-form" action="">
+                    <div class="input-container">
+                        <label for="title-input">Title:</label>
+                        <input id="title-input" type="text" placeholder="" required>
+                        <p class="error-message" id="title-error">Title required</p>
+                    </div>
+                    <div class="input-container">
+                        <label for="author-input">Author:</label>
+                        <input id="author-input" type="text" placeholder="" required>
+                        <p class="error-message" id="author-error">Author required</p>
+                    </div>
+                    <div class="pages-progress-div">
+                        <div class="input-container">
+                            <label for="pages-input">Pages:</label>
+                            <input id="pages-input"type="number" placeholder="" required>
+                            <p class="error-message" id="pages-error"># of Pages required</p>
+                        </div>
+                        <div class="input-container">
+                            <label for="pages-read-input">Read:</label>
+                            <input id="pages-read-input" type="number" placeholder="" required>
+                            <p class="error-message" id="pagesRead-error"># of Pages Read required</p>
+                        </div>
+                    </div>
+                    <textarea id="notes-textarea" type="text" placeholder="Notes"></textarea>
+                    <div class="modal-btns">
+                        <button id="submit-btn">Submit</button>
+                        <button id="cancel-btn">Cancel</button>
+                        <button id="delete-btn">Delete</button>
+                    </div>
+                </form>
             </div>
-            <div class="book-card">
-                <div class="book-card-left">
-                    <p>Atomic Habits</p>
-                    <p>By James Clear</p>
-                </div>
-                <div class="book-card-right">
-                    <p>230 Pages</p>
-                    <progress class="progress" value="85" max="100"></progress>
-                    <div class="progress-circle"></div>
-                </div>
-            </div> -->
         </div>
-    </div>
-    <div class="overlay"></div>
-    <div class="book-modal">
-        <form class="bookInfo-form" action="">
-            <div class="input-container">
-                <label for="title-input">Title:</label>
-                <input id="title-input" type="text" placeholder="" required>
-                <p class="error-message" id="title-error">Title required</p>
-            </div>
-            <div class="input-container">
-                <label for="author-input">Author:</label>
-                <input id="author-input" type="text" placeholder="" required>
-                <p class="error-message" id="author-error">Author required</p>
-            </div>
-            <div class="pages-progress-div">
-                <div class="input-container">
-                    <label for="pages-input">Pages:</label>
-                    <input id="pages-input"type="number" placeholder="" required>
-                    <p class="error-message" id="pages-error"># of Pages required</p>
-                </div>
-                <div class="input-container">
-                    <label for="pages-read-input">Read:</label>
-                    <input id="pages-read-input" type="number" placeholder="" required>
-                    <p class="error-message" id="pagesRead-error"># of Pages Read required</p>
-                </div>
-            </div>
-            <textarea id="notes-textarea" type="text" placeholder="Notes"></textarea>
-            <div class="modal-btns">
-                <button id="submit-btn">Submit</button>
-                <button id="cancel-btn">Cancel</button>
-                <button id="delete-btn">Delete</button>
-            </div>
-        </form>
     </div>
     
     <script src="script.js"></script>
