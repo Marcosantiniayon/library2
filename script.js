@@ -7,13 +7,6 @@ let pagesInput = document.getElementById('pages-input');
 let pagesReadInput = document.getElementById('pages-read-input');
 let notesInput = document.getElementById('notes-textarea');
 
-const viewBtn = document.getElementById('view-btn');
-const sortBtn = document.getElementById('sort-btn');
-const filterBtn = document.getElementById('filter-btn');
-const addBookBtn = document.getElementById('add-book-btn');
-const submitBtn = document.getElementById('submit-btn')
-const cancelBtn = document.getElementById('cancel-btn');
-const deleteBtn = document.getElementById('delete-btn');
 const bookCardContainer = document.querySelector('.book-card-container');
 
 const titleError = document.getElementById('title-error');
@@ -38,9 +31,6 @@ let currentSort = "sortByProgress"
 let currentFilter = "All"
 let filteredBooks;
 
-
-
-
 function Book(title, author, pages, pagesRead, notes) {
     this.title = title;
     this.author = author;
@@ -52,226 +42,229 @@ Book.prototype.info = function(){
     console.log(this.title + " by " + this.author + ", " + this.pages + " pages, " + this.pagesRead + " pages read");
 }
 
-function applyBookCardsView(){
-    bookCardContainer.style.display = 'grid';
-    bookCardContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
-    bookCardContainer.style.gap = '20px';
-    bookCardLeft.forEach((element) => {
-        element.style.display = 'block';
-    });
-    bookCardRight.forEach((element) => {
-        element.style.display = 'block';
-    });
-    bookCard.forEach((bookCard) => {
-        bookCard.style.display = "block";
-        bookCard.style.border = '1px solid #72A1E5;';
-        bookCard.style.paddingTop = "10px";
-        bookCard.style.paddingBottom = "10px";
-        bookCard.style.marginBottom = "10px";
-        bookCard.style.marginBottom = "10px";
-        for (let i = 0; i < paragraphs.length; i++) {
-            paragraphs[i].style.margin = '12px';
-        }
+function optionBtns(){
+    const addBookBtn = document.getElementById('add-book-btn');
+    const viewBtn = document.getElementById('view-btn');
+    const sortBtn = document.getElementById('sort-btn');
+    const filterBtn = document.getElementById('filter-btn');
 
-    });
-    progress.forEach((progress) =>{
-        progress.style.display = "block";
-    });
-    progressCircle.forEach((circle) =>{
-        circle.style.display = "none";
-    });
-    currentView = 'bookCard';
-}
-function applyListView(){
-    bookCardContainer.style.display = 'flex';
-    bookCardContainer.style.flexDirection = 'column';
-    bookCardContainer.style.gridTemplateColumns = '';
-    bookCardContainer.style.gap = '0px';
-    bookCardLeft.forEach((element) => {
-        element.style.display = 'flex';
-    });
-    bookCardRight.forEach((element) => {
-        element.style.display = 'flex';
-    });
-    bookCard.forEach((bookCard) => {
-        bookCard.style.display = "flex";
-        bookCard.style.border = 'none';
-        bookCard.style.justifyContent = "space-between";
-        bookCard.style.paddingTop = "0px";
-        bookCard.style.paddingBottom = "0px";
-        bookCard.style.marginBottom = "2px";
-        for (let i = 0; i < paragraphs.length; i++) {
-            paragraphs[i].style.margin = '4px';
-        }
-    });
-    progress.forEach((progress) =>{
-        progress.style.display = "none";
-    });
-    progressCircle.forEach((circle) =>{
-        circle.style.display = "block";
-    });
-    currentView = 'ListView';
-}
-viewBtn.addEventListener('click', function(){
     const dropdownViewContent = document.getElementById('dropdown-view-content');
-    const bookCardsView = document.getElementById('book-cards-view');
-    const listView = document.getElementById('list-view');
-
-    applyBookCardVariables();
-    
-    if(dropdownViewContent.style.display == 'none'){
-        dropdownViewContent.style.display = 'flex';
-        viewBtn.style.borderBottomLeftRadius = '0px';
-        viewBtn.style.borderBottomRightRadius = '0px';
-
-        bookCardsView.addEventListener('click', function(){
-            listView.classList.remove('option-selected');
-            bookCardsView.classList.add('option-selected');
-            applyBookCardsView();
-        });
-    
-        listView.addEventListener('click', function(){
-            bookCardsView.classList.remove('option-selected');
-            listView.classList.add('option-selected');
-            applyListView();
-        });
-
-    } else if(dropdownViewContent.style.display == 'flex'){
-        dropdownViewContent.style.display = 'none';
-        viewBtn.style.borderBottomLeftRadius = '5px';
-        viewBtn.style.borderBottomRightRadius = '5px';
-    }
-});
-sortBtn.addEventListener('click', function(){
     const dropdownSortContent = document.getElementById('dropdown-sort-content');
-    const progressSort = document.getElementById('progress-sort');
-    const titleSort = document.getElementById('title-sort');
-    const authorSort = document.getElementById('author-sort');
-
-    applyBookCardVariables();
-
-    if(dropdownSortContent.style.display == 'none'){
-        dropdownSortContent.style.display = 'flex';
-        sortBtn.style.borderBottomLeftRadius = '0px';
-        sortBtn.style.borderBottomRightRadius = '0px';
-
-        progressSort.addEventListener('click', function(){
-            titleSort.classList.remove('option-selected');
-            authorSort.classList.remove('option-selected');
-            progressSort.classList.add('option-selected');
-
-            if(currentSort== "sortByProgress"){
-                currentSort= "sortByProgress2"
-            } else if(currentSort== "sortByProgress2"){
-                currentSort = "sortByProgress"
-            } else{
-                currentSort= "sortByProgress"
-            }
-            updateDisplay();
-            
-        });
-    
-        titleSort.addEventListener('click', function(){
-            authorSort.classList.remove('option-selected');
-            progressSort.classList.remove('option-selected');
-            titleSort.classList.add('option-selected');
-
-            if(currentSort== "sortByTitle"){
-                currentSort= "sortByTitle2"
-            } else if(currentSort== "sortByTitle2"){
-                currentSort = "sortByTitle";
-            } else{
-                currentSort= "sortByTitle";
-            }
-            updateDisplay();
-
-        });
-
-        authorSort.addEventListener('click', function(){
-            titleSort.classList.remove('option-selected');
-            progressSort.classList.remove('option-selected');
-            authorSort.classList.add('option-selected');
-
-            if(currentSort== "sortByAuthor"){
-                currentSort= "sortByAuthor2"
-            } else if(currentSort== "sortByAuthor2"){
-                currentSort = "sortByAuthor";
-            } else{
-                currentSort= "sortByAuthor";
-            }
-            updateDisplay();
-
-        });
-
-    } else if(dropdownSortContent.style.display == 'flex'){
-        dropdownSortContent.style.display = 'none';
-        sortBtn.style.borderBottomLeftRadius = '5px';
-        sortBtn.style.borderBottomRightRadius = '5px';
-    }
-});
-filterBtn.addEventListener('click', function(){
     const dropdownFilterContent = document.getElementById('dropdown-filter-content');
-    const allFilter = document.getElementById('all-filter');
-    const completedFilter = document.getElementById('completed-filter');
-    const readingFilter = document.getElementById('reading-filter');
-    const toReadFilter = document.getElementById('to-read-filter');
 
-    applyBookCardVariables();
+    addBookBtn.addEventListener('click', function(){
+        openModal();
+    });
 
-    if(dropdownFilterContent.style.display == 'none'){
-        dropdownFilterContent.style.display = 'flex';
-        filterBtn.style.borderBottomLeftRadius = '0px';
-        filterBtn.style.borderBottomRightRadius = '0px';
-
-        allFilter.addEventListener('click', function(){
-            completedFilter.classList.remove('option-selected');
-            readingFilter.classList.remove('option-selected');
-            toReadFilter.classList.remove('option-selected');
-            allFilter.classList.add('option-selected');
-            currentFilter = "All";
-            updateDisplay();
-        });
-
-        completedFilter.addEventListener('click', function(){
-            readingFilter.classList.remove('option-selected');
-            toReadFilter.classList.remove('option-selected');
-            allFilter.classList.remove('option-selected');
-            completedFilter.classList.add('option-selected');
-
-            currentFilter = "Completed";
-            updateDisplay();
-        });
-
-        readingFilter.addEventListener('click', function(){
-            toReadFilter.classList.remove('option-selected');
-            allFilter.classList.remove('option-selected');
-            completedFilter.classList.remove('option-selected');
-            readingFilter.classList.add('option-selected');
-
-            currentFilter = "Reading";
-            updateDisplay();
-        });
+    viewBtn.addEventListener('click', function(){
+        const bookCardsView = document.getElementById('book-cards-view');
+        const listView = document.getElementById('list-view');
+    
+        applyBookCardVariables();
         
-        toReadFilter.addEventListener('click', function(){
-            allFilter.classList.remove('option-selected');
-            completedFilter.classList.remove('option-selected');
-            readingFilter.classList.remove('option-selected');
-            toReadFilter.classList.add('option-selected');
+        if(dropdownViewContent.style.display == 'none'){
+            openDropDown(dropdownViewContent, viewBtn);
+            closeDropDown(dropdownFilterContent, filterBtn);
+            closeDropDown(dropdownSortContent, sortBtn);
+    
+            bookCardsView.addEventListener('click', function(){
+                listView.classList.remove('option-selected');
+                bookCardsView.classList.add('option-selected');
+                applyBookCardsView();
+            });
+        
+            listView.addEventListener('click', function(){
+                bookCardsView.classList.remove('option-selected');
+                listView.classList.add('option-selected');
+                applyListView();
+            });
+    
+        } else if(dropdownViewContent.style.display == 'flex'){
+            closeDropDown(dropdownViewContent, viewBtn);
+        }
+    });
+    sortBtn.addEventListener('click', function(){
+        const progressSort = document.getElementById('progress-sort');
+        const titleSort = document.getElementById('title-sort');
+        const authorSort = document.getElementById('author-sort');
+    
+        applyBookCardVariables();
+    
+        if(dropdownSortContent.style.display == 'none'){
+            openDropDown(dropdownSortContent, sortBtn);
+            closeDropDown(dropdownViewContent, viewBtn);
+            closeDropDown(dropdownFilterContent, filterBtn);
+    
+            progressSort.addEventListener('click', function(){
+                titleSort.classList.remove('option-selected');
+                authorSort.classList.remove('option-selected');
+                progressSort.classList.add('option-selected');
+    
+                if(currentSort== "sortByProgress"){
+                    currentSort= "sortByProgress2"
+                } else if(currentSort== "sortByProgress2"){
+                    currentSort = "sortByProgress"
+                } else{
+                    currentSort= "sortByProgress"
+                }
+                updateDisplay();
+                
+            });
+        
+            titleSort.addEventListener('click', function(){
+                authorSort.classList.remove('option-selected');
+                progressSort.classList.remove('option-selected');
+                titleSort.classList.add('option-selected');
+    
+                if(currentSort== "sortByTitle"){
+                    currentSort= "sortByTitle2"
+                } else if(currentSort== "sortByTitle2"){
+                    currentSort = "sortByTitle";
+                } else{
+                    currentSort= "sortByTitle";
+                }
+                updateDisplay();
+    
+            });
+    
+            authorSort.addEventListener('click', function(){
+                titleSort.classList.remove('option-selected');
+                progressSort.classList.remove('option-selected');
+                authorSort.classList.add('option-selected');
+    
+                if(currentSort== "sortByAuthor"){
+                    currentSort= "sortByAuthor2"
+                } else if(currentSort== "sortByAuthor2"){
+                    currentSort = "sortByAuthor";
+                } else{
+                    currentSort= "sortByAuthor";
+                }
+                updateDisplay();
+    
+            });
+    
+        } else if(dropdownSortContent.style.display == 'flex'){
+            closeDropDown(dropdownSortContent, sortBtn);
+        }
+    });
+    filterBtn.addEventListener('click', function(){
+        const allFilter = document.getElementById('all-filter');
+        const completedFilter = document.getElementById('completed-filter');
+        const readingFilter = document.getElementById('reading-filter');
+        const toReadFilter = document.getElementById('to-read-filter');
+    
+        applyBookCardVariables();
+    
+        if(dropdownFilterContent.style.display == 'none'){
+            openDropDown(dropdownFilterContent, filterBtn);
+            closeDropDown(dropdownViewContent, viewBtn);
+            closeDropDown(dropdownSortContent, sortBtn);
+    
+            allFilter.addEventListener('click', function(){
+                completedFilter.classList.remove('option-selected');
+                readingFilter.classList.remove('option-selected');
+                toReadFilter.classList.remove('option-selected');
+                allFilter.classList.add('option-selected');
+                currentFilter = "All";
+                updateDisplay();
+            });
+    
+            completedFilter.addEventListener('click', function(){
+                readingFilter.classList.remove('option-selected');
+                toReadFilter.classList.remove('option-selected');
+                allFilter.classList.remove('option-selected');
+                completedFilter.classList.add('option-selected');
+    
+                currentFilter = "Completed";
+                updateDisplay();
+            });
+    
+            readingFilter.addEventListener('click', function(){
+                toReadFilter.classList.remove('option-selected');
+                allFilter.classList.remove('option-selected');
+                completedFilter.classList.remove('option-selected');
+                readingFilter.classList.add('option-selected');
+    
+                currentFilter = "Reading";
+                updateDisplay();
+            });
+            
+            toReadFilter.addEventListener('click', function(){
+                allFilter.classList.remove('option-selected');
+                completedFilter.classList.remove('option-selected');
+                readingFilter.classList.remove('option-selected');
+                toReadFilter.classList.add('option-selected');
+    
+                currentFilter = "To Read"
+                updateDisplay();
+            });
+    
+        } else if(dropdownFilterContent.style.display == 'flex'){
+            closeDropDown(dropdownFilterContent, filterBtn);
+        }
+    });
 
-            currentFilter = "To Read"
-            updateDisplay();
-        });
-
-    } else if(dropdownFilterContent.style.display == 'flex'){
-        dropdownFilterContent.style.display = 'none';
-        filterBtn.style.borderBottomLeftRadius = '5px';
-        filterBtn.style.borderBottomRightRadius = '5px';
+    function openDropDown(optionDropdown, optionBtn){
+        optionDropdown.style.display = 'flex';
+        optionBtn.style.borderBottomLeftRadius = '0px';
+        optionBtn.style.borderBottomRightRadius = '0px';
     }
-});
-addBookBtn.addEventListener('click', function(){
-    console.log("Add book button clicked");
-    openModal();
-});
+    function closeDropDown(optionDropdown, optionBtn){
+        optionDropdown.style.display = 'none';
+        optionBtn.style.borderBottomLeftRadius = '5px';
+        optionBtn.style.borderBottomRightRadius = '5px';
+    }
+} optionBtns();
+
+function modalBtns(){
+    const submitBtn = document.getElementById('submit-btn')
+    const cancelBtn = document.getElementById('cancel-btn');
+    const deleteBtn = document.getElementById('delete-btn');
+
+    submitBtn.addEventListener('click', function(event) {
+        event.preventDefault(); //Prevent page refresh
+    
+        // Prevent form submission if validation fails
+        if (!validateFormFields()) {
+            event.preventDefault();
+            console.log("Form is not valid. Please fill out all required fields.");
+        } else{
+            //Edit Existing Book
+            if(editingBook === true){ //Edit Book
+                console.log('editing book');
+                //need to target currently matching selected bookCard book
+                currentBook.title = titleInput.value;
+                currentBook.author = authorInput.value;
+                currentBook.pages = pagesInput.value;
+                currentBook.pagesRead = pagesReadInput.value;
+                currentBook.notes = notesInput.value;
+            }else{//Add New Book
+            addBookToLibrary();
+            }
+            updateDisplay();
+        }
+        clearInputs();    
+    });
+    cancelBtn.addEventListener('click', function(event){
+        event.preventDefault(); //Prevent page refresh
+        editingBook = false;
+        console.log
+        closeModal();
+        clearInputs();    
+    });
+    deleteBtn.addEventListener('click', function(event){
+        event.preventDefault(); //Prevent page refresh
+        if (confirm('Are you sure you want to delete?')) {
+            removeBookFromLibrary();
+            clearInputs();
+            updateDisplay();
+        } else {
+            return;
+        }
+        
+    });
+} modalBtns();
+
 function editBook(){ // Book card event listeners
     bookCardElements.forEach((bookCard, index) => {
         bookCard.addEventListener('click', function() {
@@ -292,50 +285,6 @@ function editBook(){ // Book card event listeners
         });
     });
 }
-submitBtn.addEventListener('click', function(event) {
-    event.preventDefault(); //Prevent page refresh
-    console.log("Submit button clicked");
-
-    // Prevent form submission if validation fails
-    if (!validateFormFields()) {
-        event.preventDefault();
-        console.log("Form is not valid. Please fill out all required fields.");
-    } else{
-        console.log("Form is valid. Submitting...");
-        //Edit Existing Book
-        if(editingBook === true){ //Edit Book
-            console.log('editing book');
-            //need to target currently matching selected bookCard book
-            currentBook.title = titleInput.value;
-            currentBook.author = authorInput.value;
-            currentBook.pages = pagesInput.value;
-            currentBook.pagesRead = pagesReadInput.value;
-            currentBook.notes = notesInput.value;
-        }else{//Add New Book
-        addBookToLibrary();
-        }
-        console.log(myLibrary);
-        updateDisplay();
-    }
-    clearInputs();    
-});
-cancelBtn.addEventListener('click', function(event){
-    event.preventDefault(); //Prevent page refresh
-    editingBook = false;
-    closeModal();
-    clearInputs();    
-});
-deleteBtn.addEventListener('click', function(event){
-    event.preventDefault(); //Prevent page refresh
-    if (confirm('Are you sure you want to delete?')) {
-        removeBookFromLibrary();
-        clearInputs();
-        updateDisplay();
-    } else {
-        return;
-    }
-    
-});
 function addBookToLibrary() {
     const book = new Book(titleInput.value,authorInput.value,pagesInput.value,pagesReadInput.value,notesInput.value);
     book.info;
@@ -346,23 +295,18 @@ function removeBookFromLibrary(){
     myLibrary.splice(indexToRemove, 1);
 }
 function updateDisplay(){
-    console.log("view: " + currentView + "| sort: " + currentSort + "| filter: " + currentFilter)
     bookCardContainer.textContent = ''; //Clears out old display
     bookCardElements = []; //Clears out old list
 
     function applyFilter(){
         if(currentFilter == "All"){
             filteredBooks = myLibrary;
-            console.log("All filter");
         } else if(currentFilter == "Completed"){
             filteredBooks = myLibrary.filter(book => book.pagesRead === book.pages);
-            console.log("Completed filter");
         }else if(currentFilter == "Reading"){
             filteredBooks = myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead <book.pages);
-            console.log("Reading filter");
         }else if(currentFilter == "To Read"){
             filteredBooks = myLibrary.filter(book => book.pagesRead === '0');
-            console.log("To Read filter");
         }
     } applyFilter();
     
@@ -386,7 +330,6 @@ function updateDisplay(){
     closeModal();
 
     //Creates book card for each book in library 
-    console.log(filteredBooks);
     for (let i = 0; i < filteredBooks.length; i++) {
         //create book card elements
         const bookCard = document.createElement("div");
@@ -471,7 +414,6 @@ function validateFormFields(){
     // Check pages input
     if (pagesInput.value === '') {
         pagesError.textContent = "# of pages required";
-        console.log(pagesInput.value)
         pagesError.style.display = 'block';
         valid = false;
     } else if(!_isValidNumberInput(pagesInput.value)){
@@ -518,7 +460,6 @@ function closeModal(){
 function sortByTitle(a, b) {
     const titleA = a.title.toLowerCase();
     const titleB = b.title.toLowerCase();
-    console.log("sorted by title");
 
     if (titleA < titleB) {
         return -1;
@@ -531,7 +472,6 @@ function sortByTitle(a, b) {
 function sortByTitle2(a, b) {
     const titleA = a.title.toLowerCase();
     const titleB = b.title.toLowerCase();
-    console.log("sorted by title2");
 
     if (titleA > titleB) {
         return -1;
@@ -547,8 +487,6 @@ function sortByProgress(a,b) {
         return readProgressA - readProgressB;
 }
 function sortByProgress2(a,b) {
-    console.log("sorted by progress2");
-
     const readProgressA = a.pagesRead/a.pages
         const readProgressB = b.pagesRead/b.pages
         return readProgressB - readProgressA;
@@ -556,7 +494,6 @@ function sortByProgress2(a,b) {
 function sortByAuthor(a, b) {
     const titleA = a.author.toLowerCase();
     const titleB = b.author.toLowerCase();
-    console.log("sorted by author");
 
     if (titleA < titleB) {
         return -1;
@@ -569,7 +506,6 @@ function sortByAuthor(a, b) {
 function sortByAuthor2(a, b) {
     const titleA = a.author.toLowerCase();
     const titleB = b.author.toLowerCase();
-    console.log("sorted by author2");
 
     if (titleA > titleB) {
         return -1;
@@ -578,5 +514,65 @@ function sortByAuthor2(a, b) {
         return 1;
     }
     return 0;
+}
+function applyBookCardsView(){
+    bookCardContainer.style.display = 'grid';
+    bookCardContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+    bookCardContainer.style.gap = '20px';
+    bookCardLeft.forEach((element) => {
+        element.style.display = 'block';
+    });
+    bookCardRight.forEach((element) => {
+        element.style.display = 'block';
+    });
+    bookCard.forEach((bookCard) => {
+        bookCard.style.display = "block";
+        bookCard.style.border = '1px solid #72A1E5;';
+        bookCard.style.paddingTop = "10px";
+        bookCard.style.paddingBottom = "10px";
+        bookCard.style.marginBottom = "10px";
+        bookCard.style.marginBottom = "10px";
+        for (let i = 0; i < paragraphs.length; i++) {
+            paragraphs[i].style.margin = '12px';
+        }
+
+    });
+    progress.forEach((progress) =>{
+        progress.style.display = "block";
+    });
+    progressCircle.forEach((circle) =>{
+        circle.style.display = "none";
+    });
+    currentView = 'bookCard';
+}
+function applyListView(){
+    bookCardContainer.style.display = 'flex';
+    bookCardContainer.style.flexDirection = 'column';
+    bookCardContainer.style.gridTemplateColumns = '';
+    bookCardContainer.style.gap = '0px';
+    bookCardLeft.forEach((element) => {
+        element.style.display = 'flex';
+    });
+    bookCardRight.forEach((element) => {
+        element.style.display = 'flex';
+    });
+    bookCard.forEach((bookCard) => {
+        bookCard.style.display = "flex";
+        bookCard.style.border = 'none';
+        bookCard.style.justifyContent = "space-between";
+        bookCard.style.paddingTop = "0px";
+        bookCard.style.paddingBottom = "0px";
+        bookCard.style.marginBottom = "2px";
+        for (let i = 0; i < paragraphs.length; i++) {
+            paragraphs[i].style.margin = '4px';
+        }
+    });
+    progress.forEach((progress) =>{
+        progress.style.display = "none";
+    });
+    progressCircle.forEach((circle) =>{
+        circle.style.display = "block";
+    });
+    currentView = 'ListView';
 }
 
