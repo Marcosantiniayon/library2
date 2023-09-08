@@ -350,38 +350,43 @@ function updateDisplay(){
     bookCardContainer.textContent = ''; //Clears out old display
     bookCardElements = []; //Clears out old list
 
-    if(currentSort == "sortByProgress"){
-        myLibrary.sort(sortByProgress);
-    }else if(currentSort == "sortByTitle"){
-        myLibrary.sort(sortByTitle);
-    }else if(currentSort == "sortByAuthor"){
-        myLibrary.sort(sortByAuthor);
-    }else if(currentSort == "sortByProgress2"){
-        myLibrary.sort(sortByProgress2);
-    }else if(currentSort == "sortByTitle2"){
-        myLibrary.sort(sortByTitle2);
-    } else if(currentSort == "sortByAuthor2"){
-        myLibrary.sort(sortByAuthor2);
-    }
+    function applyFilter(){
+        if(currentFilter == "All"){
+            filteredBooks = myLibrary;
+            console.log("All filter");
+        } else if(currentFilter == "Completed"){
+            filteredBooks = myLibrary.filter(book => book.pagesRead === book.pages);
+            console.log("Completed filter");
+        }else if(currentFilter == "Reading"){
+            filteredBooks = myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead <book.pages);
+            console.log("Reading filter");
+        }else if(currentFilter == "To Read"){
+            filteredBooks = myLibrary.filter(book => book.pagesRead === '0');
+            console.log("To Read filter");
+        }
+    } applyFilter();
+    
+    function applySort(){
+        if(currentSort == "sortByProgress"){
+            filteredBooks.sort(sortByProgress);
+        }else if(currentSort == "sortByTitle"){
+            filteredBooks.sort(sortByTitle);
+        }else if(currentSort == "sortByAuthor"){
+            filteredBooks.sort(sortByAuthor);
+        }else if(currentSort == "sortByProgress2"){
+            filteredBooks.sort(sortByProgress2);
+        }else if(currentSort == "sortByTitle2"){
+            filteredBooks.sort(sortByTitle2);
+        } else if(currentSort == "sortByAuthor2"){
+            filteredBooks.sort(sortByAuthor2);
+        }
+    } applySort();
 
-    if(currentFilter == "All"){
-        filteredBooks = myLibrary;
-        console.log("All filter");
-    } else if(currentFilter == "Completed"){
-        filteredBooks = myLibrary.filter(book => book.pagesRead === book.pages);
-        console.log("Completed filter");
-    }else if(currentFilter == "Reading"){
-        filteredBooks = myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead <book.pages);
-        console.log("Reading filter");
-    }else if(currentFilter == "To Read"){
-        filteredBooks = myLibrary.filter(book => book.pagesRead === 0);
-        console.log("To Read filter");
-
-    }
     
     closeModal();
 
     //Creates book card for each book in library 
+    console.log(filteredBooks);
     for (let i = 0; i < filteredBooks.length; i++) {
         //create book card elements
         const bookCard = document.createElement("div");
@@ -392,20 +397,20 @@ function updateDisplay(){
             bookCardLeft.classList.add('book-card-left');
             bookCard.appendChild(bookCardLeft);
         const titleOutput = document.createElement('p');
-            titleOutput.textContent = myLibrary[i].title;
+            titleOutput.textContent = filteredBooks[i].title;
             bookCardLeft.appendChild(titleOutput);
         const authorOutput = document.createElement('p');
-            authorOutput.textContent = "By " + myLibrary[i].author;
+            authorOutput.textContent = "By " + filteredBooks[i].author;
             bookCardLeft.appendChild(authorOutput);
         const bookCardRight = document.createElement("div");
             bookCardRight.classList.add('book-card-right');
             bookCard.appendChild(bookCardRight);
         const pagesOutput = document.createElement('p');
-            pagesOutput.textContent = myLibrary[i].pagesRead + " / " + myLibrary[i].pages + " pages";
+            pagesOutput.textContent = filteredBooks[i].pagesRead + " / " + filteredBooks[i].pages + " pages";
             bookCardRight.appendChild(pagesOutput);
         const progress = document.createElement('progress');
             progress.classList.add('progress');
-            progress.value = (myLibrary[i].pagesRead/myLibrary[i].pages)*100;
+            progress.value = (filteredBooks[i].pagesRead/filteredBooks[i].pages)*100;
             progress.max = 100;
             if(progress.value == 100){
                 progress.classList.add('progress-done');
