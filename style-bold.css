@@ -99,18 +99,17 @@ button {
     font-size: .8em;
     color: #72A1E5;
 }
-#dropdown-content-hr{
-    width: 100%;
-    border-top: 2px solid #FCD3DE; 
-    margin: 0px;
-}
-#dropdown-content-hr-filter{
+.dropdown-content-hr{
     width: 100%;
     border-top: 2px solid #FCD3DE; 
     margin: 0px;
 }
 #dropdown-filter-content{
     width: 100px;
+    /* align-items: flex-start; */
+}
+#dropdown-theme-content{
+    width: 90px;
     /* align-items: flex-start; */
 }
 .error-message{
@@ -271,9 +270,9 @@ textarea{
 #title-input{
     width: 88%;
 }
-#view-btn, #sort-btn, #filter-btn{
+#theme-btn, #view-btn, #sort-btn, #filter-btn{
     width: 70px;
-    align-self: end;
+    /* align-self: end; */
     margin-bottom: 0px;
 
     /* margin-bottom: 0px;
@@ -281,6 +280,9 @@ textarea{
 }
 #filter-btn{
     width: 100px;
+}
+#theme-btn{
+    width: 90px;
 }
 
 
