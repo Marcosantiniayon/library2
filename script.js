@@ -676,5 +676,5 @@ function applyListView(){
         circle.style.display = "block";
     });
     currentView = 'ListView';
-}
+} //
 

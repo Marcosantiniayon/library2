@@ -6,6 +6,7 @@ a{
     text-decoration: none;
 }
 #add-book-btn {
+    width: 98px;
     background-color: #9b9b9b;
 }
 #author-input{
@@ -205,10 +206,10 @@ p{
 }
 #page-title{
     text-align: center;
-        font-family: 'Barlow Semi Condensed', sans-serif;
-        color: white;
-        font-size: 10vmax;
-        margin: 18px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    color: white;
+    font-size: min(14vw, 7rem);
+    margin: 18px;
 }
 .pages-progress-div{
     display: flex;
@@ -289,14 +290,22 @@ textarea{
     display: none;
 }
 
-@media screen and (max-width: 480px) {
-    .book-modal{
+@media screen and (max-width: 585px) {
+    .content-nav{
+        flex-direction: column;
+    }
+    .book-modal {
         width: 250px;
     }
+
     #title-input {
         width: 99%;
     }
+
     #author-input {
         width: 99%;
     }
-  }
+}
+@media screen and (max-width: 555px) {
+    /* Need to adjust options button to fit */
+}
