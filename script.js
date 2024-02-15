@@ -43,11 +43,11 @@ Book.prototype.info = function(){
 }
 
 function optionBtns(){
-    const addBookBtn = document.getElementById('add-book-btn');
-    const themeBtn = document.getElementById('theme-btn');
-    const viewBtn = document.getElementById('view-btn');
-    const sortBtn = document.getElementById('sort-btn');
-    const filterBtn = document.getElementById('filter-btn');
+    const addBookBtn = document.querySelector('.add-book-btn');
+    const themeBtn = document.querySelector('.theme-btn');
+    const viewBtn = document.querySelector('.view-btn');
+    const sortBtn = document.querySelector('.sort-btn');
+    const filterBtn = document.querySelector('.filter-btn');
 
     const dropdownThemeContent = document.getElementById('dropdown-theme-content');
     const dropdownViewContent = document.getElementById('dropdown-view-content');
@@ -91,56 +91,46 @@ function optionBtns(){
         }
         
         applyBookCardVariables();
-        
-        if(dropdownThemeContent.style.display == 'none'){
-            openDropDown(dropdownThemeContent, themeBtn);
-            closeDropDown(dropdownViewContent, viewBtn);
-            closeDropDown(dropdownFilterContent, filterBtn);
-            closeDropDown(dropdownSortContent, sortBtn);
     
-            theme.addEventListener('click', function(){
-                switchTheme(theme1Stylesheet.id);
-                theme.classList.add('option-selected');
-                theme2.classList.remove('option-selected');
-                theme3.classList.remove('option-selected');
-                theme4.classList.remove('option-selected');
-                closeDropDown(dropdownThemeContent, themeBtn);
-
-            });
-    
-            theme2.addEventListener('click', function(){
-                switchTheme(theme2Stylesheet.id);
-                theme.classList.remove('option-selected');
-                theme2.classList.add('option-selected');
-                theme3.classList.remove('option-selected');
-                theme4.classList.remove('option-selected');
-                closeDropDown(dropdownThemeContent, themeBtn);
-
-            });
-    
-            theme3.addEventListener('click', function(){
-                switchTheme(theme3Stylesheet.id);
-                theme.classList.remove('option-selected');
-                theme2.classList.remove('option-selected');
-                theme3.classList.add('option-selected');
-                theme4.classList.remove('option-selected');
-                closeDropDown(dropdownThemeContent, themeBtn);
-
-            });
-    
-            theme4.addEventListener('click', function(){
-                switchTheme(theme4Stylesheet.id);
-                theme.classList.remove('option-selected');
-                theme2.classList.remove('option-selected');
-                theme3.classList.remove('option-selected');
-                theme4.classList.add('option-selected');
-                closeDropDown(dropdownThemeContent, themeBtn);
-
-            });
-    
-        } else if(dropdownThemeContent.style.display == 'flex'){
+        theme.addEventListener('click', function(){
+            switchTheme(theme1Stylesheet.id);
+            theme.classList.add('option-selected');
+            theme2.classList.remove('option-selected');
+            theme3.classList.remove('option-selected');
+            theme4.classList.remove('option-selected');
             closeDropDown(dropdownThemeContent, themeBtn);
-        }
+
+        });
+
+        theme2.addEventListener('click', function(){
+            switchTheme(theme2Stylesheet.id);
+            theme.classList.remove('option-selected');
+            theme2.classList.add('option-selected');
+            theme3.classList.remove('option-selected');
+            theme4.classList.remove('option-selected');
+            closeDropDown(dropdownThemeContent, themeBtn);
+
+        });
+
+        theme3.addEventListener('click', function(){
+            switchTheme(theme3Stylesheet.id);
+            theme.classList.remove('option-selected');
+            theme2.classList.remove('option-selected');
+            theme3.classList.add('option-selected');
+            theme4.classList.remove('option-selected');
+            closeDropDown(dropdownThemeContent, themeBtn);
+
+        });
+
+        theme4.addEventListener('click', function(){
+            switchTheme(theme4Stylesheet.id);
+            theme.classList.remove('option-selected');
+            theme2.classList.remove('option-selected');
+            theme3.classList.remove('option-selected');
+            theme4.classList.add('option-selected');
+            closeDropDown(dropdownThemeContent, themeBtn);
+
+        });
 
     });
     viewBtn.addEventListener('click', function(){
@@ -148,30 +138,21 @@ function optionBtns(){
         const listView = document.getElementById('list-view');
     
         applyBookCardVariables();
-        
-        if(dropdownViewContent.style.display == 'none'){
-            openDropDown(dropdownViewContent, viewBtn);
-            closeDropDown(dropdownThemeContent, themeBtn);
-            closeDropDown(dropdownFilterContent, filterBtn);
-            closeDropDown(dropdownSortContent, sortBtn);
     
-            bookCardsView.addEventListener('click', function(){
-                listView.classList.remove('option-selected');
-                bookCardsView.classList.add('option-selected');
-                closeDropDown(dropdownViewContent, viewBtn);
-                applyBookCardsView();
-            });
-        
-            listView.addEventListener('click', function(){
-                bookCardsView.classList.remove('option-selected');
-                listView.classList.add('option-selected');
-                closeDropDown(dropdownViewContent, viewBtn);
-                applyListView();
-            });
-    
-        } else if(dropdownViewContent.style.display == 'flex'){
+        bookCardsView.addEventListener('click', function(){
+            listView.classList.remove('option-selected');
+            bookCardsView.classList.add('option-selected');
             closeDropDown(dropdownViewContent, viewBtn);
-        }
+            applyBookCardsView();
+        });
+    
+        listView.addEventListener('click', function(){
+            bookCardsView.classList.remove('option-selected');
+            listView.classList.add('option-selected');
+            closeDropDown(dropdownViewContent, viewBtn);
+            applyListView();
+        });
+
     });
     sortBtn.addEventListener('click', function(){
         const progressSort = document.getElementById('progress-sort');
@@ -180,69 +161,59 @@ function optionBtns(){
         
         applyBookCardVariables();
 
-        if(dropdownSortContent.style.display == 'none'){
-            openDropDown(dropdownSortContent, sortBtn);
-            closeDropDown(dropdownViewContent, viewBtn);
-            closeDropDown(dropdownFilterContent, filterBtn);
-            closeDropDown(dropdownThemeContent, themeBtn);
-
-            progressSort.addEventListener('click', function(){
-                titleSort.classList.remove('option-selected');
-                authorSort.classList.remove('option-selected');
-                progressSort.classList.add('option-selected');
-                closeDropDown(dropdownSortContent, sortBtn);
-
-    
-                if(currentSort== "sortByProgress"){
-                    currentSort= "sortByProgress2"
-                } else if(currentSort== "sortByProgress2"){
-                    currentSort = "sortByProgress"
-                } else{
-                    currentSort= "sortByProgress"
-                }
-                updateDisplay();
-                
-            });
-        
-            titleSort.addEventListener('click', function(){
-                authorSort.classList.remove('option-selected');
-                progressSort.classList.remove('option-selected');
-                titleSort.classList.add('option-selected');
-                closeDropDown(dropdownSortContent, sortBtn);
-
-    
-                if(currentSort== "sortByTitle"){
-                    currentSort= "sortByTitle2"
-                } else if(currentSort== "sortByTitle2"){
-                    currentSort = "sortByTitle";
-                } else{
-                    currentSort= "sortByTitle";
-                }
-                updateDisplay();
-    
-            });
-    
-            authorSort.addEventListener('click', function(){
-                titleSort.classList.remove('option-selected');
-                progressSort.classList.remove('option-selected');
-                authorSort.classList.add('option-selected');
-                closeDropDown(dropdownSortContent, sortBtn);
-
-    
-                if(currentSort== "sortByAuthor"){
-                    currentSort= "sortByAuthor2"
-                } else if(currentSort== "sortByAuthor2"){
-                    currentSort = "sortByAuthor";
-                } else{
-                    currentSort= "sortByAuthor";
-                }
-                updateDisplay();
-    
-            });
-    
-        } else if(dropdownSortContent.style.display == 'flex'){
+        progressSort.addEventListener('click', function(){
+            titleSort.classList.remove('option-selected');
+            authorSort.classList.remove('option-selected');
+            progressSort.classList.add('option-selected');
             closeDropDown(dropdownSortContent, sortBtn);
-        }
+
+
+            if(currentSort== "sortByProgress"){
+                currentSort= "sortByProgress2"
+            } else if(currentSort== "sortByProgress2"){
+                currentSort = "sortByProgress"
+            } else{
+                currentSort= "sortByProgress"
+            }
+            updateDisplay();
+            
+        });
+    
+        titleSort.addEventListener('click', function(){
+            authorSort.classList.remove('option-selected');
+            progressSort.classList.remove('option-selected');
+            titleSort.classList.add('option-selected');
+            closeDropDown(dropdownSortContent, sortBtn);
+
+
+            if(currentSort== "sortByTitle"){
+                currentSort= "sortByTitle2"
+            } else if(currentSort== "sortByTitle2"){
+                currentSort = "sortByTitle";
+            } else{
+                currentSort= "sortByTitle";
+            }
+            updateDisplay();
+
+        });
+
+        authorSort.addEventListener('click', function(){
+            titleSort.classList.remove('option-selected');
+            progressSort.classList.remove('option-selected');
+            authorSort.classList.add('option-selected');
+            closeDropDown(dropdownSortContent, sortBtn);
+
+
+            if(currentSort== "sortByAuthor"){
+                currentSort= "sortByAuthor2"
+            } else if(currentSort== "sortByAuthor2"){
+                currentSort = "sortByAuthor";
+            } else{
+                currentSort= "sortByAuthor";
+            }
+            updateDisplay();
+
+        });
     });
     filterBtn.addEventListener('click', function(){
         const allFilter = document.getElementById('all-filter');
@@ -252,70 +223,50 @@ function optionBtns(){
         
         applyBookCardVariables();
 
-        if(dropdownFilterContent.style.display == 'none'){
-            openDropDown(dropdownFilterContent, filterBtn);
-            closeDropDown(dropdownViewContent, viewBtn);
-            closeDropDown(dropdownSortContent, sortBtn);
-            closeDropDown(dropdownThemeContent, themeBtn);
-
-            allFilter.addEventListener('click', function(){
-                completedFilter.classList.remove('option-selected');
-                readingFilter.classList.remove('option-selected');
-                toReadFilter.classList.remove('option-selected');
-                allFilter.classList.add('option-selected');
-                currentFilter = "All";
-                closeDropDown(dropdownFilterContent, filterBtn);
-                updateDisplay();
-            });
-    
-            completedFilter.addEventListener('click', function(){
-                readingFilter.classList.remove('option-selected');
-                toReadFilter.classList.remove('option-selected');
-                allFilter.classList.remove('option-selected');
-                completedFilter.classList.add('option-selected');
-    
-                currentFilter = "Completed";
-                closeDropDown(dropdownFilterContent, filterBtn);
-                updateDisplay();
-            });
-    
-            readingFilter.addEventListener('click', function(){
-                toReadFilter.classList.remove('option-selected');
-                allFilter.classList.remove('option-selected');
-                completedFilter.classList.remove('option-selected');
-                readingFilter.classList.add('option-selected');
-    
-                currentFilter = "Reading";
-                closeDropDown(dropdownFilterContent, filterBtn);
-                updateDisplay();
-            });
-            
-            toReadFilter.addEventListener('click', function(){
-                allFilter.classList.remove('option-selected');
-                completedFilter.classList.remove('option-selected');
-                readingFilter.classList.remove('option-selected');
-                toReadFilter.classList.add('option-selected');
-    
-                currentFilter = "To Read";
-                closeDropDown(dropdownFilterContent, filterBtn);
-                updateDisplay();
-            });
-    
-        } else if(dropdownFilterContent.style.display == 'flex'){
+        allFilter.addEventListener('click', function(){
+            completedFilter.classList.remove('option-selected');
+            readingFilter.classList.remove('option-selected');
+            toReadFilter.classList.remove('option-selected');
+            allFilter.classList.add('option-selected');
+            currentFilter = "All";
             closeDropDown(dropdownFilterContent, filterBtn);
-        }
-    });
+            updateDisplay();
+        });
 
-    function openDropDown(optionDropdown, optionBtn){
-        optionDropdown.style.display = 'flex';
-        optionBtn.style.borderBottomLeftRadius = '0px';
-        optionBtn.style.borderBottomRightRadius = '0px';
-    }
-    function closeDropDown(optionDropdown, optionBtn){
-        optionDropdown.style.display = 'none';
-        optionBtn.style.borderBottomLeftRadius = '5px';
-        optionBtn.style.borderBottomRightRadius = '5px';
-    }
+        completedFilter.addEventListener('click', function(){
+            readingFilter.classList.remove('option-selected');
+            toReadFilter.classList.remove('option-selected');
+            allFilter.classList.remove('option-selected');
+            completedFilter.classList.add('option-selected');
+
+            currentFilter = "Completed";
+            closeDropDown(dropdownFilterContent, filterBtn);
+            updateDisplay();
+        });
+
+        readingFilter.addEventListener('click', function(){
+            toReadFilter.classList.remove('option-selected');
+            allFilter.classList.remove('option-selected');
+            completedFilter.classList.remove('option-selected');
+            readingFilter.classList.add('option-selected');
+
+            currentFilter = "Reading";
+            closeDropDown(dropdownFilterContent, filterBtn);
+            updateDisplay();
+        });
+        
+        toReadFilter.addEventListener('click', function(){
+            allFilter.classList.remove('option-selected');
+            completedFilter.classList.remove('option-selected');
+            readingFilter.classList.remove('option-selected');
+            toReadFilter.classList.add('option-selected');
+
+            currentFilter = "To Read";
+            closeDropDown(dropdownFilterContent, filterBtn);
+            updateDisplay();
+        });
+
+    });
 } optionBtns();
 
 function modalBtns(){

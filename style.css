@@ -65,16 +65,23 @@ body {
 }
 button {
     color: white;
-    height: 40px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size: large;
     background-color: #625353;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    gap: 6px;
+    padding: 6px;
     cursor: pointer;
-    margin: 8px;
 }
 #cancel-btn {
     background-color: #9c5b36;
+}
+.caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgb(255, 255, 255);
 }
 .content-nav{
     width: 100%;
@@ -86,34 +93,22 @@ button {
     align-self: flex-end;
     background-color: #C73866;
 }
-.dropdown-content{
-    background-color: white;
-    width: 70px;
+.dropdown{
+    position: relative;
+}
+.dropdown:hover .dropdown-content {
     display: flex;
+}
+.dropdown-content{
+    display: none;
     flex-direction: column;
-    /* gap: 4px; */
-    text-align: center;
-    /* padding-bottom: 8px;
-    padding-top: 8px; */
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    font-family:  Arial, sans-serif;
-    font-size: .8em;
-    color: #72A1E5;
+    position: absolute;
 }
-.dropdown-content-hr{
-    width: 100%;
-    border-top: 2px solid #FCD3DE; 
-    margin: 0px;
-}
-#dropdown-filter-content{
-    width: 100px;
-    /* align-items: flex-start; */
-}
-#dropdown-theme-content{
-    width: 90px;
-    /* align-items: flex-start; */
-}
+    .filter-btn  + .dropdown-content {
+       right: 0px;
+    }
+
+
 .error-message{
     color: #C73866;
     display: none;
@@ -171,19 +166,20 @@ label{
 
 }
 .option{
+    padding: 6px;
     background-color: white;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    color: #838383;
+}
+.option:hover {
+    background-color: #838383;
+    color: white;
 }
 .option-selected{
-    background-color: #50C9CE;
+    background-color: #838383;
     color: white;
 }
 .options{
-    /* width: 165px; */
     display: flex;
-
-    /* flex-direction: ; */
 }
 .option-div{
     display: flex;
@@ -272,28 +268,13 @@ textarea{
 #title-input{
     width: 88%;
 }
-#theme-btn, #view-btn, #sort-btn, #filter-btn{
-    width: 70px;
-    /* align-self: end; */
-    margin-bottom: 0px;
 
-    /* margin-bottom: 0px; 
-    margin-right: 0px; */
-}
-#filter-btn{
-    width: 100px;
-}
-#theme-btn{
-    width: 90px;
-}
+
 #video-background {
     display: none;
 }
 
 @media screen and (max-width: 585px) {
-    .content-nav{
-        flex-direction: column;
-    }
     .book-modal {
         width: 250px;
     }
@@ -305,7 +286,4 @@ textarea{
     #author-input {
         width: 99%;
     }
-}
-@media screen and (max-width: 555px) {
-    /* Need to adjust options button to fit */
 }
