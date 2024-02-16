@@ -70,7 +70,7 @@ function optionBtns(){
 
     } setDefaultTheme();
     
-    themeBtn.addEventListener('click', function(){
+    themeBtn.addEventListener('hover', function(){
         const theme = document.getElementById('theme');
         const theme2 = document.getElementById('theme2');
         const theme3 = document.getElementById('theme3');
@@ -133,7 +133,7 @@ function optionBtns(){
         });
 
     });
-    viewBtn.addEventListener('click', function(){
+    viewBtn.addEventListener('hover', function(){
         const bookCardsView = document.getElementById('book-cards-view');
         const listView = document.getElementById('list-view');
     
@@ -154,7 +154,7 @@ function optionBtns(){
         });
 
     });
-    sortBtn.addEventListener('click', function(){
+    sortBtn.addEventListener('hover', function(){
         const progressSort = document.getElementById('progress-sort');
         const titleSort = document.getElementById('title-sort');
         const authorSort = document.getElementById('author-sort');
@@ -215,7 +215,7 @@ function optionBtns(){
 
         });
     });
-    filterBtn.addEventListener('click', function(){
+    filterBtn.addEventListener('hover', function(){
         const allFilter = document.getElementById('all-filter');
         const completedFilter = document.getElementById('completed-filter');
         const readingFilter = document.getElementById('reading-filter');

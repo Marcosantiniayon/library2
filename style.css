@@ -18,8 +18,8 @@ body {
     background-color: #FCD3DE;
     background: linear-gradient(to bottom,#3f2d22,#e3cfc2);
     margin: 0;
-    font-family: 'Barlow Semi Condensed', sans-serif;
-    font-size: large;
+    font-family: "Gill Sans", sans-serif;    
+    font-size: medium;
     color: #333;
 }
 .book-card {
@@ -65,12 +65,12 @@ body {
 }
 button {
     color: white;
-    font-family: 'Barlow Semi Condensed', sans-serif;
-    font-size: large;
+    font-family: "Gill Sans", sans-serif;
+    font-size: medium;
     background-color: #625353;
     border: none;
     gap: 6px;
-    padding: 6px;
+    padding: 10px;
     cursor: pointer;
 }
 #cancel-btn {
@@ -100,7 +100,7 @@ button {
     display: flex;
 }
 .dropdown-content{
-    display: none;
+    display: flex;
     flex-direction: column;
     position: absolute;
 }
