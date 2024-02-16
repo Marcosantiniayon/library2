@@ -63,8 +63,8 @@ function optionBtns(){
         openModal();
     });
     function setDefaultTheme(){
-        theme1Stylesheet.disabled = false;
-        theme2Stylesheet.disabled = true;
+        theme1Stylesheet.disabled = true;
+        theme2Stylesheet.disabled = false;
         theme3Stylesheet.disabled = true;
         theme4Stylesheet.disabled = true;
 
