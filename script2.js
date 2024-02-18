@@ -7,34 +7,28 @@ const theme2 = document.getElementById('theme2');
 const theme3 = document.getElementById('theme3');
 const theme4 = document.getElementById('theme4');
 
-//Main page elements
-const bookModal = document.querySelector('.book-modal');
-const overlay = document.querySelector('.overlay');
-const form = document.querySelector('.bookInfo-form');
-
 //Main buttons
 const addBookBtn = document.querySelector('.add-book-btn');
+    
+//Book factory function and library array to hold objects
+function Book(title, author, pages, pagesRead, notes) {
+  return {title, author, pages, pagesRead, notes};
+}
+Book.prototype.info = function(){
+    console.log(this.title + " by " + this.author + ", " + this.pages + " pages, " + this.pagesRead + " pages read");
+}
+const myLibrary = [];
 
 
-
-
-
-const initializePage = (function () {
+const initialize = (function () {
     const setDefaultTheme = (function () {
         theme1.disabled = false;
         theme2.disabled = true;
         theme3.disabled = true;
         theme4.disabled = true;
     }());
+    
 })();
-
-addBookBtn.addEventListener('click', function () {
-    openModal();
-    function openModal(){
-        bookModal.style.display = 'block';
-        overlay.style.display = 'block';
-    }
-});
 
 const optionBtns = (function () {
     const themeOptions = document.querySelectorAll('.theme.option');
@@ -145,14 +139,73 @@ const optionBtns = (function () {
     });
 })();
 
-const modalBtns = (function () {
+const modalController = (function () {
+
+    const bookModal = document.querySelector('.book-modal');
+    const overlay = document.querySelector('.overlay');
+    const form = document.querySelector('.bookInfo-form');
+
+    let titleInput = document.getElementById('title-input');
+    let authorInput = document.getElementById('author-input');
+    let pagesInput = document.getElementById('pages-input');
+    let pagesReadInput = document.getElementById('pages-read-input');
+    let notesInput = document.getElementById('notes-textarea');
+
     const submitBtn = document.getElementById('submit-btn')
     const cancelBtn = document.getElementById('cancel-btn');
     const deleteBtn = document.getElementById('delete-btn');
-    
+
+    let mode = ''; //new or edit book modes
+
+    function openModal(passedMode){
+        bookModal.style.display = 'block';
+        overlay.style.display = 'block';
+        mode = passedMode;
+    }
+    function closeModal(){
+        bookModal.style.display = 'none';
+        overlay.style.display = 'none';
+
+        //Clear form inputs
+        titleInput.value = '';
+        authorInput.value = '';
+        pagesInput.value = '';
+        pagesReadInput.value = '';
+        notesInput.value = '';
+    }
+    function addBookToLibrary() {
+        
+        //Get current values from inputs
+        const title = titleInput.value;
+        const author = titleInput.value;
+        const pages = titleInput.value;
+        const pagesRead = titleInput.value;
+        const notes = titleInput.value;
+
+        //Create new book object
+        const book = new Book(title,author,pages,pagesRead,notes);
+        book.info;
+
+        //Add it to my library
+        myLibrary.push(book);
+
+        closeModal();
+
+    }
+    submitBtn.addEventListener('click', function (event) {
+        event.preventDefault(); //Prevent page refresh
+        
+        //Check mode (adding new or editing)
+        if (mode === 'new' ) {
+            addBookToLibrary();
+        } else {
+            mode = 'Editing book';
+        }
+    });
+    return {openModal,closeModal};
 })();
 
-
-
-
-
+addBookBtn.addEventListener('click', function () {
+    let mode = 'new';
+    modalController.openModal(mode);
+});
