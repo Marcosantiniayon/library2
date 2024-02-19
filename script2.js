@@ -1,22 +1,32 @@
-
-
-
-//Available theme stylesheets
+// Available theme stylesheets
 const theme1 = document.getElementById('theme1');
 const theme2 = document.getElementById('theme2');
 const theme3 = document.getElementById('theme3');
 const theme4 = document.getElementById('theme4');
 
-//Main buttons
-const addBookBtn = document.querySelector('.add-book-btn');
+// Modal  
+const bookModal = document.querySelector('.book-modal');
+const overlay = document.querySelector('.overlay');
+const form = document.querySelector('.bookInfo-form');
+let titleInput = document.getElementById('title-input');
+let authorInput = document.getElementById('author-input');
+let pagesInput = document.getElementById('pages-input');
+let pagesReadInput = document.getElementById('pages-read-input');
+let notesInput = document.getElementById('notes-textarea');
 
-//Display
+// Main buttons and ev listeners
+const addBookBtn = document.querySelector('.add-book-btn');
 const bookCardContainer = document.querySelector('.book-card-container');
+
 let currentView = "bookCard";
 let currentSort = "sortByProgress"
 let currentFilter = "All"
-    
+
+// Global variables
+let editingBook = false;
 const myLibrary = [];
+let currentBook = "";
+let currentBookIndex = 0;
 
 function Book(title, author, pages, pagesRead, notes) {
   return {title, author, pages, pagesRead, notes};
@@ -25,7 +35,7 @@ Book.prototype.info = function(){
     console.log(this.title + " by " + this.author + ", " + this.pages + " pages, " + this.pagesRead + " pages read");
 }
 
-
+// IIFE's (controllers)
 const initialize = (function () {
     const setDefaultTheme = (function () {
         theme1.disabled = false;
@@ -37,40 +47,10 @@ const initialize = (function () {
 })();
 
 const modalController = (function () {
-
-    const bookModal = document.querySelector('.book-modal');
-    const overlay = document.querySelector('.overlay');
-    const form = document.querySelector('.bookInfo-form');
-
-    let titleInput = document.getElementById('title-input');
-    let authorInput = document.getElementById('author-input');
-    let pagesInput = document.getElementById('pages-input');
-    let pagesReadInput = document.getElementById('pages-read-input');
-    let notesInput = document.getElementById('notes-textarea');
-
     const submitBtn = document.getElementById('submit-btn')
     const cancelBtn = document.getElementById('cancel-btn');
     const deleteBtn = document.getElementById('delete-btn');
 
-    let mode = ''; //new or edit book modes
-
-    function openModal(passedMode){
-        bookModal.style.display = 'block';
-        overlay.style.display = 'block';
-        mode = passedMode;
-    }
-    function closeModal(){
-        bookModal.style.display = 'none';
-        overlay.style.display = 'none';
-        clearInputs();
-    }
-    function clearInputs() {
-        titleInput.value = '';
-        authorInput.value = '';
-        pagesInput.value = '';
-        pagesReadInput.value = '';
-        notesInput.value = '';
-    }
     function addBookToLibrary() {
         
         //Get current values from inputs
@@ -87,18 +67,19 @@ const modalController = (function () {
         //Add it to my library
         myLibrary.push(book);
     }
-    function removeBookFromLibrary() {
+
+    function removeBookFromLibrary(){
         const indexToRemove = currentBookIndex;
         myLibrary.splice(indexToRemove, 1);
     }
+
     submitBtn.addEventListener('click', function (event) {
         event.preventDefault(); //Prevent page refresh
         
-        //Check mode (adding new or editing)
-        if (mode === 'new' ) {
+        if (editingBook === false ) {
             addBookToLibrary();
         } else {
-            mode = 'Editing book';
+            editBook();
         }
 
         updateDisplay();
@@ -106,16 +87,17 @@ const modalController = (function () {
     });
     cancelBtn.addEventListener('click', function (event) {
         event.preventDefault(); //Prevent page refresh
-        mode = '';
+        editingBook = false;
         closeModal();
     });
     deleteBtn.addEventListener('click', function (event) {
         event.preventDefault(); //Prevent page refresh
-        if (mode === 'edit') {
+        if (editingBook === true) {
             if (confirm('Are you sure you want to delete?')) {
                 removeBookFromLibrary();
                 clearInputs();
                 updateDisplay();
+                closeModal();
             } else {
                 return;
             }
@@ -128,7 +110,7 @@ const modalController = (function () {
     return {openModal,closeModal};
 })();
 
-const optionBtns = (function () {
+const displaysController = (function () {
     const themeOptions = document.querySelectorAll('.theme.option');
     const viewOptions = document.querySelectorAll('.view.option');
     const sortOptions = document.querySelectorAll('.sort.option');
@@ -158,13 +140,48 @@ const optionBtns = (function () {
             theme.disabled = false;
         }
     });
+
+
 })();
 
-addBookBtn.addEventListener('click', function () {
-    let mode = 'new';
-    modalController.openModal(mode);
-});
+const bookController = (function () {
+    // Add books
+    addBookBtn.addEventListener('click', function () {
+        editingBook = false;
+        modalController.openModal();
+    });
 
+    // View / Edit books
+    // let bookCardElements = [];
+    
+})();
+
+
+
+// Functions
+function openModal(){
+    bookModal.style.display = 'block';
+    overlay.style.display = 'block';
+}
+function closeModal(){
+    bookModal.style.display = 'none';
+    overlay.style.display = 'none';
+    clearInputs();
+}
+function clearInputs() {
+    titleInput.value = '';
+    authorInput.value = '';
+    pagesInput.value = '';
+    pagesReadInput.value = '';
+    notesInput.value = '';
+}
+function editBook() {
+    currentBook.title = titleInput.value;
+    currentBook.author = authorInput.value;
+    currentBook.pages = pagesInput.value;
+    currentBook.pagesRead = pagesReadInput.value;
+    currentBook.notes = notesInput.value;
+}
 function updateDisplay() {
     console.log('display updated');
 
@@ -180,7 +197,6 @@ function updateDisplay() {
                 return myLibrary;
         }
     }
-
     function sortBooks(books) {
         switch (currentSort) {
             case "sortByTitle":
@@ -196,9 +212,8 @@ function updateDisplay() {
                 console.log("Unknown sort: " + currentSort);
         }
     }
-    
-    //Ascending and descending sort
     function sortDirection(a, b, reverse = false) {
+        //Ascending and descending sort
         const lowerA = typeof a === 'string' ? a.toLowerCase() : a;
         const lowerB = typeof b === 'string' ? b.toLowerCase() : b;
 
@@ -213,10 +228,9 @@ function updateDisplay() {
     let filteredLibrary = filterBooks();
     let sortedLibrary = sortBooks(filteredLibrary);
         
-    // Clearing and creating book cards
+    // Creating book cards
     bookCardContainer.textContent = ''; //Clears out old display
-    bookCardElements = []; //Clears out old list
-    
+    let bookCardElements = []; //Clears out old list
     const createBookCards = (function () {
         //Creates book card for each book in sortedLibrary 
         for (let i = 0; i < sortedLibrary.length; i++) {
@@ -268,9 +282,32 @@ function updateDisplay() {
             // Store the book card element in the array
             bookCardElements.push(bookCard);
         }
+        // Apply ev. listeners to each book card for viewing & editing
+        bookCardElements.forEach((bookCard, index) => {
+            bookCard.addEventListener('click', function () {
+                
+                // Perform actions when the book card is clicked
+                console.log('Book card clicked:', myLibrary[index].title);
+
+                // Fill form based on bookCardElement data
+                titleInput.value = myLibrary[index].title
+                authorInput.value = myLibrary[index].author
+                pagesInput.value = myLibrary[index].pages
+                pagesReadInput.value = myLibrary[index].pagesRead
+                notesInput.value = myLibrary[index].notes
+
+
+                currentBook = myLibrary[index];
+                currentBookIndex = index;
+
+                editingBook = true;
+
+                openModal();
+            });
+        });
     })();
 
-    //Apply view (bookCard or listView)
+    // Apply view
     if(currentView == "bookCard"){
         // applyBookCardsView();
     }else{
