@@ -104,6 +104,13 @@ button {
     flex-direction: column;
     position: absolute;
 }
+    .dropdown-content.hidden {
+        display: none !important;
+    }
+    .dropdown:hover .dropdown-content:not(.hidden) {
+        /* This gets rid of display  */
+        display: flex;
+    }
     .filter-btn  + .dropdown-content {
        right: 0px;
     }

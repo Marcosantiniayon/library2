@@ -20,7 +20,7 @@ const myLibrary = [];
 let editingBook = false;
 let currentBook = "";
 let currentBookIndex = 0;
-let currentView = "bookCard";
+let currentView = "book-cards-view";
 let currentSort = "sortByProgress"
 let currentFilter = "All"
 
@@ -117,14 +117,13 @@ const buttonsController = (function () {
         editingBook = false;
         modalController.openModal();
     });
-
     themeOptions.forEach(option => {
         option.addEventListener('click', function () {
+            switchTheme(option);
             changeSelected(themeOptions, option);
-            switchTheme(option)
+            closeDropDown(event.target);
         });
         function switchTheme(option) {
-
             //Disable all style sheets 
             theme1.disabled = true;
             theme2.disabled = true;
@@ -136,56 +135,58 @@ const buttonsController = (function () {
             theme.disabled = false;
         }
     });
-
     viewOptions.forEach(option => {
         option.addEventListener('click', function () {
             switchView(option);
             changeSelected(viewOptions, option);
+            closeDropDown(event.target);
         });
-        function switchView() {
-            
+        function switchView(option) {
+            currentView = option.id;
+            updateDisplay();
         }
     });
-
     sortOptions.forEach(option => {
         option.addEventListener('click', function () {
             applySort(option);
             changeSelected(sortOptions, option);
+            closeDropDown(event.target);
+
+            
         });
         function applySort() {
             
         }
     });
-
     filterOptions.forEach(option => {
         option.addEventListener('click', function () {
             applyFilter(option);
             changeSelected(filterOptions, option);
+            closeDropDown(event.target);
         });
         function applyFilter() {
             
         }
     });
-    
-
     function changeSelected(dropdown, passedOption) {
         //Unselect options
         dropdown.forEach(option => {
             option.classList.remove('option-selected');
         })
-        //Select option
+        //Add selected option
         passedOption.classList.add('option-selected');
     };
+    function closeDropDown(option) {
+        var dropdown = option.closest('.dropdown-content');
+        dropdown.classList.add('hidden');
 
-///////////
-    //Unselect options
-    // themeOptions.forEach(option => {
-    //     option.classList.remove('option-selected');
-    // })
-    
-    // //Select option
-    // option.classList.add('option-selected');
-///////////
+        //remove hidden dropdown class afterwards
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.addEventListener('mouseenter', function() {
+                this.querySelector('.dropdown-content').classList.remove('hidden');
+            });
+        });
+    }
 
 })();
 
@@ -215,7 +216,7 @@ function editBook() {
     currentBook.notes = notesInput.value;
 }
 function updateDisplay() {
-    console.log('display updated');
+    console.log(currentView);
 
     function filterBooks() {
         switch (currentFilter) {
@@ -264,7 +265,6 @@ function updateDisplay() {
     const bookCardContainer = document.querySelector('.book-card-container');
     bookCardContainer.textContent = ''; //Clears out old display
     let bookCardElements = []; //Clears out old list
-
     const createBookCards = (function () {
         //Creates book card for each book in sortedLibrary 
         for (let i = 0; i < sortedLibrary.length; i++) {
@@ -296,18 +296,18 @@ function updateDisplay() {
 
             const progress = document.createElement('progress');
             progress.classList.add('progress');
-            progress.value = (sortedLibrary[i].pagesRead/sortedLibrary[i].pages)*100;
+            progress.value = (sortedLibrary[i].pagesRead / sortedLibrary[i].pages) * 100;
             progress.max = 100;
-            if(progress.value == 100){
+            if (progress.value == 100) {
                 progress.classList.add('progress-done');
             }
             bookCardRight.appendChild(progress);
 
             const progressCircle = document.createElement('progressCircle');
             progressCircle.classList.add('progress-circle');
-            if(progress.value == 100){
+            if (progress.value == 100) {
                 progressCircle.classList.add('progress-circle-done');
-            }else if(progress.value == 0){
+            } else if (progress.value == 0) {
                 progressCircle.classList.remove('progress-circle-done');
                 progressCircle.classList.add('progress-circle-toRead');
             }
@@ -342,10 +342,71 @@ function updateDisplay() {
     })();
 
     // Apply view
-    if(currentView == "bookCard"){
-        // applyBookCardsView();
-    }else{
-        // applyListView();
-    }
-}
+    const applyView = (function () {
+        const bookCard = document.querySelectorAll('.book-card');
+        const bookCardLeft = document.querySelectorAll('.book-card-left');
+        const bookCardRight = document.querySelectorAll('.book-card-right');
+        const progress = document.querySelectorAll('.progress');
+        const progressCircle = document.querySelectorAll('.progress-circle');
+        const paragraphs = document.getElementsByTagName('p');
 
+        if (currentView === "book-cards-view") {
+            bookCardContainer.style.display = 'grid';
+            bookCardContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+            bookCardContainer.style.gap = '20px';
+            bookCardLeft.forEach((element) => {
+                element.style.display = 'block';
+            });
+            bookCardRight.forEach((element) => {
+                element.style.display = 'block';
+            });
+            bookCard.forEach((bookCard) => {
+                bookCard.style.display = "block";
+                bookCard.style.border = '1px solid #72A1E5;';
+                bookCard.style.paddingTop = "10px";
+                bookCard.style.paddingBottom = "10px";
+                bookCard.style.marginBottom = "10px";
+                bookCard.style.marginBottom = "10px";
+                for (let i = 0; i < paragraphs.length; i++) {
+                    paragraphs[i].style.margin = '12px';
+                }
+
+            });
+            progress.forEach((progress) => {
+                progress.style.display = "block";
+            });
+            progressCircle.forEach((circle) => {
+                circle.style.display = "none";
+            });
+
+        } else if (currentView === "list-view") {
+            bookCardContainer.style.display = 'flex';
+            bookCardContainer.style.flexDirection = 'column';
+            bookCardContainer.style.gridTemplateColumns = '';
+            bookCardContainer.style.gap = '0px';
+            bookCardLeft.forEach((element) => {
+                element.style.display = 'flex';
+            });
+            bookCardRight.forEach((element) => {
+                element.style.display = 'flex';
+            });
+            bookCard.forEach((bookCard) => {
+                bookCard.style.display = "flex";
+                bookCard.style.border = 'none';
+                bookCard.style.justifyContent = "space-between";
+                bookCard.style.paddingTop = "0px";
+                bookCard.style.paddingBottom = "0px";
+                bookCard.style.marginBottom = "2px";
+                for (let i = 0; i < paragraphs.length; i++) {
+                    paragraphs[i].style.margin = '4px';
+                }
+            });
+            progress.forEach((progress) => {
+                progress.style.display = "none";
+            });
+            progressCircle.forEach((circle) => {
+                circle.style.display = "block";
+            });
+        }
+    })();
+}
