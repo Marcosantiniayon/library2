@@ -165,74 +165,102 @@ addBookBtn.addEventListener('click', function () {
     modalController.openModal(mode);
 });
 
-
-
-
 function updateDisplay() {
     console.log('display updated');
 
+    let filteredLibrary;
+
+    const applyFilterAndSort = (function () {
+
+        function filterBooks() {
+            switch (currentFilter) {
+                case "Completed":
+                    return myLibrary.filter(book => book.pagesRead === book.pages);
+                case "Reading":
+                    return myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead < book.pages);
+                case "To Read":
+                    return myLibrary.filter(book => book.pagesRead === '0');
+                default:
+                    return myLibrary;
+            }
+        }
+
+        function sortBooks(books) {
+            switch (currentSort) {
+                case "sortByTitle":
+                case "sortByTitle2":
+                    return books.sort((a, b) => sortDirection(a.title, b.title, currentSort === "sortByTitle2"));
+                case "sortByAuthor":
+                case "sortByAuthor2":
+                    return books.sort((a, b) => sortDirection(a.author, b.author, currentSort === "sortByAuthor2"));
+                case "sortByProgress":
+                case "sortByProgress2":
+                    return books.sort((a, b) => sortDirection(a.pagesRead / a.pages, b.pagesRead / b.pages, currentSort === "sortByProgress2"));
+                default:
+                    console.log("Unknown sort: " + currentSort);
+            }
+        }
+        
+        //Ascending and descending sort
+        function sortDirection(a, b, reverse = false) {
+            const lowerA = typeof a === 'string' ? a.toLowerCase() : a;
+            const lowerB = typeof b === 'string' ? b.toLowerCase() : b;
+
+            if (reverse) {
+                return lowerB < lowerA ? -1 : (lowerB > lowerA ? 1 : 0);
+            } else {
+                return lowerA < lowerB ? -1 : (lowerA > lowerB ? 1 : 0);
+            }
+        }
+
+        // Applying filter and sort
+        let filteredLibrary = filterBooks();
+        sortBooks(filteredLibrary);
+        
+    })();
+
     bookCardContainer.textContent = ''; //Clears out old display
     bookCardElements = []; //Clears out old list
-
-    function applyFilter(){
-        if(currentFilter == "All"){
-            filteredBooks = myLibrary;
-        } else if(currentFilter == "Completed"){
-            filteredBooks = myLibrary.filter(book => book.pagesRead === book.pages);
-        }else if(currentFilter == "Reading"){
-            filteredBooks = myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead <book.pages);
-        }else if(currentFilter == "To Read"){
-            filteredBooks = myLibrary.filter(book => book.pagesRead === '0');
-        }
-    } applyFilter();
     
-    function applySort(){
-        if(currentSort == "sortByProgress"){
-            filteredBooks.sort(sortByProgress);
-        }else if(currentSort == "sortByTitle"){
-            filteredBooks.sort(sortByTitle);
-        }else if(currentSort == "sortByAuthor"){
-            filteredBooks.sort(sortByAuthor);
-        }else if(currentSort == "sortByProgress2"){
-            filteredBooks.sort(sortByProgress2);
-        }else if(currentSort == "sortByTitle2"){
-            filteredBooks.sort(sortByTitle2);
-        } else if(currentSort == "sortByAuthor2"){
-            filteredBooks.sort(sortByAuthor2);
-        }
-    } applySort();
-    
-    //Creates book card for each book in library 
-    for (let i = 0; i < filteredBooks.length; i++) {
-        //create book card elements
-        const bookCard = document.createElement("div");
+    const createBookCards = (function () {
+        //Creates book card for each book in filteredLibrary 
+        for (let i = 0; i < filteredLibrary.length; i++) {
+            //create book card elements
+            const bookCard = document.createElement("div");
             bookCard.classList.add('book-card');
             bookCard.setAttribute('data-book-index', i);
             bookCardContainer.appendChild(bookCard);
-        const bookCardLeft = document.createElement("div");
+                
+            const bookCardLeft = document.createElement("div");
             bookCardLeft.classList.add('book-card-left');
             bookCard.appendChild(bookCardLeft);
-        const titleOutput = document.createElement('p');
-            titleOutput.textContent = filteredBooks[i].title;
+            
+            const titleOutput = document.createElement('p');
+            titleOutput.textContent = filteredLibrary[i].title;
             bookCardLeft.appendChild(titleOutput);
-        const authorOutput = document.createElement('p');
-            authorOutput.textContent = "By " + filteredBooks[i].author;
+
+            const authorOutput = document.createElement('p');
+            authorOutput.textContent = "By " + filteredLibrary[i].author;
             bookCardLeft.appendChild(authorOutput);
-        const bookCardRight = document.createElement("div");
+
+            const bookCardRight = document.createElement("div");
             bookCardRight.classList.add('book-card-right');
             bookCard.appendChild(bookCardRight);
-        const pagesOutput = document.createElement('p');
-            pagesOutput.textContent = filteredBooks[i].pagesRead + " / " + filteredBooks[i].pages + " pages";
+
+            const pagesOutput = document.createElement('p');
+            pagesOutput.textContent = filteredLibrary[i].pagesRead + " / " + filteredLibrary[i].pages + " pages";
             bookCardRight.appendChild(pagesOutput);
-        const progress = document.createElement('progress');
+
+            const progress = document.createElement('progress');
             progress.classList.add('progress');
-            progress.value = (filteredBooks[i].pagesRead/filteredBooks[i].pages)*100;
+            progress.value = (filteredLibrary[i].pagesRead/filteredLibrary[i].pages)*100;
             progress.max = 100;
             if(progress.value == 100){
                 progress.classList.add('progress-done');
             }
             bookCardRight.appendChild(progress);
-        const progressCircle = document.createElement('progressCircle');
+
+            const progressCircle = document.createElement('progressCircle');
             progressCircle.classList.add('progress-circle');
             if(progress.value == 100){
                 progressCircle.classList.add('progress-circle-done');
@@ -242,133 +270,16 @@ function updateDisplay() {
             }
             bookCardRight.appendChild(progressCircle);
 
-        // Store the book card element in the array
-        bookCardElements.push(bookCard);
-    }
-    applyBookCardVariables();
+            // Store the book card element in the array
+            bookCardElements.push(bookCard);
+        }
+    })();
+
+    //Apply view (bookCard or listView)
     if(currentView == "bookCard"){
-        applyBookCardsView();
+        // applyBookCardsView();
     }else{
-        applyListView();
+        // applyListView();
     }
-    editBook();
 }
 
-function sortByTitle(a, b) {
-    const titleA = a.title.toLowerCase();
-    const titleB = b.title.toLowerCase();
-
-    if (titleA < titleB) {
-        return -1;
-    }
-    if (titleA > titleB) {
-        return 1;
-    }
-    return 0;
-}
-function sortByTitle2(a, b) {
-    const titleA = a.title.toLowerCase();
-    const titleB = b.title.toLowerCase();
-
-    if (titleA > titleB) {
-        return -1;
-    }
-    if (titleA < titleB) {
-        return 1;
-    }
-    return 0;
-}
-function sortByProgress(a,b) {
-    const readProgressA = a.pagesRead/a.pages
-        const readProgressB = b.pagesRead/b.pages
-        return readProgressA - readProgressB;
-}
-function sortByProgress2(a,b) {
-    const readProgressA = a.pagesRead/a.pages
-        const readProgressB = b.pagesRead/b.pages
-        return readProgressB - readProgressA;
-}
-function sortByAuthor(a, b) {
-    const titleA = a.author.toLowerCase();
-    const titleB = b.author.toLowerCase();
-
-    if (titleA < titleB) {
-        return -1;
-    }
-    if (titleA > titleB) {
-        return 1;
-    }
-    return 0;
-}
-function sortByAuthor2(a, b) {
-    const titleA = a.author.toLowerCase();
-    const titleB = b.author.toLowerCase();
-
-    if (titleA > titleB) {
-        return -1;
-    }
-    if (titleA < titleB) {
-        return 1;
-    }
-    return 0;
-}
-function applyBookCardsView(){
-    bookCardContainer.style.display = 'grid';
-    bookCardContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
-    bookCardContainer.style.gap = '20px';
-    bookCardLeft.forEach((element) => {
-        element.style.display = 'block';
-    });
-    bookCardRight.forEach((element) => {
-        element.style.display = 'block';
-    });
-    bookCard.forEach((bookCard) => {
-        bookCard.style.display = "block";
-        bookCard.style.border = '1px solid #72A1E5;';
-        bookCard.style.paddingTop = "10px";
-        bookCard.style.paddingBottom = "10px";
-        bookCard.style.marginBottom = "10px";
-        bookCard.style.marginBottom = "10px";
-        for (let i = 0; i < paragraphs.length; i++) {
-            paragraphs[i].style.margin = '12px';
-        }
-
-    });
-    progress.forEach((progress) =>{
-        progress.style.display = "block";
-    });
-    progressCircle.forEach((circle) =>{
-        circle.style.display = "none";
-    });
-    currentView = 'bookCard';
-}
-function applyListView(){
-    bookCardContainer.style.display = 'flex';
-    bookCardContainer.style.flexDirection = 'column';
-    bookCardContainer.style.gridTemplateColumns = '';
-    bookCardContainer.style.gap = '0px';
-    bookCardLeft.forEach((element) => {
-        element.style.display = 'flex';
-    });
-    bookCardRight.forEach((element) => {
-        element.style.display = 'flex';
-    });
-    bookCard.forEach((bookCard) => {
-        bookCard.style.display = "flex";
-        bookCard.style.border = 'none';
-        bookCard.style.justifyContent = "space-between";
-        bookCard.style.paddingTop = "0px";
-        bookCard.style.paddingBottom = "0px";
-        bookCard.style.marginBottom = "2px";
-        for (let i = 0; i < paragraphs.length; i++) {
-            paragraphs[i].style.margin = '4px';
-        }
-    });
-    progress.forEach((progress) =>{
-        progress.style.display = "none";
-    });
-    progressCircle.forEach((circle) =>{
-        circle.style.display = "block";
-    });
-    currentView = 'ListView';
-} 
