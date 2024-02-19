@@ -168,63 +168,58 @@ addBookBtn.addEventListener('click', function () {
 function updateDisplay() {
     console.log('display updated');
 
-    let filteredLibrary;
-
-    const applyFilterAndSort = (function () {
-
-        function filterBooks() {
-            switch (currentFilter) {
-                case "Completed":
-                    return myLibrary.filter(book => book.pagesRead === book.pages);
-                case "Reading":
-                    return myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead < book.pages);
-                case "To Read":
-                    return myLibrary.filter(book => book.pagesRead === '0');
-                default:
-                    return myLibrary;
-            }
+    function filterBooks() {
+        switch (currentFilter) {
+            case "Completed":
+                return myLibrary.filter(book => book.pagesRead === book.pages);
+            case "Reading":
+                return myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead < book.pages);
+            case "To Read":
+                return myLibrary.filter(book => book.pagesRead === '0');
+            default:
+                return myLibrary;
         }
+    }
 
-        function sortBooks(books) {
-            switch (currentSort) {
-                case "sortByTitle":
-                case "sortByTitle2":
-                    return books.sort((a, b) => sortDirection(a.title, b.title, currentSort === "sortByTitle2"));
-                case "sortByAuthor":
-                case "sortByAuthor2":
-                    return books.sort((a, b) => sortDirection(a.author, b.author, currentSort === "sortByAuthor2"));
-                case "sortByProgress":
-                case "sortByProgress2":
-                    return books.sort((a, b) => sortDirection(a.pagesRead / a.pages, b.pagesRead / b.pages, currentSort === "sortByProgress2"));
-                default:
-                    console.log("Unknown sort: " + currentSort);
-            }
+    function sortBooks(books) {
+        switch (currentSort) {
+            case "sortByTitle":
+            case "sortByTitle2":
+                return books.sort((a, b) => sortDirection(a.title, b.title, currentSort === "sortByTitle2"));
+            case "sortByAuthor":
+            case "sortByAuthor2":
+                return books.sort((a, b) => sortDirection(a.author, b.author, currentSort === "sortByAuthor2"));
+            case "sortByProgress":
+            case "sortByProgress2":
+                return books.sort((a, b) => sortDirection(a.pagesRead / a.pages, b.pagesRead / b.pages, currentSort === "sortByProgress2"));
+            default:
+                console.log("Unknown sort: " + currentSort);
         }
+    }
+    
+    //Ascending and descending sort
+    function sortDirection(a, b, reverse = false) {
+        const lowerA = typeof a === 'string' ? a.toLowerCase() : a;
+        const lowerB = typeof b === 'string' ? b.toLowerCase() : b;
+
+        if (reverse) {
+            return lowerB < lowerA ? -1 : (lowerB > lowerA ? 1 : 0);
+        } else {
+            return lowerA < lowerB ? -1 : (lowerA > lowerB ? 1 : 0);
+        }
+    }
+
+    // Applying filter and sort
+    let filteredLibrary = filterBooks();
+    let sortedLibrary = sortBooks(filteredLibrary);
         
-        //Ascending and descending sort
-        function sortDirection(a, b, reverse = false) {
-            const lowerA = typeof a === 'string' ? a.toLowerCase() : a;
-            const lowerB = typeof b === 'string' ? b.toLowerCase() : b;
-
-            if (reverse) {
-                return lowerB < lowerA ? -1 : (lowerB > lowerA ? 1 : 0);
-            } else {
-                return lowerA < lowerB ? -1 : (lowerA > lowerB ? 1 : 0);
-            }
-        }
-
-        // Applying filter and sort
-        let filteredLibrary = filterBooks();
-        sortBooks(filteredLibrary);
-        
-    })();
-
+    // Clearing and creating book cards
     bookCardContainer.textContent = ''; //Clears out old display
     bookCardElements = []; //Clears out old list
     
     const createBookCards = (function () {
-        //Creates book card for each book in filteredLibrary 
-        for (let i = 0; i < filteredLibrary.length; i++) {
+        //Creates book card for each book in sortedLibrary 
+        for (let i = 0; i < sortedLibrary.length; i++) {
             //create book card elements
             const bookCard = document.createElement("div");
             bookCard.classList.add('book-card');
@@ -236,11 +231,11 @@ function updateDisplay() {
             bookCard.appendChild(bookCardLeft);
             
             const titleOutput = document.createElement('p');
-            titleOutput.textContent = filteredLibrary[i].title;
+            titleOutput.textContent = sortedLibrary[i].title;
             bookCardLeft.appendChild(titleOutput);
 
             const authorOutput = document.createElement('p');
-            authorOutput.textContent = "By " + filteredLibrary[i].author;
+            authorOutput.textContent = "By " + sortedLibrary[i].author;
             bookCardLeft.appendChild(authorOutput);
 
             const bookCardRight = document.createElement("div");
@@ -248,12 +243,12 @@ function updateDisplay() {
             bookCard.appendChild(bookCardRight);
 
             const pagesOutput = document.createElement('p');
-            pagesOutput.textContent = filteredLibrary[i].pagesRead + " / " + filteredLibrary[i].pages + " pages";
+            pagesOutput.textContent = sortedLibrary[i].pagesRead + " / " + sortedLibrary[i].pages + " pages";
             bookCardRight.appendChild(pagesOutput);
 
             const progress = document.createElement('progress');
             progress.classList.add('progress');
-            progress.value = (filteredLibrary[i].pagesRead/filteredLibrary[i].pages)*100;
+            progress.value = (sortedLibrary[i].pagesRead/sortedLibrary[i].pages)*100;
             progress.max = 100;
             if(progress.value == 100){
                 progress.classList.add('progress-done');
