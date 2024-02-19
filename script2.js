@@ -75,10 +75,10 @@ const modalController = (function () {
         
         //Get current values from inputs
         const title = titleInput.value;
-        const author = titleInput.value;
-        const pages = titleInput.value;
-        const pagesRead = titleInput.value;
-        const notes = titleInput.value;
+        const author = authorInput.value;
+        const pages = pagesInput.value;
+        const pagesRead = pagesReadInput.value;
+        const notes = notesInput.value;
 
         //Create new book object
         const book = new Book(title,author,pages,pagesRead,notes);
