@@ -21,7 +21,8 @@ let editingBook = false;
 let currentBook = "";
 let currentBookIndex = 0;
 let currentView = "book-cards-view";
-let currentSort = "sortByProgress"
+let currentSort = "progress-sort";
+let isSortReversed = false;
 let currentFilter = "All"
 
 function Book(title, author, pages, pagesRead, notes) {
@@ -151,11 +152,18 @@ const buttonsController = (function () {
             applySort(option);
             changeSelected(sortOptions, option);
             closeDropDown(event.target);
-
-            
         });
-        function applySort() {
-            
+        function applySort(option) {
+            // Check for sort reversal
+            if (currentSort === option.id) {
+                isSortReversed = true;
+                currentSort = option.id + '2'; // Update the current sort to the new option
+            } else {
+                currentSort = option.id; // Update the current sort to the new option
+                isSortReversed = false; // Reset the reverse when changing sort types
+            }
+            console.log(currentSort);
+            updateDisplay();
         }
     });
     filterOptions.forEach(option => {
@@ -216,7 +224,6 @@ function editBook() {
     currentBook.notes = notesInput.value;
 }
 function updateDisplay() {
-    console.log(currentView);
 
     function filterBooks() {
         switch (currentFilter) {
@@ -232,20 +239,20 @@ function updateDisplay() {
     }
     function sortBooks(books) {
         switch (currentSort) {
-            case "sortByTitle":
-            case "sortByTitle2":
-                return books.sort((a, b) => sortDirection(a.title, b.title, currentSort === "sortByTitle2"));
-            case "sortByAuthor":
-            case "sortByAuthor2":
-                return books.sort((a, b) => sortDirection(a.author, b.author, currentSort === "sortByAuthor2"));
-            case "sortByProgress":
-            case "sortByProgress2":
-                return books.sort((a, b) => sortDirection(a.pagesRead / a.pages, b.pagesRead / b.pages, currentSort === "sortByProgress2"));
+            case "title-sort":
+            case "title-sort2":
+                return books.sort((a, b) => sortHelper(a.title, b.title, isSortReversed));
+            case "author-sort":
+            case "author-sort2":
+                return books.sort((a, b) => sortHelper(a.author, b.author, isSortReversed));
+            case "progress-sort":
+            case "progress-sort2":
+                return books.sort((a, b) => sortHelper(a.pagesRead / a.pages, b.pagesRead / b.pages, isSortReversed));
             default:
                 console.log("Unknown sort: " + currentSort);
         }
     }
-    function sortDirection(a, b, reverse = false) {
+    function sortHelper(a, b, reverse = false) {
         //Ascending and descending sort
         const lowerA = typeof a === 'string' ? a.toLowerCase() : a;
         const lowerB = typeof b === 'string' ? b.toLowerCase() : b;
@@ -257,7 +264,7 @@ function updateDisplay() {
         }
     }
 
-    // Applying filter and sort
+    // Apply filter & sort
     let filteredLibrary = filterBooks();
     let sortedLibrary = sortBooks(filteredLibrary);
     
