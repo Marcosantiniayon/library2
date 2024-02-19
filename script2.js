@@ -4,7 +4,7 @@ const theme2 = document.getElementById('theme2');
 const theme3 = document.getElementById('theme3');
 const theme4 = document.getElementById('theme4');
 
-// Modal  
+// Modal elements and form inputs
 const bookModal = document.querySelector('.book-modal');
 const overlay = document.querySelector('.overlay');
 const form = document.querySelector('.bookInfo-form');
@@ -14,19 +14,15 @@ let pagesInput = document.getElementById('pages-input');
 let pagesReadInput = document.getElementById('pages-read-input');
 let notesInput = document.getElementById('notes-textarea');
 
-// Main buttons and ev listeners
-const addBookBtn = document.querySelector('.add-book-btn');
-const bookCardContainer = document.querySelector('.book-card-container');
 
+// Global variables
+const myLibrary = [];
+let editingBook = false;
+let currentBook = "";
+let currentBookIndex = 0;
 let currentView = "bookCard";
 let currentSort = "sortByProgress"
 let currentFilter = "All"
-
-// Global variables
-let editingBook = false;
-const myLibrary = [];
-let currentBook = "";
-let currentBookIndex = 0;
 
 function Book(title, author, pages, pagesRead, notes) {
   return {title, author, pages, pagesRead, notes};
@@ -110,24 +106,24 @@ const modalController = (function () {
     return {openModal,closeModal};
 })();
 
-const displaysController = (function () {
+const buttonsController = (function () {
+    const addBookBtn = document.querySelector('.add-book-btn');
     const themeOptions = document.querySelectorAll('.theme.option');
     const viewOptions = document.querySelectorAll('.view.option');
     const sortOptions = document.querySelectorAll('.sort.option');
     const filterOptions = document.querySelectorAll('.filter.option');
 
+    addBookBtn.addEventListener('click', function () {
+        editingBook = false;
+        modalController.openModal();
+    });
+
     themeOptions.forEach(option => {
         option.addEventListener('click', function () {
+            changeSelected(themeOptions, option);
             switchTheme(option)
         });
         function switchTheme(option) {
-            //Unselect options
-            themeOptions.forEach(option => {
-                option.classList.remove('option-selected');
-            })
-            
-            //Select option
-            option.classList.add('option-selected');
 
             //Disable all style sheets 
             theme1.disabled = true;
@@ -141,21 +137,57 @@ const displaysController = (function () {
         }
     });
 
-
-})();
-
-const bookController = (function () {
-    // Add books
-    addBookBtn.addEventListener('click', function () {
-        editingBook = false;
-        modalController.openModal();
+    viewOptions.forEach(option => {
+        option.addEventListener('click', function () {
+            switchView(option);
+            changeSelected(viewOptions, option);
+        });
+        function switchView() {
+            
+        }
     });
 
-    // View / Edit books
-    // let bookCardElements = [];
-    
-})();
+    sortOptions.forEach(option => {
+        option.addEventListener('click', function () {
+            applySort(option);
+            changeSelected(sortOptions, option);
+        });
+        function applySort() {
+            
+        }
+    });
 
+    filterOptions.forEach(option => {
+        option.addEventListener('click', function () {
+            applyFilter(option);
+            changeSelected(filterOptions, option);
+        });
+        function applyFilter() {
+            
+        }
+    });
+    
+
+    function changeSelected(dropdown, passedOption) {
+        //Unselect options
+        dropdown.forEach(option => {
+            option.classList.remove('option-selected');
+        })
+        //Select option
+        passedOption.classList.add('option-selected');
+    };
+
+///////////
+    //Unselect options
+    // themeOptions.forEach(option => {
+    //     option.classList.remove('option-selected');
+    // })
+    
+    // //Select option
+    // option.classList.add('option-selected');
+///////////
+
+})();
 
 
 // Functions
@@ -227,10 +259,12 @@ function updateDisplay() {
     // Applying filter and sort
     let filteredLibrary = filterBooks();
     let sortedLibrary = sortBooks(filteredLibrary);
-        
+    
     // Creating book cards
+    const bookCardContainer = document.querySelector('.book-card-container');
     bookCardContainer.textContent = ''; //Clears out old display
     let bookCardElements = []; //Clears out old list
+
     const createBookCards = (function () {
         //Creates book card for each book in sortedLibrary 
         for (let i = 0; i < sortedLibrary.length; i++) {
