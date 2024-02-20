@@ -1,10 +1,10 @@
-// Available theme stylesheets
+// Theme stylesheets
 const theme1 = document.getElementById('theme1');
 const theme2 = document.getElementById('theme2');
 const theme3 = document.getElementById('theme3');
 const theme4 = document.getElementById('theme4');
 
-// Modal elements and form inputs
+// Modal elements & Form inputs
 const bookModal = document.querySelector('.book-modal');
 const overlay = document.querySelector('.overlay');
 const form = document.querySelector('.bookInfo-form');
@@ -14,8 +14,7 @@ let pagesInput = document.getElementById('pages-input');
 let pagesReadInput = document.getElementById('pages-read-input');
 let notesInput = document.getElementById('notes-textarea');
 
-
-// Global variables
+// UI state
 const myLibrary = [];
 let editingBook = false;
 let currentBook = "";
@@ -33,7 +32,7 @@ Book.prototype.info = function(){
     console.log(this.title + " by " + this.author + ", " + this.pages + " pages, " + this.pagesRead + " pages read");
 }
 
-// IIFE's (controllers)
+// IIFE's (controller modules)
 const initialize = (function () {
     const setDefaultTheme = (function () {
         theme1.disabled = false;
@@ -152,19 +151,44 @@ const buttonsController = (function () {
         option.addEventListener('click', function () {
             applySort(option);
             changeSelected(sortOptions, option);
+            updateCaret();
             closeDropDown(event.target);
         });
+        
         function applySort(option) {
             // Check for sort reversal
             if (currentSort === option.id) {
                 isSortReversed = true;
                 currentSort = option.id + '2'; // Update the current sort to the new option
+
+                //Rotate caret
+
             } else {
                 currentSort = option.id; // Update the current sort to the new option
                 isSortReversed = false; // Reset the reverse when changing sort types
             }
             console.log(currentSort);
             updateDisplay();
+        };
+        function updateCaret() {
+            sortOptions.forEach(option => {
+                // Look for an existing caret within this specific option
+                const existingCaret = option.querySelector('.caret');
+
+                if (!option.classList.contains('option-selected') && existingCaret) {
+                    // If sort option is not selected and has an existing caret, remove it
+                    option.removeChild(existingCaret);
+                } else if (option.classList.contains('option-selected') && !existingCaret) {
+                    // If sort option is selected and has no existing caret, add it
+                    const caret = document.createElement('span');
+                    caret.classList.add('caret');
+                    caret.innerHTML = '▼';
+                    option.appendChild(caret);
+                } else if (option.classList.contains('option-selected') && existingCaret) {
+                    // If sort option is selected and has an existing caret, rotate it
+                    existingCaret.innerHTML = isSortReversed ? '▲' : '▼';
+                }
+            });
         }
     });
     filterOptions.forEach(option => {
