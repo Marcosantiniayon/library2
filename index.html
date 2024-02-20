@@ -52,9 +52,19 @@
                             <button class="sort-btn">Sort
                             </button>
                             <div class="dropdown-content">
-                                <a class="sort option option-selected" id="progress-sort" href="#">Progress</a>
-                                <a class="sort option" id="title-sort" href="#">Title</a>
-                                <a class="sort option" id="author-sort" href="#">Author</a>
+                                <a class="sort option option-selected" id="progress-sort" href="#">
+                                    <span class="option-text">Progress</span>
+                                    <span class="caret">▼</span>
+                                </a>
+                                <a class="sort option" id="title-sort" href="#">
+                                    <span class="option-text">Title</span>
+                                    <span class="caret">▼</span>
+                                </a>
+                                <a class="sort option" id="author-sort" href="#">
+                                    <span class="option-text">Author</span>
+                                    <span class="caret">▼</span>
+                                </a>
+
                             </div>
                         </div>
                         <div class="dropdown">
@@ -101,8 +111,8 @@
                     <textarea id="notes-textarea" type="text" placeholder="Notes"></textarea>
                     <div class="modal-btns">
                         <button id="submit-btn">Submit</button>
-                        <button id="cancel-btn">Cancel</button>
                         <button id="delete-btn">Delete</button>
+                        <button id="cancel-btn">Cancel</button>
                     </div>
                 </form>
             </div>

@@ -25,6 +25,7 @@ let currentSort = "progress-sort";
 let isSortReversed = false;
 let currentFilter = "all-filter"
 
+// Database
 function Book(title, author, pages, pagesRead, notes) {
   return {title, author, pages, pagesRead, notes};
 }
