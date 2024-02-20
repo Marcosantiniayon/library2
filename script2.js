@@ -23,7 +23,7 @@ let currentBookIndex = 0;
 let currentView = "book-cards-view";
 let currentSort = "progress-sort";
 let isSortReversed = false;
-let currentFilter = "All"
+let currentFilter = "all-filter"
 
 function Book(title, author, pages, pagesRead, notes) {
   return {title, author, pages, pagesRead, notes};
@@ -172,8 +172,10 @@ const buttonsController = (function () {
             changeSelected(filterOptions, option);
             closeDropDown(event.target);
         });
-        function applyFilter() {
-            
+        function applyFilter(option) {
+            console.log(option.id)
+            currentFilter = option.id;
+            updateDisplay();
         }
     });
     function changeSelected(dropdown, passedOption) {
@@ -197,7 +199,6 @@ const buttonsController = (function () {
     }
 
 })();
-
 
 // Functions
 function openModal(){
@@ -224,14 +225,13 @@ function editBook() {
     currentBook.notes = notesInput.value;
 }
 function updateDisplay() {
-
     function filterBooks() {
         switch (currentFilter) {
-            case "Completed":
+            case "completed-filter":
                 return myLibrary.filter(book => book.pagesRead === book.pages);
-            case "Reading":
+            case "reading-filter":
                 return myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead < book.pages);
-            case "To Read":
+            case "to-read-filter":
                 return myLibrary.filter(book => book.pagesRead === '0');
             default:
                 return myLibrary;
