@@ -1,0 +1,313 @@
+html, body {
+    min-height: 100%;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+}
+#add-book-btn {
+    background-color: #9883E5;
+}
+#author-input{
+    width: 84%
+}
+body {
+    display: flex;
+    flex-direction: column;    
+    background-color: #FCD3DE;
+    background: linear-gradient(to bottom,#f7b1c3,#feccd9,#fff7f7);
+    margin: 0;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size: large;
+    color: #333;
+}
+.book-card {
+    background-color: #FCD3DE;
+    color: #8b9192;
+    padding: 10px;
+    /* border: 1px solid #72A1E5; */
+    border-radius: 6px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    align-items: center;
+}
+.book-card-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin: 12px;
+    width: 100%;
+    gap: 20px;
+}
+.book-card-left, .book-card-right{
+    display: block;
+    align-items: center;
+    justify-items: center;
+}
+.book-modal{
+    background-color: #FCD3DE;
+    padding: 32px;
+    width: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    z-index: 11;
+    display: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.bookInfo-form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+button {
+    color: white;
+    height: 40px;
+    background-color: #72A1E5;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 8px;
+}
+#cancel-btn {
+    background-color: #2E382E;
+}
+.content-nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+#delete-btn {
+    margin-left: auto;
+    align-self: flex-end;
+    background-color: #C73866;
+}
+.dropdown-content{
+    background-color: white;
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    /* gap: 4px; */
+    text-align: center;
+    /* padding-bottom: 8px;
+    padding-top: 8px; */
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-family:  Arial, sans-serif;
+    font-size: .8em;
+    color: #72A1E5;
+}
+.dropdown-content-hr{
+    width: 100%;
+    border-top: 2px solid #FCD3DE; 
+    margin: 0px;
+}
+#dropdown-filter-content{
+    width: 100px;
+    /* align-items: flex-start; */
+}
+#dropdown-theme-content{
+    width: 90px;
+    /* align-items: flex-start; */
+}
+.error-message{
+    color: #C73866;
+    display: none;
+    margin: 12px 0px 0px 0px;
+}
+.filter-options{
+    display: flex;
+    flex-direction: column;
+}
+footer {
+    flex-shrink: 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+        text-align: center;
+}
+.header {
+    background-color: #43b6ba;
+    /* background:linear-gradient(#87e4e7,#24a2a6); */
+    padding: 20px;
+    text-align: center;
+}
+hr{
+max-width: 800px;
+border: none;
+border-top: 4px solid #FCD3DE;
+}
+input{
+    color: #656565;
+    border: none;
+    border-radius: 4px;
+    height: 24px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size: large;
+}
+label{
+    color:#656565;
+}
+.main-nav{
+    display: flex;
+    justify-content: end;
+}
+.main-container {
+    /* background: linear-gradient(to bottom,#FCD3DE,#2E382E); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 36px;
+    flex-grow: 1; /* Allow the main container to grow and take the remaining vertical space */
+
+}
+.modal-btns{
+    display: flex;
+    justify-content: center;
+
+}
+.option{
+    background-color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.option-selected{
+    background-color: #43b6ba;
+    color: white;
+}
+.options{
+    /* width: 165px; */
+    display: flex;
+
+    /* flex-direction: ; */
+}
+.option-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    display: none;
+}
+p{
+    margin: 12px;
+    gap: 32px;
+}
+#page-title{
+    text-align: center;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    color: white;
+    font-size: min(14vw, 7rem);
+    margin: 18px;
+}
+.pages-progress-div{
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+}
+#pages-input, #pages-read-input{
+    width: 80px;
+}
+progress {
+    background-color: #72A1E5;
+    border-radius: 10px; 
+    /* width: 180px; */
+    /* border: 2px solid #2b9f41; */
+}
+progress::-webkit-progress-bar {
+    background-color: #fffdfd; /* Background color of the progress bar itself */
+    border-radius: 10px; 
+    /* width: 10px; */
+}
+progress::-webkit-progress-value {
+    background-color: #fff493; /* Color of the filled progress */
+    border-radius: 10px; 
+}
+.progress-done::-webkit-progress-value {
+    background-color: rgb(95, 197, 95);
+}
+.progress-circle{
+    background-color: #fff493;
+    width: 20px;
+    height: 20px;
+    border-radius: 32px;
+    display: none;
+}
+.progress-circle-done{
+    background-color: rgb(95, 197, 95);
+}
+/* .progress-circle-reading{
+    background-color: #fff493;
+} */
+.progress-circle-toRead{
+    background-color: #ff9393;
+}
+.radio-labels{
+    display: flex;
+    align-items: center;
+}
+textarea{
+    height: 200px;
+    border: none;
+    border-radius: 4px;
+    /* width: 100%;  */
+    padding: 8px; 
+    margin: 0; 
+    vertical-align: top; 
+    resize: none; 
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size: large;
+}
+#title-input{
+    width: 88%;
+}
+#theme-btn, #view-btn, #sort-btn, #filter-btn{
+    width: 70px;
+    /* align-self: end; */
+    margin-bottom: 0px;
+
+    /* margin-bottom: 0px;
+    margin-right: 0px; */
+}
+#filter-btn{
+    width: 100px;
+}
+#theme-btn{
+    width: 90px;
+}
+#video-background {
+    display: none;
+}
+
+
+@media screen and (max-width: 585px) {
+    .content-nav {
+        flex-direction: column;
+    }
+
+    .book-modal {
+        width: 250px;
+    }
+
+    #title-input {
+        width: 99%;
+    }
+
+    #author-input {
+        width: 99%;
+    }
+}
+
+@media screen and (max-width: 555px) {
+    /* Need to adjust options button to fit */
+}
+  

@@ -35,9 +35,9 @@ Book.prototype.info = function(){
 // IIFE's (controller modules)
 const initialize = (function () {
     const setDefaultTheme = (function () {
-        theme1.disabled = false;
+        theme1.disabled = true;
         theme2.disabled = true;
-        theme3.disabled = true;
+        theme3.disabled = false;
         theme4.disabled = true;
     }());
     

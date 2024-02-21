@@ -12,15 +12,20 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #f7ece6;
+    /* Warm white */
     margin: 0;
     font-family: 'Garamond', serif;
+    /* Classic serif font */
     font-size: medium;
     color: #322f2c;
+    /* Dark brown text */
 }
 
 .book-card {
     background-color: #e9ddd4;
+    /* Light brown */
     color: #3f3a37;
+    /* Dark brown text */
     padding: 10px;
     border-radius: 6px;
     margin-bottom: 10px;
@@ -45,7 +50,9 @@ body {
 
 .book-modal {
     background-color: #dfd1c0;
+    /* Beige */
     border: 1px solid #755952;
+    /* Dark brown border */
     padding: 32px;
     width: 400px;
     position: fixed;
@@ -69,15 +76,16 @@ button {
     font-family: 'Garamond', serif;
     font-size: medium;
     background-color: #6c5951;
+    /* Dark brown */
     border: none;
-    height: 38px;
     gap: 6px;
     padding: 10px;
     cursor: pointer;
 }
 
 #cancel-btn {
-    background-color: #524c49;
+    background-color: #9c5b36;
+    /* Dark orange */
 }
 
 .caret {
@@ -93,7 +101,8 @@ button {
 #delete-btn {
     margin-left: auto;
     align-self: flex-end;
-    background-color: #774343;
+    background-color: #6c5951;
+    /* Dark brown */
 }
 
 .dropdown {
@@ -124,6 +133,7 @@ button {
 
 .error-message {
     color: #C73866;
+    /* Dark pink */
     display: none;
     margin: 12px 0px 0px 0px;
 }
@@ -143,20 +153,21 @@ footer {
 
 .header {
     background-color: #625353;
+    /* Dark brown */
     padding: 20px;
-    display: flex;
     text-align: center;
-    justify-content: space-between;
 }
 
 hr {
     max-width: 800px;
     border: none;
     border-top: 4px solid #625353;
+    /* Dark brown */
 }
 
 input {
     color: #3f3a37;
+    /* Dark brown text */
     border: none;
     border-radius: 4px;
     height: 24px;
@@ -166,12 +177,7 @@ input {
 
 label {
     color: #3f3a37;
-}
-
-#login-btn {
-    background-color: #46413e;
-    ;
-    color: white;
+    /* Dark brown text */
 }
 
 .main-nav {
@@ -189,14 +195,24 @@ label {
 
 .option {
     padding: 6px;
-    background-color: #dfd1c0;
+    background-color: #e9ddd4;
+    /* Light brown */
     color: #3f3a37;
+    /* Dark brown text */
 }
 
-.option:hover,
-.option-selected {
-    background-color: #c0b5a8;
+.option:hover {
+    background-color: #dfd1c0;
+    /* Beige */
     color: #3f3a37;
+    /* Dark brown text */
+}
+
+.option-selected {
+    background-color: #dfd1c0;
+    /* Beige */
+    color: #3f3a37;
+    /* Dark brown text */
 }
 
 .options {
@@ -228,10 +244,10 @@ p {
 #page-title {
     text-align: center;
     font-family: 'Garamond', serif;
-    color: #3c3734;
-    font-size: min(11vw, 7rem);
+    color: #3f3a37;
+    /* Dark brown text */
+    font-size: min(14vw, 7rem);
     margin: 0px;
-    flex: 1;
 }
 
 .pages-progress-div {
@@ -247,26 +263,30 @@ p {
 
 progress {
     background-color: #dfd1c0;
+    /* Beige */
     border-radius: 10px;
 }
 
 progress::-webkit-progress-bar {
-    background-color: #ffffff;
+    background-color: #fffdfd;
+    /* Light beige */
     border-radius: 10px;
-    border: solid 2px #e2d8cf;
 }
 
 progress::-webkit-progress-value {
-    background-color: #b39c80;
+    background-color: #6c5951;
+    /* Dark brown */
     border-radius: 10px;
 }
 
 .progress-done::-webkit-progress-value {
-    background-color: #778d6a;
+    background-color: #3f3a37;
+    /* Dark brown */
 }
 
 .progress-circle {
-    background-color: #b39c80;
+    background-color: #6c5951;
+    /* Dark brown */
     width: 20px;
     height: 20px;
     border-radius: 32px;
@@ -274,11 +294,13 @@ progress::-webkit-progress-value {
 }
 
 .progress-circle-done {
-    background-color: #778d6a;
+    background-color: #3f3a37;
+    /* Dark brown */
 }
 
 .progress-circle-toRead {
     background-color: #ff9393;
+    /* Light red */
 }
 
 .radio-labels {
@@ -291,10 +313,6 @@ progress::-webkit-progress-value {
     justify-content: space-between;
     align-items: center;
     gap: 6px;
-}
-
-#submit-btn {
-    background-color: #47583c;
 }
 
 textarea {
