@@ -2,7 +2,6 @@
 const theme1 = document.getElementById('theme1');
 const theme2 = document.getElementById('theme2');
 const theme3 = document.getElementById('theme3');
-const theme4 = document.getElementById('theme4');
 
 // Modal elements & Form inputs
 const bookModal = document.querySelector('.book-modal');
@@ -35,10 +34,9 @@ Book.prototype.info = function(){
 // IIFE's (controller modules)
 const initialize = (function () {
     const setDefaultTheme = (function () {
-        theme1.disabled = true;
+        theme1.disabled = false;
         theme2.disabled = true;
-        theme3.disabled = false;
-        theme4.disabled = true;
+        theme3.disabled = true;
     }());
     
 })();
@@ -129,7 +127,6 @@ const buttonsController = (function () {
             theme1.disabled = true;
             theme2.disabled = true;
             theme3.disabled = true;
-            theme4.disabled = true;
 
             //Enable correct sheet
             const theme = document.getElementById(option.id);
