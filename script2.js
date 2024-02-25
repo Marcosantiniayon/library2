@@ -14,7 +14,8 @@ let pagesReadInput = document.getElementById('pages-read-input');
 let notesInput = document.getElementById('notes-textarea');
 
 // UI state
-const myLibrary = [];
+const library = [];
+let sortedLibrary;
 let editingBook = false;
 let currentBook = "";
 let currentBookIndex = 0;
@@ -60,12 +61,12 @@ const modalController = (function () {
         book.info;
 
         //Add it to my library
-        myLibrary.push(book);
+        library.push(book);
     }
 
     function removeBookFromLibrary(){
         const indexToRemove = currentBookIndex;
-        myLibrary.splice(indexToRemove, 1);
+        library.splice(indexToRemove, 1);
     }
 
     submitBtn.addEventListener('click', function (event) {
@@ -250,13 +251,13 @@ function updateDisplay() {
     function filterBooks() {
         switch (currentFilter) {
             case "completed-filter":
-                return myLibrary.filter(book => book.pagesRead === book.pages);
+                return library.filter(book => book.pagesRead === book.pages);
             case "reading-filter":
-                return myLibrary.filter(book => book.pagesRead > 0 && book.pagesRead < book.pages);
+                return library.filter(book => book.pagesRead > 0 && book.pagesRead < book.pages);
             case "to-read-filter":
-                return myLibrary.filter(book => book.pagesRead === '0');
+                return library.filter(book => book.pagesRead === '0');
             default:
-                return myLibrary;
+                return library;
         }
     }
     function sortBooks(books) {
@@ -288,7 +289,8 @@ function updateDisplay() {
 
     // Apply filter & sort
     let filteredLibrary = filterBooks();
-    let sortedLibrary = sortBooks(filteredLibrary);
+    sortedLibrary = sortBooks(filteredLibrary);
+    
     
     // Creating book cards
     const bookCardContainer = document.querySelector('.book-card-container');
@@ -350,17 +352,17 @@ function updateDisplay() {
             bookCard.addEventListener('click', function () {
                 
                 // Perform actions when the book card is clicked
-                console.log('Book card clicked:', myLibrary[index].title);
+                console.log('Book card clicked:', library[index].title);
 
                 // Fill form based on bookCardElement data
-                titleInput.value = myLibrary[index].title
-                authorInput.value = myLibrary[index].author
-                pagesInput.value = myLibrary[index].pages
-                pagesReadInput.value = myLibrary[index].pagesRead
-                notesInput.value = myLibrary[index].notes
+                titleInput.value = sortedLibrary[index].title
+                authorInput.value = sortedLibrary[index].author
+                pagesInput.value = sortedLibrary[index].pages
+                pagesReadInput.value = sortedLibrary[index].pagesRead
+                notesInput.value = sortedLibrary[index].notes
 
 
-                currentBook = myLibrary[index];
+                currentBook = sortedLibrary[index];
                 currentBookIndex = index;
 
                 editingBook = true;
@@ -372,6 +374,7 @@ function updateDisplay() {
 
     // Apply view
     const applyView = (function () {
+        // Select book card elements
         const bookCard = document.querySelectorAll('.book-card');
         const bookCardLeft = document.querySelectorAll('.book-card-left');
         const bookCardRight = document.querySelectorAll('.book-card-right');
@@ -379,6 +382,7 @@ function updateDisplay() {
         const progressCircle = document.querySelectorAll('.progress-circle');
         const paragraphs = document.getElementsByTagName('p');
 
+        // Style book card elements based on view
         if (currentView === "book-cards-view") {
             bookCardContainer.style.display = 'grid';
             bookCardContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
