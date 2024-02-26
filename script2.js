@@ -33,53 +33,43 @@ Book.prototype.info = function(){
 }
 
 // IIFE's (controller modules)
-const initialize = (function () {
-    const setDefaultTheme = (function () {
-        theme1.disabled = false;
-        theme2.disabled = true;
-        theme3.disabled = true;
-    }());
-    
-})();
+const setDefaultTheme = (function () {
+    theme1.disabled = false;
+    theme2.disabled = true;
+    theme3.disabled = true;
+}());
 
-const modalController = (function () {
+const inputRequirements = (function () {
+    pagesInput.addEventListener("input", (event) => {
+        // Update the max attribute of the pages read input
+        pagesReadInput.max = pagesInput.value;
+    })
+}());
+
+const modalBtns = (function () {
     const submitBtn = document.getElementById('submit-btn')
     const cancelBtn = document.getElementById('cancel-btn');
     const deleteBtn = document.getElementById('delete-btn');
 
-    function addBookToLibrary() {
-        
-        //Get current values from inputs
-        const title = titleInput.value;
-        const author = authorInput.value;
-        const pages = pagesInput.value;
-        const pagesRead = pagesReadInput.value;
-        const notes = notesInput.value;
-
-        //Create new book object
-        const book = new Book(title,author,pages,pagesRead,notes);
-        book.info;
-
-        //Add it to my library
-        library.push(book);
-    }
-
-    function removeBookFromLibrary(){
-        const indexToRemove = currentBookIndex;
-        library.splice(indexToRemove, 1);
-    }
-
     submitBtn.addEventListener('click', function (event) {
         event.preventDefault(); //Prevent page refresh
         
-        if (editingBook === false ) {
-            addBookToLibrary();
-        } else {
-            editBook();
-        }
+        if (validateForm()) {
+            console.log(validateForm);
 
-        updateDisplay();
-        closeModal();
+            if (editingBook === false) {
+            addBookToLibrary();
+            } else {
+                editBook();
+            }
+
+            updateDisplay();
+            closeModal();
+        } else {
+
+        }
+        
+        
     });
     cancelBtn.addEventListener('click', function (event) {
         event.preventDefault(); //Prevent page refresh
@@ -106,7 +96,7 @@ const modalController = (function () {
     return {openModal,closeModal};
 })();
 
-const buttonsController = (function () {
+const mainBtns = (function () {
     const addBookBtn = document.querySelector('.add-book-btn');
     const themeOptions = document.querySelectorAll('.theme.option');
     const viewOptions = document.querySelectorAll('.view.option');
@@ -115,7 +105,7 @@ const buttonsController = (function () {
 
     addBookBtn.addEventListener('click', function () {
         editingBook = false;
-        modalController.openModal();
+        modalBtns.openModal();
     });
     themeOptions.forEach(option => {
         option.addEventListener('click', function () {
@@ -234,19 +224,14 @@ function closeModal(){
     clearInputs();
 }
 function clearInputs() {
+
     titleInput.value = '';
     authorInput.value = '';
     pagesInput.value = '';
     pagesReadInput.value = '';
     notesInput.value = '';
 }
-function editBook() {
-    currentBook.title = titleInput.value;
-    currentBook.author = authorInput.value;
-    currentBook.pages = pagesInput.value;
-    currentBook.pagesRead = pagesReadInput.value;
-    currentBook.notes = notesInput.value;
-}
+
 function updateDisplay() {
     function filterBooks() {
         switch (currentFilter) {
@@ -442,4 +427,54 @@ function updateDisplay() {
             });
         }
     })();
+}
+
+function addBookToLibrary() {
+    //Get current values from inputs
+    const title = titleInput.value;
+    const author = authorInput.value;
+    const pages = pagesInput.value;
+    const pagesRead = pagesReadInput.value;
+    const notes = notesInput.value;
+
+    //Create new book object
+    const book = new Book(title,author,pages,pagesRead,notes);
+    book.info;
+
+    //Add it to my library
+    library.push(book);
+}
+function editBook() {
+    currentBook.title = titleInput.value;
+    currentBook.author = authorInput.value;
+    currentBook.pages = pagesInput.value;
+    currentBook.pagesRead = pagesReadInput.value;
+    currentBook.notes = notesInput.value;
+}
+function removeBookFromLibrary(){
+    const indexToRemove = currentBookIndex;
+    library.splice(indexToRemove, 1);
+}
+
+function validateForm() {
+    const titleError = document.getElementById('title-error');
+    if (titleInput.value === "") {
+        console.log("Please enter the title");
+        titleError.style.display = "block";
+        titleInput.classList.add("error-message");
+    }else if (authorInput.value === "") {
+        console.log("Please enter the author");
+        authorInput.style.display = "block";
+        authorInput.classList.add("error-message");
+    }else if (pagesInput.value === "") {
+        console.log("Please enter the pages");
+        pagesInput.style.display = "block";
+        pagesInput.classList.add("error-message");
+    }else if (pagesReadInput.value === "") {
+        console.log("Please enter the pages read");
+        pagesReadInput.style.display = "block";
+        pagesReadInput.classList.add("error-message");
+    } else {
+        console.log("ok");
+    }
 }

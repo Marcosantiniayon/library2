@@ -114,8 +114,13 @@ button {
 }
 .error-message{
     color: #C73866;
-    display: none;
+    /* display: block; */
     margin: 12px 0px 0px 0px;
+}
+#title-error, #author-error, #pages-error, #pagesRead-error{
+    display: none;
+    margin: 2px;
+    color: #C73866;
 }
 .filter-options{
     display: flex;
