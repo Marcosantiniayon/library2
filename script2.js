@@ -16,6 +16,7 @@ const titleError = document.getElementById('title-error');
 const authorError = document.getElementById('author-error');
 const pagesError = document.getElementById('pages-error');
 const pagesReadError = document.getElementById('pagesRead-error');
+const inputs = document.querySelectorAll('input');
 
 // UI state
 const library = [];
@@ -44,36 +45,26 @@ const setDefaultTheme = (function () {
 }());
 
 const inputRequirements = (function () {
-    titleInput.addEventListener("input", (event) => {
-        if(!titleInput.checkValidity()){
-            triggerFormError(titleInput, titleError);
+    inputs.forEach(input => {  
+        // Assign error to input
+        const inputToErrorMap = {
+            'title-input': titleError,
+            'author-input': authorError,
+            'pages-input': pagesError,
+            'pages-read-input': pagesReadError,
+        };
+        const error = inputToErrorMap[input.id];
+
+        // Listen for changes in input / validity
+        input.addEventListener("input", (event) => {
+        if(!input.checkValidity()){
+            triggerFormError(input, error);
         } else {
-            clearFormError(titleInput, titleError);
+            clearFormError(input, error);
         }
-    })
-    authorInput.addEventListener("input", (event) => {
-        if(!authorInput.checkValidity()){
-            triggerFormError(authorInput, authorError);
-        } else {
-            clearFormError(authorInput, authorError);
-        }
-    })
-    pagesInput.addEventListener("input", (event) => {
-        if(!pagesInput.checkValidity()){
-            triggerFormError(pagesInput, pagesError);
-        } else {
-            clearFormError(pagesInput, pagesError);
-        }
-        // Update the max attribute of the pages read input
         pagesReadInput.max = pagesInput.value;
-    })
-    pagesReadInput.addEventListener("input", (event) => {
-        if(!pagesReadInput.checkValidity()){
-            triggerFormError(pagesReadInput, pagesReadError);
-        } else {
-            clearFormError(pagesReadInput, pagesReadError);
-        }
-    })
+        })
+    });
 }());
 
 const modalBtns = (function () {
@@ -84,15 +75,13 @@ const modalBtns = (function () {
     submitBtn.addEventListener('click', function (event) {
         event.preventDefault(); //Prevent page refresh
         
+        // If validateForm returns true. Add new / Update book. 
         if (validateForm()) {
-            console.log(validateForm);
-
             if (editingBook === false) {
             addBookToLibrary();
             } else {
                 editBook();
             }
-
             updateDisplay();
             closeModal();
         } else {
@@ -254,7 +243,6 @@ function closeModal(){
     clearInputs();
 }
 function clearInputs() {
-
     titleInput.value = '';
     authorInput.value = '';
     pagesInput.value = '';
@@ -487,18 +475,27 @@ function removeBookFromLibrary(){
 }
 
 function validateForm() {
-    if (titleInput.value === "") {
-        triggerFormError(titleInput, titleError);
-    } else { console.log(" title - ok"); }
-    if (authorInput.value === "") {
-        triggerFormError(authorInput, authorError);
-    } else { console.log(" author - ok"); }
-    if (pagesInput.value === "") {
-        triggerFormError(pagesInput, pagesError);
-    } else { console.log(" pages - ok"); }
-    if (pagesReadInput.value === "") {
-        triggerFormError(pagesReadInput, pagesReadError);
-    } else { console.log(" pages read - ok"); }
+    let validForm = true;
+
+    inputs.forEach(input => {
+        // Assign error to input
+        const inputToErrorMap = {
+            'title-input': titleError,
+            'author-input': authorError,
+            'pages-input': pagesError,
+            'pages-read-input': pagesReadError,
+        };
+        const error = inputToErrorMap[input.id];
+
+        // Listen for changes in input / validity
+        if (!input.checkValidity()) {
+            triggerFormError(input, error);
+            validForm = false;
+        } else {
+            clearFormError(input, error);
+        }
+    });
+    return validForm;
 }
 
 function triggerFormError(input, error) {
