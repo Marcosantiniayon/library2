@@ -12,6 +12,10 @@ let authorInput = document.getElementById('author-input');
 let pagesInput = document.getElementById('pages-input');
 let pagesReadInput = document.getElementById('pages-read-input');
 let notesInput = document.getElementById('notes-textarea');
+const titleError = document.getElementById('title-error');
+const authorError = document.getElementById('author-error');
+const pagesError = document.getElementById('pages-error');
+const pagesReadError = document.getElementById('pagesRead-error');
 
 // UI state
 const library = [];
@@ -40,9 +44,35 @@ const setDefaultTheme = (function () {
 }());
 
 const inputRequirements = (function () {
+    titleInput.addEventListener("input", (event) => {
+        if(!titleInput.checkValidity()){
+            triggerFormError(titleInput, titleError);
+        } else {
+            clearFormError(titleInput, titleError);
+        }
+    })
+    authorInput.addEventListener("input", (event) => {
+        if(!authorInput.checkValidity()){
+            triggerFormError(authorInput, authorError);
+        } else {
+            clearFormError(authorInput, authorError);
+        }
+    })
     pagesInput.addEventListener("input", (event) => {
+        if(!pagesInput.checkValidity()){
+            triggerFormError(pagesInput, pagesError);
+        } else {
+            clearFormError(pagesInput, pagesError);
+        }
         // Update the max attribute of the pages read input
         pagesReadInput.max = pagesInput.value;
+    })
+    pagesReadInput.addEventListener("input", (event) => {
+        if(!pagesReadInput.checkValidity()){
+            triggerFormError(pagesReadInput, pagesReadError);
+        } else {
+            clearFormError(pagesReadInput, pagesReadError);
+        }
     })
 }());
 
@@ -457,24 +487,26 @@ function removeBookFromLibrary(){
 }
 
 function validateForm() {
-    const titleError = document.getElementById('title-error');
     if (titleInput.value === "") {
-        console.log("Please enter the title");
-        titleError.style.display = "block";
-        titleInput.classList.add("error-message");
-    }else if (authorInput.value === "") {
-        console.log("Please enter the author");
-        authorInput.style.display = "block";
-        authorInput.classList.add("error-message");
-    }else if (pagesInput.value === "") {
-        console.log("Please enter the pages");
-        pagesInput.style.display = "block";
-        pagesInput.classList.add("error-message");
-    }else if (pagesReadInput.value === "") {
-        console.log("Please enter the pages read");
-        pagesReadInput.style.display = "block";
-        pagesReadInput.classList.add("error-message");
-    } else {
-        console.log("ok");
-    }
+        triggerFormError(titleInput, titleError);
+    } else { console.log(" title - ok"); }
+    if (authorInput.value === "") {
+        triggerFormError(authorInput, authorError);
+    } else { console.log(" author - ok"); }
+    if (pagesInput.value === "") {
+        triggerFormError(pagesInput, pagesError);
+    } else { console.log(" pages - ok"); }
+    if (pagesReadInput.value === "") {
+        triggerFormError(pagesReadInput, pagesReadError);
+    } else { console.log(" pages read - ok"); }
+}
+
+function triggerFormError(input, error) {
+    input.classList.add("error-message");
+    error.style.display = "block";
+}
+
+function clearFormError(input, error) {
+    input.classList.remove("error-message");
+    error.style.display = "none";
 }
