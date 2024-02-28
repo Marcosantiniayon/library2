@@ -124,10 +124,32 @@ button {
     right: 0px;
 }
 
+.error {
+    border: 1.5px solid #ff5656;
+    background-color: rgba(255, 130, 130, 0.3);
+    /* display: none; */
+}
+
 .error-message {
-    color: #C73866;
+    margin: 0px !important;
+}
+
+#title-error,
+#author-error,
+#pages-error,
+#pagesRead-error {
     display: none;
-    margin: 12px 0px 0px 0px;
+    background-color: #ff5656;
+    color: white;
+    font-size: .8rem;
+    margin: 0px;
+    padding: 4px 6px 4px 6px;
+    border-radius: 0px 0px 8px 8px;
+}
+
+#pages-error,
+#pagesRead-error {
+    width: 74px;
 }
 
 .filter-options {
@@ -159,11 +181,18 @@ hr {
 
 input {
     color: #656565;
+    background-color: rgb(255 255 255 / 60%);
     border: none;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     height: 24px;
     font-family: 'Garamond', serif;
     font-size: medium;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 label {
@@ -304,10 +333,8 @@ textarea {
     resize: none;
     font-family: 'Garamond', serif;
     font-size: medium;
-}
-
-#title-input {
-    width: 88%;
+    color: #656565;
+    background-color: rgb(255 255 255 / 60%);
 }
 
 #video-background {
@@ -317,13 +344,5 @@ textarea {
 @media screen and (max-width: 585px) {
     .book-modal {
         width: 250px;
-    }
-
-    #title-input {
-        width: 99%;
-    }
-
-    #author-input {
-        width: 99%;
     }
 }
