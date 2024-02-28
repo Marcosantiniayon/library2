@@ -45,6 +45,7 @@ const setDefaultTheme = (function () {
 }());
 
 const inputRequirements = (function () {
+
     inputs.forEach(input => {  
         // Assign error to input
         const inputToErrorMap = {
@@ -54,15 +55,24 @@ const inputRequirements = (function () {
             'pages-read-input': pagesReadError,
         };
         const error = inputToErrorMap[input.id];
-
-        // Listen for changes in input / validity
+        
+        // Listen for changes in form input / validity
         input.addEventListener("input", (event) => {
-        if(!input.checkValidity()){
-            triggerFormError(input, error);
-        } else {
-            clearFormError(input, error);
-        }
-        pagesReadInput.max = pagesInput.value;
+            if(!input.checkValidity()){
+                triggerFormError(input, error);
+            } else {
+                clearFormError(input, error);
+            }
+            pagesReadInput.max = pagesInput.value;
+
+            // Trigger for pages read being higher than pages
+            if (pagesReadInput.value > pagesInput.value) {
+                pagesReadError.textContent = "Must be less than total pages";
+                console.log("Must be less than total pages");
+            } else {
+                pagesReadError.textContent = "Required";
+                console.log("required");
+            }
         })
     });
 }());
@@ -249,7 +259,6 @@ function clearInputs() {
     pagesReadInput.value = '';
     notesInput.value = '';
 }
-
 function updateDisplay() {
     function filterBooks() {
         switch (currentFilter) {
@@ -446,7 +455,6 @@ function updateDisplay() {
         }
     })();
 }
-
 function addBookToLibrary() {
     //Get current values from inputs
     const title = titleInput.value;
@@ -473,7 +481,6 @@ function removeBookFromLibrary(){
     const indexToRemove = currentBookIndex;
     library.splice(indexToRemove, 1);
 }
-
 function validateForm() {
     let validForm = true;
 
@@ -497,13 +504,11 @@ function validateForm() {
     });
     return validForm;
 }
-
 function triggerFormError(input, error) {
-    input.classList.add("error-message");
+    input.classList.add("error");
     error.style.display = "block";
 }
-
 function clearFormError(input, error) {
-    input.classList.remove("error-message");
+    input.classList.remove("error");
     error.style.display = "none";
 }

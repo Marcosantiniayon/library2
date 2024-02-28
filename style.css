@@ -122,15 +122,19 @@ button {
     right: 0px;
 }
 
-.error-message {
-    border: 1.5px solid #900;
+.error{
+    border: 1.5px solid #ff5656;
     background-color: rgb(255, 229, 229);
     /* display: none; */
 }
 
+.error-message{
+    margin: 0px !important;
+}
+
 #title-error,#author-error,#pages-error,#pagesRead-error {
     display: none;
-    background-color: #900;
+    background-color: #ff5656;
     color: white;
     font-size: .8rem;
     margin: 0px;
@@ -241,10 +245,9 @@ label {
     display: none;
 }
 
-p {
-    margin: 12px;
-    gap: 32px;
-}
+/* p {
+    margin: 0px;
+} */
 
 #page-title {
     text-align: center;
